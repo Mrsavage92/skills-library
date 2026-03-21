@@ -12,7 +12,7 @@ description: "3 finance skills — finance agent skill and Claude Code plugin fo
 </div>
 
 <div class="install-banner" markdown>
-<span class="install-label">Install all:</span> <code>claude /plugin install finance-skills</code>
+<span class="install-label">Install all:</span> <code>claude # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/</code>
 </div>
 
 <div class="grid cards" markdown>

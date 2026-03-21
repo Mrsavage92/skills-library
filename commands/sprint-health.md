@@ -1,6 +1,6 @@
 ---
 name: sprint-health
-description: Sprint health scoring and velocity analysis for agile teams. Usage: /sprint-health <analyze|velocity> [options]
+description: "Score sprint health and analyse velocity trends with statistical confidence intervals. Use when a sprint feels off-track, reporting velocity to stakeholders, or identifying patterns in sprint performance over time."
 ---
 
 # /sprint-health
@@ -14,6 +14,13 @@ Score sprint health across delivery, quality, and team metrics with velocity tre
 /sprint-health velocity <sprint_data.json>                   Velocity trend analysis
 ```
 
+
+## Quick Start
+
+```
+/sprint-health analyze sprints.json  # full health analysis
+/sprint-health velocity             # velocity trend only
+```
 ## Input Format
 
 ```json
@@ -41,3 +48,9 @@ Score sprint health across delivery, quality, and team metrics with velocity tre
 
 ## Skill Reference
 > `project-management/scrum-master/SKILL.md`
+
+## Related Skills
+
+- /retro
+- /sprint-plan
+- cs-project-manager

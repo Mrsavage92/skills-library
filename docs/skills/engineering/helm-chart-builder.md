@@ -12,7 +12,7 @@ description: "Helm chart development agent skill and plugin for Claude Code, Cod
 </div>
 
 <div class="install-banner" markdown>
-<span class="install-label">Install:</span> <code>claude /plugin install engineering-advanced-skills</code>
+<!-- Skills are available directly as Claude Code slash commands -->
 </div>
 
 
@@ -441,7 +441,7 @@ cp -r claude-skills/engineering/helm-chart-builder ~/.claude/skills/
 
 ### OpenClaw
 ```bash
-clawhub install cs-helm-chart-builder
+# Install: skill is available locally in ~/.claude/skills/claude-skills/
 ```
 
 ---

@@ -1,6 +1,6 @@
 ---
 name: "git-worktree-manager"
-description: "Git Worktree Manager"
+description: "Manage multiple parallel Git worktrees for concurrent feature development without branch switching overhead. Use when working on multiple features simultaneously, running parallel builds, or isolating risky experiments."
 ---
 
 # Git Worktree Manager

@@ -12,7 +12,7 @@ description: "Set up, audit, and debug analytics tracking implementation — GA4
 </div>
 
 <div class="install-banner" markdown>
-<span class="install-label">Install:</span> <code>claude /plugin install marketing-skills</code>
+<span class="install-label">Install:</span> <code>claude # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/</code>
 </div>
 
 

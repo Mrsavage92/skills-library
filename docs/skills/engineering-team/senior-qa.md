@@ -12,7 +12,7 @@ description: "Generates unit tests, integration tests, and E2E tests for React/N
 </div>
 
 <div class="install-banner" markdown>
-<span class="install-label">Install:</span> <code>claude /plugin install engineering-skills</code>
+<span class="install-label">Install:</span> <code>claude # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/</code>
 </div>
 
 

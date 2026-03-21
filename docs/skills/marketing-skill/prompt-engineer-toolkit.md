@@ -12,7 +12,7 @@ description: "Analyzes and rewrites prompts for better AI output, creates reusab
 </div>
 
 <div class="install-banner" markdown>
-<span class="install-label">Install:</span> <code>claude /plugin install marketing-skills</code>
+<span class="install-label">Install:</span> <code>claude # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/</code>
 </div>
 
 

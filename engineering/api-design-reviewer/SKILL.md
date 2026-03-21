@@ -1,6 +1,6 @@
 ---
 name: "api-design-reviewer"
-description: "API Design Reviewer"
+description: "Review REST/GraphQL API designs for consistency, security, versioning, and developer ergonomics. Use when designing new API endpoints, reviewing PRs with API changes, or auditing existing API contracts."
 ---
 
 # API Design Reviewer

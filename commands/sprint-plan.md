@@ -1,6 +1,6 @@
 ---
 name: sprint-plan
-description: Sprint planning shortcut. Usage: /sprint-plan <goal> [capacity]
+description: "Generate a sprint plan with capacity allocation, user stories, and acceptance criteria from a goal and team capacity. Use when starting a new sprint, grooming a backlog into a sprint, or planning after unplanned work disrupted capacity."
 ---
 
 # /sprint-plan
@@ -13,6 +13,13 @@ Create a sprint plan with prioritized stories and capacity guardrails.
 /sprint-plan <goal> [capacity]
 ```
 
+
+## Quick Start
+
+```
+/sprint-plan "launch payments MVP" 40  # goal + capacity (points)
+/sprint-plan "fix auth bugs" 25
+```
 ## Output Structure
 
 - Sprint goal
@@ -23,3 +30,9 @@ Create a sprint plan with prioritized stories and capacity guardrails.
 
 ## Skill Reference
 - `product-team/agile-product-owner/SKILL.md`
+
+## Related Skills
+
+- /user-story
+- /retro
+- cs-agile-product-owner

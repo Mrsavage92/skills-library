@@ -12,7 +12,7 @@ description: "Structured research summarization agent skill for non-dev users. H
 </div>
 
 <div class="install-banner" markdown>
-<span class="install-label">Install:</span> <code>claude /plugin install product-skills</code>
+<span class="install-label">Install:</span> <code>claude # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/</code>
 </div>
 
 
@@ -266,7 +266,7 @@ cp -r claude-skills/product-team/research-summarizer ~/.claude/skills/
 
 ### OpenClaw
 ```bash
-clawhub install cs-research-summarizer
+# Install: skill is available locally in ~/.claude/skills/claude-skills/
 ```
 
 ---

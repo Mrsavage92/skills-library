@@ -27,8 +27,7 @@ Complete installation guide for all 170 production-ready skills across multiple 
 
 ```bash
 # In Claude Code, run:
-/plugin marketplace add alirezarezvani/claude-skills
-/plugin install marketing-skills@claude-code-skills
+<!-- Skills are available directly as Claude Code slash commands -->
 ```
 
 Native integration with automatic updates and version management.
@@ -61,8 +60,7 @@ Skills install to `~/.codex/skills/`. See [OpenAI Codex Installation](#openai-co
 ### For OpenClaw Users
 
 ```bash
-# Install from ClawHub
-clawhub install alirezarezvani/claude-skills
+# Available in ~/.claude/skills/claude-skills/
 
 # Or manual installation
 git clone https://github.com/alirezarezvani/claude-skills.git
@@ -96,7 +94,7 @@ Learn more: https://www.agentskills.in
 
 ```bash
 # In Claude Code, run:
-/plugin marketplace add alirezarezvani/claude-skills
+<!-- Skills are available directly as Claude Code slash commands -->
 ```
 
 This adds the skills library to your available marketplaces.
@@ -104,34 +102,13 @@ This adds the skills library to your available marketplaces.
 ### Install Skill Bundles
 
 ```bash
-# Install by domain (bundles of skills)
-/plugin install marketing-skills@claude-code-skills     # 42 marketing skills
-/plugin install engineering-skills@claude-code-skills   # 23 engineering skills
-/plugin install engineering-advanced-skills@claude-code-skills  # 25 advanced engineering skills
-/plugin install product-skills@claude-code-skills       # 8 product skills
-/plugin install c-level-skills@claude-code-skills       # 28 C-level advisory skills
-/plugin install pm-skills@claude-code-skills            # 6 project management skills
-/plugin install ra-qm-skills@claude-code-skills         # 12 regulatory/quality skills
-/plugin install business-growth-skills@claude-code-skills  # 4 business & growth skills
-/plugin install finance-skills@claude-code-skills       # 1 finance skill
+<!-- Skills are available directly as Claude Code slash commands -->
 ```
 
 ### Install Individual Skills
 
 ```bash
-# Marketing
-/plugin install content-creator@claude-code-skills
-/plugin install demand-gen@claude-code-skills
-
-# Engineering
-/plugin install fullstack-engineer@claude-code-skills
-/plugin install aws-architect@claude-code-skills
-
-# Product
-/plugin install product-manager@claude-code-skills
-
-# Project Management
-/plugin install scrum-master@claude-code-skills
+<!-- Skills are available directly as Claude Code slash commands -->
 ```
 
 ### Update Skills
@@ -151,7 +128,7 @@ This adds the skills library to your available marketplaces.
 /plugin remove marketing-skills
 
 # Remove marketplace
-/plugin marketplace remove claude-code-skills
+# Skills installed at ~/.claude/skills/claude-skills/ claude-code-skills
 ```
 
 **Benefits:**
@@ -732,11 +709,9 @@ OpenClaw loads skills via YAML frontmatter in `SKILL.md` files. Every skill in t
 ### Method 1: ClawHub (Recommended)
 
 ```bash
-# Install from ClawHub registry
-clawhub install alirezarezvani/claude-skills
+# Available in ~/.claude/skills/claude-skills/
 
-# Install specific skill
-clawhub install alirezarezvani/claude-skills/engineering-team/senior-frontend
+# Available in ~/.claude/skills/claude-skills/
 ```
 
 ### Method 2: Manual Installation
@@ -921,7 +896,7 @@ See `.codex/skills-index.json` for the complete manifest with descriptions.
 | **Codex** | `~/.codex/skills/` | `--agent codex` | User-level installation |
 | **Letta** | Platform-specific | `--agent letta` | Varies by platform |
 | **OpenCode** | Platform-specific | `--agent opencode` | Varies by platform |
-| **OpenClaw** | `~/.openclaw/skills/` | `clawhub install` | YAML frontmatter triggers |
+| **OpenClaw** | `~/.openclaw/skills/` | `# Available locally in ~/.claude/skills/claude-skills/` | YAML frontmatter triggers |
 | **Gemini CLI** | `.gemini/skills/` | `gemini-install.sh` | Symlink-based discovery |
 | **Project** | `.skills/` | `--agent project` | Portable, project-specific |
 

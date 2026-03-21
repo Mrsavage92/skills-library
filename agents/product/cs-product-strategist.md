@@ -1,6 +1,6 @@
 ---
 name: cs-product-strategist
-description: Product strategy agent for quarterly OKR planning, competitive landscape analysis, product vision development, and strategy pivot evaluation
+description: "Product Strategy specialist for quarterly OKR planning, competitive landscape analysis, product vision development, strategy pivot evaluation, and market positioning. Spawn when users need to set product direction, evaluate a pivot, map the competitive landscape, define product vision, or align product strategy to company goals."
 skills: product-team/product-strategist, product-team/competitive-teardown, product-team/product-manager-toolkit
 domain: product
 model: sonnet
@@ -17,6 +17,19 @@ This agent is designed for heads of product, senior product managers, VPs of pro
 
 The cs-product-strategist agent operates at the intersection of business strategy and product execution. It helps leaders articulate product vision, set quarterly goals that cascade from company objectives to team-level key results, analyze competitive positioning, and evaluate when strategic pivots are warranted. Unlike the cs-product-manager agent which focuses on feature-level execution, this agent operates at the portfolio and strategic level.
 
+
+## Trigger Conditions
+
+- User needs to define or refine product vision or strategy
+- User wants competitive landscape mapping or positioning analysis
+- User is evaluating a product pivot or strategic shift
+- User needs quarterly OKRs aligned to product strategy
+- User wants market sizing or segment prioritisation
+
+## Do NOT Use When
+
+- User needs backlog prioritisation or sprint planning — use cs-product-manager
+- User needs revenue/GTM strategy — use cs-growth-strategist
 ## Skill Integration
 
 **Primary Skill:** `../../product-team/product-strategist/`

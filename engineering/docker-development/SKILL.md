@@ -353,7 +353,7 @@ cp -r claude-skills/engineering/docker-development ~/.claude/skills/
 
 ### OpenClaw
 ```bash
-clawhub install cs-docker-development
+# Available in ~/.claude/skills/claude-skills/
 ```
 
 ---

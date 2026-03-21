@@ -12,7 +12,7 @@ description: "/em -board-prep — Board Meeting Preparation. Agent skill for Cla
 </div>
 
 <div class="install-banner" markdown>
-<span class="install-label">Install:</span> <code>claude /plugin install c-level-skills</code>
+<span class="install-label">Install:</span> <code>claude # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/</code>
 </div>
 
 

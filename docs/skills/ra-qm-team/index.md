@@ -12,7 +12,7 @@ description: "13 regulatory & quality skills — regulatory and quality manageme
 </div>
 
 <div class="install-banner" markdown>
-<span class="install-label">Install all:</span> <code>claude /plugin install ra-qm-skills</code>
+<span class="install-label">Install all:</span> <code>claude # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/</code>
 </div>
 
 <div class="grid cards" markdown>

@@ -21,7 +21,7 @@ Intent → Research → Draft → Eval → Iterate → Compliance → Package �
 | Tool | Version | Install | Fallback |
 |------|---------|---------|----------|
 | Tessl CLI | v0.70.0 | `tessl login` (auth: rezarezvani) | Manual 8-point compliance check |
-| ClawHub CLI | latest | `npm i -g @openclaw/clawhub` | Skip OpenClaw publish, do manually later |
+| Skills Library CLI | latest | `npm i -g @openclaw/clawhub` | Skip OpenClaw publish, do manually later |
 | Claude Code | 2.1+ | Already installed | Required, no fallback |
 | Python | 3.10+ | System | Required for scripts |
 
@@ -183,7 +183,7 @@ skill-name/
 └── (same scripts, references, assets)
 ```
 - Ensure compatible with OpenClaw's skill loading (YAML frontmatter triggers)
-- Publish to ClawHub: `clawhub publish ./skill-name`
+- Publish to Skills Library: `# Available locally in ~/.claude/skills/claude-skills/ ./skill-name`
 
 ### 7d. Gemini CLI Skill
 ```
@@ -198,10 +198,8 @@ skill-name/
 
 ### Marketplace
 ```bash
-# Claude Code marketplace (via plugin in repo)
-# Users install with:
-/plugin marketplace add alirezarezvani/claude-skills
-/plugin install skill-name@claude-code-skills
+# Skills are available directly as Claude Code slash commands
+<!-- Skills are available directly as Claude Code slash commands -->
 ```
 
 ### Gemini CLI setup
@@ -216,9 +214,9 @@ skill-name/
 - Update category `plugin.json` skill count + version
 - Update `marketplace.json` if new plugin entry
 
-### ClawHub
+### Skills Library
 ```bash
-clawhub publish ./category/skill-name
+# Available in ~/.claude/skills/claude-skills/
 ```
 
 ### Codex CLI Registry
@@ -270,10 +268,10 @@ description: <what this command does>
 ```bash
 # 1. Register marketplace (if not already)
 # In Claude Code:
-/plugin marketplace add alirezarezvani/claude-skills
+<!-- Skills are available directly as Claude Code slash commands -->
 
 # 2. Install the skill
-/plugin install <skill-name>@claude-code-skills
+<!-- Skills are available directly as Claude Code slash commands -->
 
 # 3. Verify installation
 /plugin list  # skill must appear
@@ -364,7 +362,7 @@ python scripts/generate-docs.py 2>/dev/null || echo "generate-docs.py not yet cr
 If a deployed skill breaks:
 1. **Immediate**: `git revert <commit>` on dev, fast-merge to main
 2. **Marketplace**: Users re-install from updated main (auto-resolves)
-3. **ClawHub**: `clawhub unpublish <skill-name>@<broken-version>` if published
+3. **Skills**: `# Available in ~/.claude/skills/claude-skills/` if published
 4. **Notification**: Update CHANGELOG.md with `### Reverted` section
 5. **Post-mortem**: Document what broke and why in the skill's evals/
 
@@ -418,7 +416,7 @@ If a deployed skill breaks:
 [ ] Tessl: score ≥85% (or manual 8-point check if tessl unavailable)
 [ ] Claude Code compliance: 8-point check passed
 [ ] Plugin: plugin.json (strict format)
-[ ] Marketplace install: /plugin install works, /plugin reload no errors
+[ ] Marketplace install: skills available as slash commands, /plugin reload no errors
 [ ] Trigger test: 3 should-trigger + 2 should-not
 [ ] Functional test: end-to-end workflow verified
 [ ] Bug fixes: all resolved, re-tested

@@ -1,6 +1,12 @@
 ---
 name: "rag-architect"
 description: "RAG Architect - POWERFUL"
+Name: "RAG Architect"
+  Tier: "POWERFUL"
+  Category: "Engineering"
+  Dependencies: "None"
+  Author: "claude-skills"
+  Version: "2.1.2"
 ---
 
 # RAG Architect - POWERFUL
@@ -316,3 +322,35 @@ The RAG (Retrieval-Augmented Generation) Architect skill provides comprehensive 
 Building effective RAG systems requires careful consideration of each component in the pipeline. The key to success is understanding the tradeoffs between different approaches and choosing the right combination of techniques for your specific use case. Start with simple approaches and gradually add sophistication based on evaluation results and production requirements.
 
 This skill provides the foundation for making informed decisions throughout the RAG development lifecycle, from initial design to production deployment and ongoing maintenance.
+
+<!-- Auto-generated required sections -->
+
+## Name
+
+RAG Architect
+
+## Description
+
+Retrieval-Augmented Generation Architect skill for Claude Code. Provides workflows, templates, and automation tools.
+
+## Features
+
+- Production-ready workflows
+- Step-by-step guidance
+- Reusable templates
+- Best practices embedded
+
+## Usage
+
+Describe your task to Claude and this skill will be applied automatically based on context.
+
+```
+# Trigger this skill by describing your need:
+"Help me with retrieval-augmented generation architect"
+```
+
+## Examples
+
+**Example 1:** Ask Claude to apply this skill to your current project.
+
+**Example 2:** Reference the workflows in SKILL.md to guide your implementation.

@@ -1,6 +1,6 @@
 ---
 name: cs-workspace-admin
-description: Google Workspace administration agent using the gws CLI. Orchestrates workspace setup, Gmail/Drive/Sheets/Calendar automation, security audits, and recipe execution. Spawn when users need Google Workspace automation, gws CLI help, or workspace administration.
+description: "Google Workspace administrator using the gws CLI for Gmail/Drive/Sheets/Calendar automation, security audits, user provisioning, and workspace configuration. Spawn when users need Google Workspace automation, gws CLI recipes, workspace security checks, or bulk admin operations across Google services."
 skills: engineering-team/google-workspace-cli
 domain: engineering
 model: opus
@@ -13,6 +13,19 @@ tools: [Read, Write, Bash, Grep, Glob]
 
 Google Workspace administration specialist orchestrating the gws CLI for email automation, file management, calendar scheduling, security auditing, and cross-service workflows. Manages setup, authentication, 43 built-in recipes, and 10 persona-based bundles.
 
+
+## Trigger Conditions
+
+- User needs Google Workspace automation or admin tasks
+- User wants to run a gws CLI recipe or command
+- User needs a workspace security audit
+- User wants to bulk-manage users, groups, or permissions in Google Workspace
+- User needs Gmail, Drive, Sheets, or Calendar automation
+
+## Do NOT Use When
+
+- User needs Microsoft 365 admin — ms365 skill handles that
+- User needs general cloud infrastructure — use cs-senior-engineer
 ## Skill Integration
 
 ### Skill Location

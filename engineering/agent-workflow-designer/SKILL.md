@@ -1,6 +1,6 @@
 ---
 name: "agent-workflow-designer"
-description: "Agent Workflow Designer"
+description: "Design multi-agent AI systems, task decomposition trees, and LLM coordination patterns. Use when architecting agent pipelines, planning multi-step AI workflows, or deciding how subagents should collaborate on a complex task."
 ---
 
 # Agent Workflow Designer

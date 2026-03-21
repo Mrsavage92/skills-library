@@ -1,6 +1,6 @@
 ---
 name: "runbook-generator"
-description: "Runbook Generator"
+description: "Generate operational runbooks covering deployment, incident response, scaling, rollback, and maintenance procedures. Use when documenting production operations, preparing on-call handbooks, or onboarding SRE teams."
 ---
 
 # Runbook Generator

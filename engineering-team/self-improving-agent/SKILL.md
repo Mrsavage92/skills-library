@@ -44,13 +44,13 @@ Claude Code's auto-memory (v2.1.32+) automatically records project patterns, deb
 
 ### Claude Code (Plugin)
 ```
-/plugin marketplace add alirezarezvani/claude-skills
-/plugin install self-improving-agent@claude-code-skills
+# Skills installed at ~/.claude/skills/claude-skills/
+# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/
 ```
 
 ### OpenClaw
 ```bash
-clawhub install self-improving-agent
+# Install: skill is available locally in ~/.claude/skills/claude-skills/
 ```
 
 ### Codex CLI
@@ -133,7 +133,7 @@ Takes a proven pattern and generates a complete skill:
 - SKILL.md with proper frontmatter
 - Reference documentation
 - Examples and edge cases
-- Ready for `/plugin install` or `clawhub publish`
+- Ready for use — installed at `~/.claude/agents/``# Available locally in ~/.claude/skills/claude-skills/`
 
 ## Hooks
 
@@ -158,5 +158,5 @@ Monitors command output for errors. When detected, appends a structured entry to
 ## Related
 
 - [Claude Code Memory Docs](https://code.claude.com/docs/en/memory)
-- [pskoett/self-improving-agent](https://clawhub.ai/pskoett/self-improving-agent) — inspiration
+- [self-improving-agent](https://github.com/alirezarezvani/claude-skills/tree/main/engineering-team/self-improving-agent) — inspiration
 - [playwright-pro](../playwright-pro/) — sister plugin in this repo

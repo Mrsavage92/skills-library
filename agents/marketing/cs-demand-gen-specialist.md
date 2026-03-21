@@ -1,6 +1,6 @@
 ---
 name: cs-demand-gen-specialist
-description: Demand generation and customer acquisition specialist for lead generation, conversion optimization, and multi-channel acquisition campaigns
+description: "Demand generation and paid acquisition specialist for lead generation campaigns, conversion optimisation, CAC analysis, multi-channel acquisition strategy, and campaign ROI measurement. Spawn when the user needs a paid ads strategy, lead gen funnel design, CAC/LTV analysis, landing page conversion optimisation, or acquisition channel prioritisation."
 skills: marketing-skill/marketing-demand-acquisition
 domain: marketing
 model: sonnet
@@ -17,6 +17,19 @@ This agent is designed for growth marketers, demand generation managers, and fou
 
 The cs-demand-gen-specialist agent bridges the gap between marketing strategy and measurable business outcomes, providing actionable insights on channel performance, conversion bottlenecks, and campaign effectiveness. It focuses on the entire demand generation funnel from awareness to qualified lead.
 
+
+## Trigger Conditions
+
+- User needs a paid acquisition strategy (Google Ads, Meta, LinkedIn)
+- User wants to improve landing page conversion rates
+- User asks about CAC, LTV, or payback period analysis
+- User needs a lead generation funnel or nurture sequence
+- User wants to prioritise acquisition channels by ROI
+
+## Do NOT Use When
+
+- User needs organic content or social posts — use cs-content-creator
+- User needs revenue/pipeline analysis — use cs-growth-strategist
 ## Skill Integration
 
 **Skill Location:** `../../marketing-skill/marketing-demand-acquisition/`

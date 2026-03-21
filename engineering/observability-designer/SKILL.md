@@ -1,6 +1,6 @@
 ---
 name: "observability-designer"
-description: "Observability Designer (POWERFUL)"
+description: "Design complete observability stacks covering metrics, logs, traces, and alerting for production systems. Use when setting up monitoring, implementing distributed tracing, designing SLO/SLI/error budgets, or debugging production issues."
 ---
 
 # Observability Designer (POWERFUL)

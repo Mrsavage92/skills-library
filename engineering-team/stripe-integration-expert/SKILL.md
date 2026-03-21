@@ -1,6 +1,12 @@
 ---
 name: "stripe-integration-expert"
 description: "Stripe Integration Expert"
+Name: "Stripe Integration Expert"
+  Tier: "POWERFUL"
+  Category: "Engineering Team"
+  Dependencies: "None"
+  Author: "claude-skills"
+  Version: "2.1.2"
 ---
 
 # Stripe Integration Expert
@@ -474,3 +480,36 @@ export async function requireActiveSubscription() {
 - **Proration surprises** — always preview proration before upgrade; show user the amount before confirming
 - **Customer portal not configured** — must enable features in Stripe dashboard under Billing → Customer portal settings
 - **Missing metadata on checkout** — always pass `userId` in metadata; can't link subscription to user without it
+
+
+<!-- Auto-generated required sections -->
+
+## Name
+
+Stripe Integration Expert
+
+## Description
+
+Stripe Payments Integration skill for Claude Code. Provides workflows, templates, and automation tools.
+
+## Features
+
+- Production-ready workflows
+- Step-by-step guidance
+- Reusable templates
+- Best practices embedded
+
+## Usage
+
+Describe your task to Claude and this skill will be applied automatically based on context.
+
+```
+# Trigger this skill by describing your need:
+"Help me with stripe payments integration"
+```
+
+## Examples
+
+**Example 1:** Ask Claude to apply this skill to your current project.
+
+**Example 2:** Reference the workflows in SKILL.md to guide your implementation.

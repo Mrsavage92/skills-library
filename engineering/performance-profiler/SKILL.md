@@ -1,6 +1,6 @@
 ---
 name: "performance-profiler"
-description: "Performance Profiler"
+description: "Profile and optimise application performance across frontend, backend, and database layers. Use when diagnosing slow API endpoints, reducing memory bloat, improving Core Web Vitals, or optimising database queries."
 ---
 
 # Performance Profiler

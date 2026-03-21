@@ -1,6 +1,6 @@
 ---
 name: rice
-description: RICE feature prioritization with scoring and capacity planning. Usage: /rice prioritize <features.csv> [options]
+description: "Score and rank product features using the RICE framework (Reach, Impact, Confidence, Effort) with capacity planning. Use when prioritising a backlog, making trade-off decisions, or preparing for a planning cycle."
 ---
 
 # /rice
@@ -14,6 +14,13 @@ Prioritize features using RICE scoring (Reach, Impact, Confidence, Effort) with 
 /rice prioritize <features.csv> --capacity 20                Rank with effort capacity limit
 ```
 
+
+## Quick Start
+
+```
+/rice prioritize features.csv       # score from CSV
+/rice prioritize --interactive      # guided scoring session
+```
 ## Input Format
 
 ```csv
@@ -37,3 +44,9 @@ Mobile app,20000,3,0.5,13
 
 ## Skill Reference
 > `product-team/product-manager-toolkit/SKILL.md`
+
+## Related Skills
+
+- /prd
+- /okr
+- cs-product-manager

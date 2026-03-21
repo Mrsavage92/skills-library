@@ -12,7 +12,7 @@ description: "Show experiment dashboard with results, active loops, and progress
 </div>
 
 <div class="install-banner" markdown>
-<span class="install-label">Install:</span> <code>claude /plugin install engineering-advanced-skills</code>
+<!-- Skills are available directly as Claude Code slash commands -->
 </div>
 
 

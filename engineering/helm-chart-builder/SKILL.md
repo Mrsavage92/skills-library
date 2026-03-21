@@ -1,6 +1,6 @@
 ---
 name: "helm-chart-builder"
-description: "Helm chart development agent skill and plugin for Claude Code, Codex, Gemini CLI, Cursor, OpenClaw — chart scaffolding, values design, template patterns, dependency management, security hardening, and chart testing. Use when: user wants to create or improve Helm charts, design values.yaml files, implement template helpers, audit chart security (RBAC, network policies, pod security), manage subcharts, or run helm lint/test."
+description: "Build and validate production Helm charts for Kubernetes with best-practice values, templates, RBAC, and chart testing. Use when deploying to K8s, packaging applications as Helm charts, or migrating raw manifests to Helm."
 license: MIT
 metadata:
   version: 1.0.0
@@ -436,7 +436,7 @@ cp -r claude-skills/engineering/helm-chart-builder ~/.claude/skills/
 
 ### OpenClaw
 ```bash
-clawhub install cs-helm-chart-builder
+# Available in ~/.claude/skills/claude-skills/
 ```
 
 ---

@@ -12,7 +12,7 @@ description: "5 business & growth skills — business growth agent skill and Cla
 </div>
 
 <div class="install-banner" markdown>
-<span class="install-label">Install all:</span> <code>claude /plugin install business-growth-skills</code>
+<span class="install-label">Install all:</span> <code>claude # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/</code>
 </div>
 
 <div class="grid cards" markdown>

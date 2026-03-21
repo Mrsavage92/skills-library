@@ -12,7 +12,7 @@ description: "Autonomous experiment loop that optimizes any file by a measurable
 </div>
 
 <div class="install-banner" markdown>
-<span class="install-label">Install:</span> <code>claude /plugin install engineering-advanced-skills</code>
+<!-- Skills are available directly as Claude Code slash commands -->
 </div>
 
 
@@ -300,7 +300,7 @@ cp -r claude-skills/engineering/autoresearch-agent ~/.claude/skills/
 
 ### OpenClaw
 ```bash
-clawhub install cs-autoresearch-agent
+# Available in ~/.claude/skills/claude-skills/
 ```
 
 ---

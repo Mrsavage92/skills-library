@@ -12,7 +12,7 @@ description: "Docker and container development agent skill and plugin for Docker
 </div>
 
 <div class="install-banner" markdown>
-<span class="install-label">Install:</span> <code>claude /plugin install engineering-advanced-skills</code>
+<!-- Skills are available directly as Claude Code slash commands -->
 </div>
 
 
@@ -358,7 +358,7 @@ cp -r claude-skills/engineering/docker-development ~/.claude/skills/
 
 ### OpenClaw
 ```bash
-clawhub install cs-docker-development
+# Install: skill is available locally in ~/.claude/skills/claude-skills/
 ```
 
 ---

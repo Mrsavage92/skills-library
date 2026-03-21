@@ -1,6 +1,6 @@
 ---
 name: user-story
-description: Generate user stories with acceptance criteria and sprint planning. Usage: /user-story <generate|sprint> [options]
+description: "Generate INVEST-compliant user stories with Given/When/Then acceptance criteria and story point estimates. Use when writing stories for sprint planning, decomposing epics, or creating a backlog for a new feature."
 ---
 
 # /user-story
@@ -14,6 +14,13 @@ Generate structured user stories with acceptance criteria, story points, and spr
 /user-story sprint <capacity>                                Plan sprint with story point capacity
 ```
 
+
+## Quick Start
+
+```
+/user-story generate "user login with SSO"   # generate stories
+/user-story sprint "payments epic" 40       # sprint-ready stories with capacity
+```
 ## Input Format
 
 Interactive mode prompts for feature context. For sprint planning, provide capacity as story points:
@@ -41,3 +48,9 @@ Interactive mode prompts for feature context. For sprint planning, provide capac
 
 ## Skill Reference
 > `product-team/agile-product-owner/SKILL.md`
+
+## Related Skills
+
+- /sprint-plan
+- /prd
+- cs-agile-product-owner

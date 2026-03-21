@@ -7,7 +7,7 @@ description: "28 installable agent plugins for Claude Code, Codex CLI, Gemini CL
 
 # Plugins & Marketplace
 
-**28 installable plugins** — domain bundles and standalone packages distributed via Claude Code plugin registry and ClawHub.
+**28 installable plugins** — domain bundles and standalone packages distributed via Claude Code plugin registry and Skills Library.
 
 <p class="skills-hero-sub">Install entire skill domains or individual tools with a single command. Compatible with Claude Code, OpenAI Codex, Gemini CLI, and OpenClaw.</p>
 
@@ -53,10 +53,10 @@ description: "28 installable agent plugins for Claude Code, Codex CLI, Gemini CL
 
     ```bash
     # Install a domain bundle
-    claude /plugin install marketing-skills
+    claude # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/
 
     # Install a standalone plugin
-    claude /plugin install pw
+    claude # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/
     ```
 
 === "Codex CLI"
@@ -134,7 +134,7 @@ Domain bundles install an entire skill domain with all its tools, references, an
 |---|---|
 | **Plugin** | `engineering-skills` |
 | **Skills** | 24 |
-| **Install** | `claude /plugin install engineering-skills` |
+| **Install** | `claude # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/` |
 
 Architecture, frontend, backend, fullstack, QA, DevOps, security, AI/ML, data engineering, Playwright Pro (9 sub-skills), self-improving agent, Stripe integration, TDD guide, tech stack evaluator, Google Workspace CLI.
 
@@ -148,7 +148,7 @@ Architecture, frontend, backend, fullstack, QA, DevOps, security, AI/ML, data en
 |---|---|
 | **Plugin** | `engineering-advanced-skills` |
 | **Skills** | 25 |
-| **Install** | `claude /plugin install engineering-advanced-skills` |
+| **Install** | `claude # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/` |
 
 Agent designer, RAG architect, database designer, migration architect, observability designer, dependency auditor, release manager, API reviewer, CI/CD pipeline builder, MCP server builder, skill security auditor, performance profiler.
 
@@ -162,7 +162,7 @@ Agent designer, RAG architect, database designer, migration architect, observabi
 |---|---|
 | **Plugin** | `marketing-skills` |
 | **Skills** | 43 |
-| **Install** | `claude /plugin install marketing-skills` |
+| **Install** | `claude # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/` |
 
 Content, SEO, CRO, Channels, Growth, Intelligence, Sales enablement, and X/Twitter growth. 51 Python tools, 73 reference docs across 7 specialist pods.
 
@@ -176,7 +176,7 @@ Content, SEO, CRO, Channels, Growth, Intelligence, Sales enablement, and X/Twitt
 |---|---|
 | **Plugin** | `c-level-skills` |
 | **Skills** | 28 |
-| **Install** | `claude /plugin install c-level-skills` |
+| **Install** | `claude # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/` |
 
 Virtual board of directors (CEO, CTO, COO, CPO, CMO, CFO, CRO, CISO, CHRO), executive mentor, founder coach, board meetings, decision logger, scenario war room, competitive intel, M&A playbook, culture frameworks.
 
@@ -190,7 +190,7 @@ Virtual board of directors (CEO, CTO, COO, CPO, CMO, CFO, CRO, CISO, CHRO), exec
 |---|---|
 | **Plugin** | `ra-qm-skills` |
 | **Skills** | 12 |
-| **Install** | `claude /plugin install ra-qm-skills` |
+| **Install** | `claude # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/` |
 
 ISO 13485 QMS, MDR 2017/745, FDA 510(k)/PMA, GDPR/DSGVO, ISO 27001 ISMS, CAPA management, risk management, clinical evaluation for HealthTech/MedTech.
 
@@ -204,7 +204,7 @@ ISO 13485 QMS, MDR 2017/745, FDA 510(k)/PMA, GDPR/DSGVO, ISO 27001 ISMS, CAPA ma
 |---|---|
 | **Plugin** | `product-skills` |
 | **Skills** | 12 |
-| **Install** | `claude /plugin install product-skills` |
+| **Install** | `claude # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/` |
 
 Product manager toolkit (RICE, PRDs), agile product owner, product strategist, UX researcher, UI design system, competitive teardown, landing page generator, SaaS scaffolder, product analytics, experiment designer, product discovery, roadmap communicator. 13 Python tools.
 
@@ -218,7 +218,7 @@ Product manager toolkit (RICE, PRDs), agile product owner, product strategist, U
 |---|---|
 | **Plugin** | `pm-skills` |
 | **Skills** | 6 |
-| **Install** | `claude /plugin install pm-skills` |
+| **Install** | `claude # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/` |
 
 Senior PM, scrum master, Jira expert, Confluence expert, Atlassian admin, template creator. 12 Python tools with Atlassian MCP integration.
 
@@ -232,7 +232,7 @@ Senior PM, scrum master, Jira expert, Confluence expert, Atlassian admin, templa
 |---|---|
 | **Plugin** | `business-growth-skills` |
 | **Skills** | 4 |
-| **Install** | `claude /plugin install business-growth-skills` |
+| **Install** | `claude # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/` |
 
 Customer success manager, sales engineer, revenue operations, contract & proposal writer.
 
@@ -246,7 +246,7 @@ Customer success manager, sales engineer, revenue operations, contract & proposa
 |---|---|
 | **Plugin** | `finance-skills` |
 | **Skills** | 2 |
-| **Install** | `claude /plugin install finance-skills` |
+| **Install** | `claude # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/` |
 
 Financial analyst (ratio analysis, DCF valuation, budgeting, forecasting) and SaaS metrics coach (ARR, MRR, churn, CAC, LTV, NRR). 7 Python tools.
 
@@ -267,7 +267,7 @@ Standalone plugins install individual skills or toolkits. Use these when you nee
     Production-grade Playwright testing toolkit. 9 sub-skills, 3 agents, 55 templates, TestRail + BrowserStack MCP.
 
     ```bash
-    claude /plugin install pw
+    claude # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/
     ```
 
     **Slash commands:** `/pw:generate`, `/pw:fix`, `/pw:review`, `/pw:migrate`, `/pw:coverage`, `/pw:init`, `/pw:report`, `/pw:testrail`, `/pw:browserstack`
@@ -279,7 +279,7 @@ Standalone plugins install individual skills or toolkits. Use these when you nee
     Auto-memory curation, learning promotion, and pattern extraction into reusable skills.
 
     ```bash
-    claude /plugin install self-improving-agent
+    claude # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/
     ```
 
     **Slash commands:** `/si:review`, `/si:promote`, `/si:extract`, `/si:status`, `/si:remember`
@@ -291,7 +291,7 @@ Standalone plugins install individual skills or toolkits. Use these when you nee
     Gmail, Drive, Sheets, Calendar, Docs, Chat, Tasks via the `gws` CLI. 5 Python tools, 43 recipes, 10 persona bundles.
 
     ```bash
-    claude /plugin install google-workspace-cli
+    claude # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/
     ```
 
 -   :material-account-supervisor:{ .lg .middle } **Executive Mentor** `executive-mentor`
@@ -301,7 +301,7 @@ Standalone plugins install individual skills or toolkits. Use these when you nee
     Adversarial thinking partner for founders. Pre-mortem, board prep, hard calls, stress tests, postmortems.
 
     ```bash
-    claude /plugin install executive-mentor
+    claude # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/
     ```
 
     **Slash commands:** `/em:challenge`, `/em:board-prep`, `/em:hard-call`, `/em:stress-test`, `/em:postmortem`
@@ -313,7 +313,7 @@ Standalone plugins install individual skills or toolkits. Use these when you nee
     SEO-optimized content with brand voice analysis, content frameworks, and social media templates.
 
     ```bash
-    claude /plugin install content-creator
+    claude # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/
     ```
 
 -   :material-magnet:{ .lg .middle } **Demand Gen** `demand-gen`
@@ -323,7 +323,7 @@ Standalone plugins install individual skills or toolkits. Use these when you nee
     Multi-channel demand generation, paid media optimization, SEO strategy, and partnership programs.
 
     ```bash
-    claude /plugin install demand-gen
+    claude # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/
     ```
 
 -   :material-layers-triple:{ .lg .middle } **Fullstack Engineer** `fullstack-engineer`
@@ -333,7 +333,7 @@ Standalone plugins install individual skills or toolkits. Use these when you nee
     Full-stack engineering with React, Node, databases, and deployment patterns.
 
     ```bash
-    claude /plugin install fullstack-engineer
+    claude # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/
     ```
 
 -   :fontawesome-brands-aws:{ .lg .middle } **AWS Architect** `aws-architect`
@@ -343,7 +343,7 @@ Standalone plugins install individual skills or toolkits. Use these when you nee
     AWS serverless architecture with IaC templates, cost optimization, and CI/CD pipelines.
 
     ```bash
-    claude /plugin install aws-architect
+    claude # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/
     ```
 
 -   :material-clipboard-text:{ .lg .middle } **Product Manager** `product-manager`
@@ -353,7 +353,7 @@ Standalone plugins install individual skills or toolkits. Use these when you nee
     RICE scoring, customer interview analysis, and PRD generation toolkit.
 
     ```bash
-    claude /plugin install product-manager
+    claude # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/
     ```
 
 -   :material-shield-lock:{ .lg .middle } **Skill Security Auditor** `skill-security-auditor`
@@ -363,7 +363,7 @@ Standalone plugins install individual skills or toolkits. Use these when you nee
     Security scanner for AI agent skills. Detects malicious patterns, prompt injection, data exfiltration, and unsafe file operations.
 
     ```bash
-    claude /plugin install skill-security-auditor
+    claude # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/
     ```
 
 </div>
@@ -387,8 +387,8 @@ Every plugin follows the same minimal schema for maximum portability:
 }
 ```
 
-!!! info "ClawHub Registry"
-    Plugins are distributed via [ClawHub](https://clawhub.com) as the public registry. The `cs-` prefix is used only when a slug is already taken by another publisher — repo folder names remain unchanged.
+!!! info "Skills Library Registry"
+    Plugins are distributed via [Skills Library](https://clawhub.com) as the public registry. The `cs-` prefix is used only when a slug is already taken by another publisher — repo folder names remain unchanged.
 
 ### Directory Layout
 
@@ -462,8 +462,8 @@ domain-name/
 ??? question "How do I update plugins?"
     Re-run the install command. Plugins follow semantic versioning aligned with the repository releases (currently v2.1.2).
 
-??? question "What is ClawHub?"
-    [ClawHub](https://clawhub.com) is the public registry for Claude Code plugins. Think of it like npm for AI agent skills. The `cs-` prefix is used only when a plugin slug conflicts with another publisher.
+??? question "What is Skills Library?"
+    [Skills Library](https://clawhub.com) is the public registry for Claude Code plugins. Think of it like npm for AI agent skills. The `cs-` prefix is used only when a plugin slug conflicts with another publisher.
 
 ??? question "Can I use skills without installing anything?"
     Yes. We have [6 Custom GPTs for ChatGPT](../custom-gpts.md) that package Agent Skills into a conversational interface — no installation, no API keys. Just click and chat.

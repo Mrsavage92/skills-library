@@ -12,7 +12,7 @@ description: "Turn a proven pattern or debugging solution into a standalone reus
 </div>
 
 <div class="install-banner" markdown>
-<span class="install-label">Install:</span> <code>claude /plugin install engineering-skills</code>
+<span class="install-label">Install:</span> <code>claude # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/</code>
 </div>
 
 
@@ -149,8 +149,8 @@ Files created:
   {{path}}/README.md         ({{lines}} lines)
   {{path}}/reference/examples.md  ({{lines}} lines)
 
-Install: /plugin install (copy to your skills directory)
-Publish: clawhub publish {{path}}
+Install: # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/(copy to your skills directory)
+Publish: # Available locally in ~/.claude/skills/claude-skills/ {{path}}
 
 Source: MEMORY.md entries at lines {{n, m, ...}} (retained — the skill is portable, the memory is project-specific)
 ```

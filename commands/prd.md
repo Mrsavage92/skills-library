@@ -1,11 +1,19 @@
 ---
 name: prd
-description: Quick PRD generation command. Usage: /prd <feature-or-problem>
+description: "Generate a concise, structured Product Requirements Document for a feature or problem statement. Use when kicking off a new feature, aligning stakeholders, or creating a spec for engineering to estimate."
 ---
 
 # /prd
 
 Generate a concise product requirements document for a feature, initiative, or problem statement.
+
+## Quick Start
+
+```bash
+/prd "Add SSO support for enterprise customers"
+/prd "Mobile push notifications for abandoned cart"
+/prd "Redesign onboarding flow to reduce drop-off"
+```
 
 ## Usage
 
@@ -22,4 +30,11 @@ Generate a concise product requirements document for a feature, initiative, or p
 - Scope and timeline assumptions
 
 ## Skill Reference
-- `product-team/product-manager-toolkit/SKILL.md`
+
+`product-team/product-manager-toolkit/SKILL.md`
+
+## Related Skills
+
+- `/user-story` — Break PRD acceptance criteria into sprint-ready stories
+- `/rice` — Prioritize this feature against other backlog items
+- `/code-to-prd` — Reverse-engineer an existing codebase into PRD format

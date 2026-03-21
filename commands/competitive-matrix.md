@@ -1,17 +1,18 @@
 ---
 name: competitive-matrix
-description: Build competitive analysis matrices with scoring and gap analysis. Usage: /competitive-matrix <analyze> [options]
+description: "Build weighted competitive analysis matrices with gap analysis and market positioning maps. Use when evaluating competitors, preparing for a product launch, or deciding on feature prioritisation against the market."
 ---
 
 # /competitive-matrix
 
 Build competitive matrices with weighted scoring, gap analysis, and market positioning insights.
 
-## Usage
+## Quick Start
 
-```
-/competitive-matrix analyze <competitors.json>                    Full analysis
-/competitive-matrix analyze <competitors.json> --weights pricing=2,ux=1.5    Custom weights
+```bash
+/competitive-matrix analyze competitors.json
+/competitive-matrix analyze competitors.json --weights pricing=2,ux=1.5
+/competitive-matrix analyze competitors.json --format json --output matrix.json
 ```
 
 ## Input Format
@@ -26,15 +27,28 @@ Build competitive matrices with weighted scoring, gap analysis, and market posit
 }
 ```
 
-## Examples
+## Usage
 
 ```
-/competitive-matrix analyze competitors.json
-/competitive-matrix analyze competitors.json --format json --output matrix.json
+/competitive-matrix analyze <competitors.json>                    Full analysis
+/competitive-matrix analyze <competitors.json> --weights pricing=2,ux=1.5    Custom weights
+/competitive-matrix analyze <competitors.json> --format json --output matrix.json
 ```
 
 ## Scripts
-- `product-team/competitive-teardown/scripts/competitive_matrix_builder.py` — Matrix builder
+
+Scripts are optional — if unavailable, Claude will manually compute weighted scores, rank competitors, and identify gaps from the JSON input.
+
+- `product-team/competitive-teardown/scripts/competitive_matrix_builder.py` — Matrix builder (optional)
+
+**Fallback (no script):** Parse the input JSON, apply weights manually, compute weighted scores per competitor, rank them, and identify your product's competitive gaps and advantages.
 
 ## Skill Reference
-→ `product-team/competitive-teardown/SKILL.md`
+
+`product-team/competitive-teardown/SKILL.md`
+
+## Related Skills
+
+- `/okr` — Translate competitive gaps into strategic OKR objectives
+- `/rice` — Prioritize features to close identified competitive gaps
+- `/prd` — Document competitive requirements as acceptance criteria

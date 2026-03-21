@@ -61,24 +61,24 @@ cd claude-skills
 
 ```bash
 # Add the marketplace
-/plugin marketplace add alirezarezvani/claude-skills
+# Skills installed at ~/.claude/skills/claude-skills/
 
 # Install by domain
-/plugin install engineering-skills@claude-code-skills          # 24 core engineering
-/plugin install engineering-advanced-skills@claude-code-skills  # 25 POWERFUL-tier
-/plugin install product-skills@claude-code-skills               # 12 product skills
-/plugin install marketing-skills@claude-code-skills             # 43 marketing skills
-/plugin install ra-qm-skills@claude-code-skills                 # 12 regulatory/quality
-/plugin install pm-skills@claude-code-skills                    # 6 project management
-/plugin install c-level-skills@claude-code-skills               # 28 C-level advisory (full C-suite)
-/plugin install business-growth-skills@claude-code-skills       # 4 business & growth
-/plugin install finance-skills@claude-code-skills               # 2 finance (analyst + SaaS metrics)
+# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/          # 24 core engineering
+# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/  # 25 POWERFUL-tier
+# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/               # 12 product skills
+# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/             # 43 marketing skills
+# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/                 # 12 regulatory/quality
+# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/                    # 6 project management
+# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/               # 28 C-level advisory (full C-suite)
+# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/       # 4 business & growth
+# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/               # 2 finance (analyst + SaaS metrics)
 
 # Or install individual skills
-/plugin install skill-security-auditor@claude-code-skills       # Security scanner
-/plugin install playwright-pro@claude-code-skills                  # Playwright testing toolkit
-/plugin install self-improving-agent@claude-code-skills         # Auto-memory curation
-/plugin install content-creator@claude-code-skills              # Single skill
+# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/       # Security scanner
+# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/                  # Playwright testing toolkit
+# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/         # Auto-memory curation
+# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/              # Single skill
 ```
 
 ### OpenAI Codex
@@ -333,7 +333,7 @@ python3 product-team/landing-page-generator/scripts/landing_page_scaffolder.py c
 ## FAQ
 
 **How do I install Claude Code plugins?**
-Add the marketplace with `/plugin marketplace add alirezarezvani/claude-skills`, then install any skill bundle with `/plugin install <name>@claude-code-skills`.
+Add the marketplace with `# Skills installed at ~/.claude/skills/claude-skills/`, then install any skill bundle with `# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/<name>@claude-code-skills`.
 
 **Do these skills work with OpenAI Codex / Cursor / Windsurf / Aider?**
 Yes. Skills work natively with 11 tools: Claude Code, OpenAI Codex, Gemini CLI, OpenClaw, Cursor, Aider, Windsurf, Kilo Code, OpenCode, Augment, and Antigravity. Run `./scripts/convert.sh --tool all` to convert for all tools, then install with `./scripts/install.sh --tool <name>`. See [Multi-Tool Integrations](https://alirezarezvani.github.io/claude-skills/integrations/) for details.

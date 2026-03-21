@@ -1,6 +1,6 @@
 ---
 name: seo-auditor
-description: |
+description: "Scan documentation and README files for SEO issues (meta tags, headings, keywords, broken links) and apply fixes. Use when optimising a project's docs for search, preparing a public repo for launch, or auditing a docs site."
   Scan and optimize documentation files for SEO. Audits README.md files and docs/ pages for
   meta tags, headings, keywords, readability, duplicate content, and broken links. Applies
   fixes, updates sitemap.xml, and generates a report. Usage: /seo-auditor [path]
@@ -18,6 +18,14 @@ Systematically scan, audit, and optimize documentation files for SEO. Targets RE
 /seo-auditor --report-only      # Scan without making changes
 ```
 
+
+## Quick Start
+
+```
+/seo-auditor                 # audit current directory
+/seo-auditor ./docs          # audit specific docs folder
+/seo-auditor . --fix         # audit and auto-fix
+```
 ## What It Does
 
 Execute all 7 phases sequentially. Auto-fix non-destructive issues. Preserve existing high-ranking content. Report everything at the end.
@@ -338,3 +346,9 @@ These pages rank well for their target keywords. Only fix critical issues (broke
 | URL Design Guide | `marketing-skill/site-architecture/references/url-design-guide.md` | URL structure best practices |
 | Internal Linking | `marketing-skill/site-architecture/references/internal-linking-playbook.md` | Internal linking strategy |
 | AI Writing Detection | `marketing-skill/content-humanizer/references/ai-tells-checklist.md` | AI cliché removal |
+
+## Related Skills
+
+- /a11y-audit
+- /tech-debt
+- cs-content-creator

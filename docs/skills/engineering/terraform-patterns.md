@@ -12,7 +12,7 @@ description: "Terraform infrastructure-as-code agent skill and plugin for Claude
 </div>
 
 <div class="install-banner" markdown>
-<span class="install-label">Install:</span> <code>claude /plugin install engineering-advanced-skills</code>
+<!-- Skills are available directly as Claude Code slash commands -->
 </div>
 
 
@@ -479,7 +479,7 @@ cp -r claude-skills/engineering/terraform-patterns ~/.claude/skills/
 
 ### OpenClaw
 ```bash
-clawhub install terraform-patterns
+# Install: skill is available locally in ~/.claude/skills/claude-skills/
 ```
 
 ---

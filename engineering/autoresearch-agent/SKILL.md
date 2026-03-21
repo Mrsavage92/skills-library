@@ -295,7 +295,7 @@ cp -r claude-skills/engineering/autoresearch-agent ~/.claude/skills/
 
 ### OpenClaw
 ```bash
-clawhub install cs-autoresearch-agent
+# Available in ~/.claude/skills/claude-skills/
 ```
 
 ---

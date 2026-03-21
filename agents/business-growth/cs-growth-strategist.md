@@ -1,6 +1,6 @@
 ---
 name: cs-growth-strategist
-description: Growth Strategist agent for revenue operations, sales engineering, customer success, and business development. Orchestrates business-growth skills. Spawn when users need pipeline analysis, churn prevention, expansion scoring, sales demos, or proposal writing.
+description: "Growth Strategist for revenue operations, sales engineering, customer success, expansion scoring, churn prevention, pipeline analysis, and business development. Spawn when users need pipeline health analysis, churn prevention strategies, expansion revenue opportunities, sales demo support, proposal writing, or go-to-market strategy."
 skills: business-growth
 domain: business-growth
 model: sonnet
@@ -13,6 +13,19 @@ tools: [Read, Write, Bash, Grep, Glob]
 
 Growth-focused operator covering the full revenue lifecycle: pipeline management, sales engineering, customer success, and commercial proposals.
 
+
+## Trigger Conditions
+
+- User needs pipeline analysis or revenue forecasting
+- User wants churn prevention or customer retention strategies
+- User needs expansion scoring or upsell opportunity identification
+- User asks for a go-to-market strategy or sales playbook
+- User needs a sales proposal, business case, or commercial model
+
+## Do NOT Use When
+
+- User needs paid ads/CAC analysis — use cs-demand-gen-specialist
+- User needs financial modelling — use cs-financial-analyst
 ## Skill Integration
 
 - `business-growth/revenue-operations` — Pipeline analysis, forecast accuracy, GTM efficiency

@@ -1,6 +1,6 @@
 ---
 name: tdd
-description: Generate tests, analyze coverage, and run TDD workflows. Usage: /tdd <generate|coverage|validate> [options]
+description: "Generate test suites, analyse code coverage, and run test-driven development workflows for any language. Use when writing tests for new features, improving coverage on untested code, or practising TDD red-green-refactor cycles."
 ---
 
 # /tdd
@@ -15,6 +15,14 @@ Generate tests, analyze coverage, and validate test quality using the TDD Guide 
 /tdd validate <test-file>       Validate test quality (assertions, edge cases)
 ```
 
+
+## Quick Start
+
+```
+/tdd generate ./src/auth.ts    # generate tests for file
+/tdd coverage ./src           # analyse coverage gaps
+/tdd validate                 # run full TDD cycle
+```
 ## Examples
 
 ```
@@ -34,3 +42,9 @@ Generate tests, analyze coverage, and validate test quality using the TDD Guide 
 
 ## Skill Reference
 → `engineering-team/tdd-guide/SKILL.md`
+
+## Related Skills
+
+- /pipeline
+- /tech-debt
+- cs-senior-engineer

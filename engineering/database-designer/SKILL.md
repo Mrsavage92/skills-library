@@ -1,6 +1,6 @@
 ---
 name: "database-designer"
-description: "Database Designer - POWERFUL Tier Skill"
+description: "Design production-grade database schemas with normalisation, indexing strategy, partitioning, and migration plans. Use when designing new data models, optimising slow queries, or planning zero-downtime schema migrations."
 ---
 
 # Database Designer - POWERFUL Tier Skill

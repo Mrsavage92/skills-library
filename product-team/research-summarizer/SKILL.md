@@ -261,7 +261,7 @@ cp -r claude-skills/product-team/research-summarizer ~/.claude/skills/
 
 ### OpenClaw
 ```bash
-clawhub install cs-research-summarizer
+# Available in ~/.claude/skills/claude-skills/
 ```
 
 ---

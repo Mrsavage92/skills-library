@@ -56,12 +56,12 @@ cd claude-skills
 ./scripts/install.sh --tool openclaw --pack regulatory
 ```
 
-### ClawHub Install
+### Skills Library Install
 
-If you have the ClawHub CLI:
+If you have the Skills Library CLI:
 
 ```bash
-clawhub install alirezarezvani/claude-skills
+# Install: skill is available locally in ~/.claude/skills/claude-skills/
 ```
 
 ## How Skills Work in OpenClaw
@@ -156,7 +156,7 @@ Use the `skill-creator` meta-skill for guided skill creation:
 ## Resources
 
 - **GitHub:** [alirezarezvani/claude-skills](https://github.com/alirezarezvani/claude-skills)
-- **ClawHub:** [clawhub.com](https://clawhub.com)
+- **Skills Library:** [clawhub.com](https://clawhub.com)
 - **OpenClaw Docs:** [docs.openclaw.ai](https://docs.openclaw.ai)
 - **Community:** [Discord](https://discord.com/invite/clawd)
 

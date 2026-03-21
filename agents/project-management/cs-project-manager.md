@@ -1,6 +1,6 @@
 ---
 name: cs-project-manager
-description: Project Manager agent for sprint planning, Jira/Confluence workflows, Scrum ceremonies, and stakeholder reporting. Orchestrates project-management skills.
+description: "Project Manager for sprint planning, Jira/Confluence workflows, Scrum ceremonies facilitation, stakeholder reporting, and project health monitoring. Spawn when users need to set up a Jira project, plan sprints, generate status reports, facilitate agile ceremonies, or track project risks and dependencies."
 skills: project-management
 domain: pm
 model: sonnet
@@ -17,6 +17,19 @@ This agent is designed for project managers, scrum masters, delivery leads, and 
 
 The cs-project-manager agent bridges the gap between project execution and strategic oversight, providing actionable guidance on sprint capacity, portfolio prioritization, team health, and process improvement. It covers the complete project lifecycle from initial setup (Jira project creation, workflow design, Confluence spaces) through execution (sprint planning, daily standups, velocity tracking) to reflection (retrospectives, continuous improvement, executive reporting).
 
+
+## Trigger Conditions
+
+- User needs to set up or manage a Jira project or board
+- User wants to generate a project status or stakeholder report
+- User needs to facilitate a sprint review, planning, or retro
+- User wants to track project risks, dependencies, or blockers
+- User needs a project plan, timeline, or WBS
+
+## Do NOT Use When
+
+- User needs user story writing — use cs-agile-product-owner
+- User needs product roadmap or prioritisation — use cs-product-manager
 ## Skill Integration
 
 ### Senior PM

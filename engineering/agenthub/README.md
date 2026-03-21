@@ -185,8 +185,7 @@ All scripts support `--help` for full usage and `--demo` for example output.
 ### Claude Code
 
 ```bash
-# Install from ClawHub
-claude install agenthub
+# Available in ~/.claude/skills/claude-skills/
 
 # Or add manually — copy the engineering/agenthub/ folder to your project,
 # then add to your .claude/settings.json:

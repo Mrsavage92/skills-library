@@ -1,6 +1,6 @@
 ---
 name: tech-debt
-description: Scan, prioritize, and report technical debt. Usage: /tech-debt <scan|prioritize|report> [options]
+description: "Scan, prioritise, and report technical debt across a codebase with effort/impact scoring. Use when planning a tech debt reduction sprint, justifying refactoring to stakeholders, or auditing a legacy codebase before migration."
 ---
 
 # /tech-debt
@@ -15,6 +15,14 @@ Scan codebases for technical debt, score severity, and generate prioritized reme
 /tech-debt report <project-dir>         Full dashboard with trends
 ```
 
+
+## Quick Start
+
+```
+/tech-debt scan ./src         # scan for debt
+/tech-debt prioritize        # rank by impact/effort
+/tech-debt report            # generate stakeholder report
+```
 ## Examples
 
 ```
@@ -30,3 +38,9 @@ Scan codebases for technical debt, score severity, and generate prioritized reme
 
 ## Skill Reference
 → `engineering/tech-debt-tracker/SKILL.md`
+
+## Related Skills
+
+- /tdd
+- /pipeline
+- cs-senior-engineer

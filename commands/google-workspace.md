@@ -1,11 +1,19 @@
 ---
 name: google-workspace
-description: "Google Workspace CLI operations: setup diagnostics, security audit, recipe discovery, and output analysis. Usage: /google-workspace <setup|audit|recipe|analyze> [options]"
+description: "Run Google Workspace CLI diagnostics, security audits, and automation recipes via the gws tool. Use when auditing workspace security, automating Gmail/Drive/Sheets, or managing Google Workspace configuration."
 ---
 
 # /google-workspace
 
 Google Workspace CLI administration via the `gws` CLI. Run setup diagnostics, security audits, browse and execute recipes, and analyze command output.
+
+## Quick Start
+
+```bash
+/google-workspace setup
+/google-workspace audit --services gmail,drive
+/google-workspace recipe list --persona pm
+```
 
 ## Usage
 
@@ -33,11 +41,13 @@ Google Workspace CLI administration via the `gws` CLI. Run setup diagnostics, se
 
 ## Scripts
 
-- `engineering-team/google-workspace-cli/scripts/gws_doctor.py` — Pre-flight diagnostics
-- `engineering-team/google-workspace-cli/scripts/auth_setup_guide.py` — Auth setup guide
-- `engineering-team/google-workspace-cli/scripts/gws_recipe_runner.py` — Recipe catalog & runner
-- `engineering-team/google-workspace-cli/scripts/workspace_audit.py` — Security audit
-- `engineering-team/google-workspace-cli/scripts/output_analyzer.py` — JSON/NDJSON analyzer
+Scripts are optional — if unavailable, Claude will guide you through equivalent `gws` CLI commands manually.
+
+- `engineering-team/google-workspace-cli/scripts/gws_doctor.py` — Pre-flight diagnostics (optional)
+- `engineering-team/google-workspace-cli/scripts/auth_setup_guide.py` — Auth setup guide (optional)
+- `engineering-team/google-workspace-cli/scripts/gws_recipe_runner.py` — Recipe catalog & runner (optional)
+- `engineering-team/google-workspace-cli/scripts/workspace_audit.py` — Security audit (optional)
+- `engineering-team/google-workspace-cli/scripts/output_analyzer.py` — JSON/NDJSON analyzer (optional)
 
 ## Subcommands
 
@@ -55,7 +65,7 @@ python3 engineering-team/google-workspace-cli/scripts/workspace_audit.py [--serv
 ```
 
 ### recipe
-Browse, search, and execute the 43 built-in gws recipes.
+Browse, search, and execute the built-in gws recipes.
 ```bash
 python3 engineering-team/google-workspace-cli/scripts/gws_recipe_runner.py --list [--persona <role>] [--json]
 python3 engineering-team/google-workspace-cli/scripts/gws_recipe_runner.py --search <keyword> [--json]
@@ -71,7 +81,11 @@ python3 engineering-team/google-workspace-cli/scripts/output_analyzer.py --demo 
 ```
 
 ## Skill Reference
--> `engineering-team/google-workspace-cli/SKILL.md`
 
-## Related Commands
-- No direct dependencies (self-contained Google Workspace skill)
+`engineering-team/google-workspace-cli/SKILL.md`
+
+## Related Skills
+
+- `/pipeline` — Automate Workspace audit steps in a CI/CD workflow
+- `/project-health` — Combine Workspace activity data with project health metrics
+- `/changelog` — Log Workspace configuration changes in a structured changelog

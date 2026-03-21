@@ -12,7 +12,7 @@ description: "ISO 27001 ISMS implementation and cybersecurity governance for Hea
 </div>
 
 <div class="install-banner" markdown>
-<span class="install-label">Install:</span> <code>claude /plugin install ra-qm-skills</code>
+<span class="install-label">Install:</span> <code>claude # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/</code>
 </div>
 
 

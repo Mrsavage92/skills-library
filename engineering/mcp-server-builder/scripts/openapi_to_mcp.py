@@ -69,7 +69,7 @@ def parse_openapi(raw: str) -> Dict[str, Any]:
         return json.loads(raw)
     except json.JSONDecodeError:
         try:
-            import yaml  # type: ignore
+            import yaml  # optional: stdlib-first, yaml only if JSON fails
 
             parsed = yaml.safe_load(raw)
             if not isinstance(parsed, dict):

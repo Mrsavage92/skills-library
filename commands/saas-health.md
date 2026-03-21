@@ -1,6 +1,6 @@
 ---
 name: saas-health
-description: Calculate SaaS health metrics (ARR, MRR, churn, CAC, LTV, NRR) and benchmark against industry standards. Usage: /saas-health <metrics|quick-ratio|simulate> [options]
+description: "Calculate SaaS health metrics (ARR, MRR, churn, CAC, LTV, NRR, quick ratio) and benchmark against industry standards. Use when reviewing business health, preparing investor updates, or diagnosing growth/retention issues."
 ---
 
 # /saas-health
@@ -15,6 +15,14 @@ Calculate SaaS financial health metrics from raw business numbers, benchmark aga
 /saas-health simulate --mrr <amount> --growth <pct> --churn <pct> --cac <amount> [--json]
 ```
 
+
+## Quick Start
+
+```
+/saas-health metrics data.json      # full metrics report
+/saas-health quick-ratio data.json  # quick ratio only
+/saas-health simulate               # model scenarios
+```
 ## Examples
 
 ```
@@ -33,3 +41,9 @@ Calculate SaaS financial health metrics from raw business numbers, benchmark aga
 
 ## Related Commands
 - `/financial-health` — Traditional financial analysis (ratios, DCF, budgets)
+
+## Related Skills
+
+- /financial-health
+- cs-financial-analyst
+- cs-growth-strategist

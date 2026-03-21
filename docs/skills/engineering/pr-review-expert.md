@@ -12,7 +12,7 @@ description: "PR Review Expert. Agent skill for Claude Code, Codex CLI, Gemini C
 </div>
 
 <div class="install-banner" markdown>
-<span class="install-label">Install:</span> <code>claude /plugin install engineering-advanced-skills</code>
+<!-- Skills are available directly as Claude Code slash commands -->
 </div>
 
 

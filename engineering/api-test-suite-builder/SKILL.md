@@ -1,6 +1,6 @@
 ---
 name: "api-test-suite-builder"
-description: "API Test Suite Builder"
+description: "Generate comprehensive API test suites (unit, integration, contract, load) from OpenAPI specs or existing endpoints. Use when setting up API testing, building CI test pipelines, or validating API contracts before deployment."
 ---
 
 # API Test Suite Builder

@@ -1,6 +1,6 @@
 ---
 name: cs-ux-researcher
-description: UX research agent for research planning, persona generation, journey mapping, and usability test analysis
+description: "UX Research specialist for research planning, user persona generation, journey mapping, usability test design, and insight synthesis. Spawn when users need to plan user research, create personas from data, map user journeys, design usability tests, or synthesise interview findings into actionable insights."
 skills: product-team/ux-researcher-designer, product-team/product-manager-toolkit, product-team/ui-design-system
 domain: product
 model: sonnet
@@ -17,6 +17,19 @@ This agent is designed for UX researchers, product designers wearing the researc
 
 The cs-ux-researcher agent ensures that user needs drive product development. It provides methodological rigor for research planning, data-driven persona creation, systematic journey mapping, and structured usability evaluation. The agent works closely with the ui-design-system skill for design handoff and with the product-manager-toolkit for translating research insights into prioritized feature requirements.
 
+
+## Trigger Conditions
+
+- User wants to plan or conduct user research
+- User needs user personas created from data or assumptions
+- User wants a user journey map or service blueprint
+- User is designing a usability test or interview guide
+- User needs to synthesise research findings into insights
+
+## Do NOT Use When
+
+- User needs product analytics or A/B testing — use cs-product-analyst
+- User needs full product requirements — use cs-product-manager
 ## Skill Integration
 
 **Primary Skill:** `../../product-team/ux-researcher-designer/`

@@ -236,8 +236,7 @@ The coordinator should act when:
 # Copy to your Claude Code skills directory
 cp -r engineering/agenthub ~/.claude/skills/agenthub
 
-# Or install via ClawHub
-clawhub install agenthub
+# Available in ~/.claude/skills/claude-skills/
 ```
 
 ## Scripts

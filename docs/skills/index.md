@@ -48,12 +48,12 @@ Browse 177 production-ready skills across 9 domains.
 
     ```bash
     # Add the marketplace
-    /plugin marketplace add alirezarezvani/claude-skills
+    # Skills installed at ~/.claude/skills/claude-skills/
 
     # Install any skill bundle
-    /plugin install engineering-skills@claude-code-skills
-    /plugin install marketing-skills@claude-code-skills
-    /plugin install c-level-skills@claude-code-skills
+    # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/
+    # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/
+    # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/
     ```
 
 === "Gemini CLI"
@@ -413,7 +413,7 @@ pie title 250 Python Tools by Domain
     Add a skill bundle or individual skill via the plugin marketplace.
 
     ```bash
-    /plugin install engineering-skills@claude-code-skills
+    # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/
     ```
 
 -   :material-numeric-2-circle:{ .lg .middle } **Trigger**

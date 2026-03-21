@@ -474,7 +474,7 @@ cp -r claude-skills/engineering/terraform-patterns ~/.claude/skills/
 
 ### OpenClaw
 ```bash
-clawhub install terraform-patterns
+# Available in ~/.claude/skills/claude-skills/
 ```
 
 ---

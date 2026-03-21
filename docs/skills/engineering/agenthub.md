@@ -12,7 +12,7 @@ description: "Multi-agent collaboration plugin that spawns N parallel subagents 
 </div>
 
 <div class="install-banner" markdown>
-<span class="install-label">Install:</span> <code>claude /plugin install engineering-advanced-skills</code>
+<!-- Skills are available directly as Claude Code slash commands -->
 </div>
 
 
@@ -241,8 +241,7 @@ The coordinator should act when:
 # Copy to your Claude Code skills directory
 cp -r engineering/agenthub ~/.claude/skills/agenthub
 
-# Or install via ClawHub
-clawhub install agenthub
+# Available in ~/.claude/skills/claude-skills/
 ```
 
 ## Scripts

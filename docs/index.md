@@ -255,10 +255,10 @@ hide:
 
     ```bash
     # Add the marketplace
-    /plugin marketplace add alirezarezvani/claude-skills
+    # Skills installed at ~/.claude/skills/claude-skills/
 
     # Install any skill bundle
-    /plugin install engineering-skills@claude-code-skills
+    # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/
     ```
 
 === "OpenAI Codex"

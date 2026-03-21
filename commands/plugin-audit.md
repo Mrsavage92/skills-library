@@ -1,6 +1,6 @@
 ---
 name: plugin-audit
-description: |
+description: "Run a comprehensive audit of skills, agents, and commands for structure, quality, security, and compatibility. Use when validating a skill before publishing, checking skill library health, or debugging broken skills."
   Comprehensive audit pipeline for skills, plugins, agents, and commands. Validates structure,
   quality, security, marketplace compliance, cross-platform compatibility, and ecosystem integration.
   Runs all built-in validation tools, invokes domain-appropriate agents for code review,
@@ -19,6 +19,14 @@ Full audit pipeline for any skill, plugin, agent, or command in this repository.
 /plugin-audit engineering-team/playwright-pro
 ```
 
+
+## Quick Start
+
+```
+/plugin-audit ~/.claude/skills/claude-skills/engineering/agenthub
+/plugin-audit ~/.claude/commands/prd.md
+/plugin-audit ~/.claude/agents/cs-senior-engineer.md
+```
 ## What It Does
 
 Execute all 8 phases sequentially. Stop on critical failures. Auto-fix non-critical issues. Report results at the end.
@@ -310,3 +318,9 @@ Present results as a structured table:
 | Quality Standards | `standards/quality/quality-standards.md` |
 | Security Standards | `standards/security/security-standards.md` |
 | Git Standards | `standards/git/git-workflow-standards.md` |
+
+## Related Skills
+
+- /tech-debt
+- /changelog
+- cs-senior-engineer

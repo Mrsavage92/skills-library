@@ -14,11 +14,11 @@ Choose your platform and follow the steps:
     <ol class="install-steps">
       <li>
         <strong>Add the marketplace</strong>
-        <pre><code>/plugin marketplace add alirezarezvani/claude-skills</code></pre>
+        <pre><code># Skills installed at ~/.claude/skills/claude-skills/</code></pre>
       </li>
       <li>
         <strong>Install the skills you need</strong>
-        <pre><code>/plugin install engineering-skills@claude-code-skills</code></pre>
+        <pre><code># Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/</code></pre>
       </li>
       <li>
         <strong>Use them immediately</strong> — skills activate as slash commands or contextual expertise.
@@ -140,17 +140,17 @@ Choose your platform and follow the steps:
 
 | Bundle | Install Command | Skills |
 |--------|----------------|--------|
-| **Engineering Core** | `/plugin install engineering-skills@claude-code-skills` | 26 |
-| **Engineering POWERFUL** | `/plugin install engineering-advanced-skills@claude-code-skills` | 30 |
-| **Product** | `/plugin install product-skills@claude-code-skills` | 14 |
-| **Marketing** | `/plugin install marketing-skills@claude-code-skills` | 43 |
-| **Regulatory & Quality** | `/plugin install ra-qm-skills@claude-code-skills` | 12 |
-| **Project Management** | `/plugin install pm-skills@claude-code-skills` | 6 |
-| **C-Level Advisory** | `/plugin install c-level-skills@claude-code-skills` | 28 |
-| **Business & Growth** | `/plugin install business-growth-skills@claude-code-skills` | 4 |
-| **Finance** | `/plugin install finance-skills@claude-code-skills` | 2 |
+| **Engineering Core** | `# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/` | 26 |
+| **Engineering POWERFUL** | `# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/` | 30 |
+| **Product** | `# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/` | 14 |
+| **Marketing** | `# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/` | 43 |
+| **Regulatory & Quality** | `# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/` | 12 |
+| **Project Management** | `# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/` | 6 |
+| **C-Level Advisory** | `# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/` | 28 |
+| **Business & Growth** | `# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/` | 4 |
+| **Finance** | `# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/` | 2 |
 
-Or install individual skills: `/plugin install skill-name@claude-code-skills`
+Or install individual skills: `# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/`
 
 <hr class="section-divider">
 
@@ -239,7 +239,7 @@ See the [Skills & Agents Factory](https://github.com/alirezarezvani/claude-code-
     No. Skills work locally with no external API calls. All Python tools use stdlib only.
 
 ??? question "Can I install individual skills instead of bundles?"
-    Yes. Use `/plugin install skill-name@claude-code-skills` for any single skill.
+    Yes. Use `# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/` for any single skill.
 
 ??? question "Do skills conflict with each other?"
     No. Each skill is self-contained with no cross-dependencies.

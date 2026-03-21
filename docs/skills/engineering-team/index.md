@@ -12,7 +12,7 @@ description: "41 engineering - core skills — engineering agent skill and Claud
 </div>
 
 <div class="install-banner" markdown>
-<span class="install-label">Install all:</span> <code>claude /plugin install engineering-skills</code>
+<span class="install-label">Install all:</span> <code>claude # Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/</code>
 </div>
 
 <div class="grid cards" markdown>

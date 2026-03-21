@@ -1,6 +1,6 @@
 ---
 name: "codebase-onboarding"
-description: "Codebase Onboarding"
+description: "Rapidly generate architecture summaries, dependency maps, entry points, and contributor guides for unfamiliar codebases. Use when joining a new project, onboarding new engineers, or auditing legacy code structure."
 ---
 
 # Codebase Onboarding

@@ -28,13 +28,13 @@ Promoting a pattern from memory to rules fundamentally changes how Claude treats
 
 ### Claude Code
 ```
-/plugin marketplace add alirezarezvani/claude-skills
-/plugin install self-improving-agent@claude-code-skills
+# Skills installed at ~/.claude/skills/claude-skills/
+# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/
 ```
 
 ### OpenClaw
 ```bash
-clawhub install self-improving-agent
+# Install: skill is available locally in ~/.claude/skills/claude-skills/
 ```
 
 ### Codex CLI
@@ -85,7 +85,7 @@ Space freed for new learnings
 
 ## Credits
 
-Inspired by [pskoett/self-improving-agent](https://clawhub.ai/pskoett/self-improving-agent) — a structured learning loop for AI coding agents. This plugin builds on that concept by integrating natively with Claude Code's auto-memory system.
+Inspired by [self-improving-agent](https://github.com/alirezarezvani/claude-skills/tree/main/engineering-team/self-improving-agent) — a structured learning loop for AI coding agents. This plugin builds on that concept by integrating natively with Claude Code's auto-memory system.
 
 ## License
 
