@@ -470,7 +470,7 @@ def parse_exec_summary(content):
 def parse_detailed_analysis(content):
     secs = []
     for m in re.finditer(
-        r'###\s+Category\s+\d+:\s+(.+?)\s+\((\d+)/100\)(.*?)(?=###\s+Category|\Z)',
+        r'###\s+Category\s+\d+:\s+(.+?)\s+\((\d+)/100\)(.*?)(?=\n#|\Z)',
         content, re.DOTALL
     ):
         secs.append({
@@ -687,8 +687,12 @@ def build_action_plan(quick_wins, strategic, longterm, st):
     el.append(AccentBar())
     el.append(Spacer(1, 0.45 * cm))
 
+    first_tier = [True]
     def tier(title, items, color, bg):
         if not items: return
+        if not first_tier[0]:
+            el.append(PageBreak())
+        first_tier[0] = False
         el.append(_section_hdr(title, color))
         el.append(Spacer(1, 0.2 * cm))
         for i, item in enumerate(items, 1):
@@ -743,8 +747,12 @@ def _render_cat_body(body, el, st, col):
     # Split on blank lines for major paragraph groups
     for block in re.split(r'\n\n+', body.strip()):
         block = block.strip()
-        if not block or re.match(r'^-{2,}$', block.strip()):
-            continue
+        if not block: continue
+        # Skip dividers, markdown table rows, heading lines, italic footers
+        if re.match(r'^-{2,}$', block): continue
+        if block.startswith('|'): continue
+        if block.startswith('#'): continue
+        if block.startswith('*Generated') or block.startswith('*Audit'): continue
 
         lines = block.splitlines()
         first = lines[0].strip()
@@ -803,6 +811,10 @@ def build_detailed_analysis(secs, st):
         col = CAT_COLS[i % len(CAT_COLS)]
         g   = grade(sc)
 
+        # Each category on its own page (except the first which follows the section title)
+        if i > 0:
+            el.append(PageBreak())
+
         # Category header banner
         hdr_t = Table([[
             HP(f'<font color="#FFFFFF"><b>{esc(sec["name"])}</b></font>',
@@ -824,10 +836,6 @@ def build_detailed_analysis(secs, st):
         el.append(KeepTogether([hdr_t, Spacer(1, 0.3 * cm)]))
 
         _render_cat_body(sec["body"], el, st, col)
-
-        el.append(Spacer(1, 0.5 * cm))
-        el.append(HRule())
-        el.append(Spacer(1, 0.4 * cm))
 
     el.append(NextPageTemplate("content"))
     el.append(PageBreak())
