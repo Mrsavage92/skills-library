@@ -43,16 +43,48 @@ Extract these signals before writing any queries:
 | Print / brochure | Any | 3000px+ on short side | Must be high-res |
 | Facebook/LinkedIn post | Landscape (1.91:1) | 1200×628 | Subject centred |
 
+### Demographic Anchoring — MANDATORY for Australian contexts
+
+Adding "Australia" to a query is NOT enough. Stock platforms tag images by subject matter, not geography — "wedding Australia" still returns South Asian bridal content because those images are also tagged "wedding" and some are tagged "Australia". You must anchor the demographic visually.
+
+**Rule: When the context is Anglo-Australian (the default for most Australian business, lifestyle, and consumer content), every top 3 query must include at least one visual anchor from the list below.**
+
+**Visual anchors that force Western/Anglo results:**
+
+| Anchor Term | Use When |
+|-------------|----------|
+| `white wedding dress` | Any bridal/wedding query |
+| `boho bride outdoor` | Bridal — very Anglo-Australian style |
+| `bride veil natural light garden` | Bridal ceremony or prep |
+| `fair skin natural makeup` | Beauty/makeup queries |
+| `blonde woman` or `light hair woman` | Portrait/lifestyle queries |
+| `white dress outdoor` | General women's lifestyle |
+| `coastal lifestyle` | Any Australian outdoor lifestyle |
+| `eucalyptus leaves wedding` | Wedding details — Australian flora signal |
+| `white bridesmaids dresses` | Bridal party shots |
+| `flat white coffee cafe` | Australian lifestyle/food |
+| `weatherboard house` or `beach shack` | Australian home/environment |
+| `woman freckles natural light` | Beauty — anchors to Western aesthetic |
+| `linen shirt outdoor` | Casual lifestyle — avoids formal South Asian attire |
+
+**What NOT to rely on:**
+- "Australian" alone — insufficient, platforms still return South Asian content tagged with Australian cities
+- "Western wedding" — too vague, inconsistently tagged
+- Country names for beauty/makeup queries — ignored by platform algorithms entirely
+
 ### Regional Red Flags (platform defaults to watch for)
 
-- **"wedding"** → defaults to South Asian/Indian. Fix: "Australian wedding", "beach wedding outdoor", "garden wedding western"
-- **"family"** → defaults to US suburban indoor. Fix: "Australian family outdoors", "family beach Australia"
-- **"doctor" / "nurse"** → defaults to US clinical. Fix: "Australian GP", "doctor patient consultation natural light"
-- **"food"** → defaults to American or generic. Fix: "Australian brunch", "flat white cafe Melbourne", "avocado toast cafe"
-- **"office"** → defaults to US corporate dark. Fix: "Australian office natural light", "open plan office bright"
+- **"wedding"** → heavy South Asian/Indian default. Fix: "white wedding dress outdoor natural light", "boho bride veil garden", "bride getting ready morning window light"
+- **"bridal" / "bride"** → same South Asian default. Fix: always add "white gown", "veil", or "boho" to anchor Western style
+- **"makeup artist"** → defaults to dark dramatic editorial or South Asian bridal makeup. Fix: "makeup artist natural light fair skin", "soft glam makeup artist woman window"
+- **"beauty" / "facial"** → defaults to Asian skincare editorial. Fix: "natural beauty portrait fair skin", "woman glowing skin natural light"
+- **"family"** → defaults to US suburban indoor. Fix: "family beach outdoor Australia", "family coastal lifestyle"
+- **"doctor" / "nurse"** → defaults to US clinical. Fix: "Australian GP natural light", "doctor patient consultation warm light"
+- **"food"** → defaults to American or generic. Fix: "flat white cafe", "avocado toast natural light", "Australian brunch outdoor"
+- **"office"** → defaults to US corporate dark. Fix: "open plan office natural light", "woman laptop cafe natural light"
 - **"city"** → always name it: "Sydney skyline", "Melbourne CBD laneway", "Brisbane riverside"
-- **"school"** → defaults to US. Fix: "Australian school", "primary school outdoor Australia"
-- **"people smiling"** → returns generic US/European stock poses. Fix: add context: "friends cafe Australia", "team meeting casual"
+- **"school"** → defaults to US. Fix: "Australian school outdoor", "kids playing outdoors natural light"
+- **"people smiling"** → generic US/South Asian poses. Fix: "friends laughing cafe outdoor", "women coffee morning light"
 
 ---
 
@@ -60,9 +92,16 @@ Extract these signals before writing any queries:
 
 Generate **10 search queries** ranked from best expected match to acceptable fallback. Each query must:
 - Include a geographic/cultural qualifier where relevant
+- **For Anglo-Australian contexts: queries 1–3 MUST include a visual demographic anchor from the Demographic Anchoring table above** — do not rely on "Australia" alone
 - Use natural language, not keyword strings (platforms index phrases, not Boolean)
 - Balance specificity (good match) with breadth (enough results)
 - Note the likely result count risk: HIGH = many results, MEDIUM = some, LOW = sparse
+
+**Demographic anchor rule in practice:**
+- BAD: "bridal makeup Australia" → still returns South Asian content
+- GOOD: "makeup artist woman fair skin natural window light" → visually anchored to Western aesthetic
+- BAD: "wedding couple Australia" → still returns South Asian ceremony content
+- GOOD: "bride white gown outdoor garden natural light" → white gown = unambiguous Western signal
 
 ### Query Table Format
 
@@ -262,7 +301,7 @@ A photo is worth using if it has at least 3 of these:
 
 ## Example Invocations
 
-- `/stock-photos wedding in Australia` → flags South Asian default, generates "beach wedding outdoor Australia", "garden ceremony natural light", fetches real Unsplash/Pexels results
-- `/stock-photos diverse team meeting Sydney office` → uses rawpixel for diversity-first results, warns about US corporate defaults
+- `/stock-photos wedding in Australia` → flags South Asian default, uses "white wedding dress outdoor" and "boho bride veil garden" as anchors
+- `/stock-photos makeup artist Sunshine Coast` → uses "makeup artist fair skin natural window light" not "makeup artist Australia"
 - `/stock-photos GP doctor patient consultation Australia` → avoids US clinical settings, suggests "healthcare natural light Australia" angle
-- `/stock-photos family on Australian beach summer` → strong Unsplash/Pexels results, NZ fallback if sparse
+- `/stock-photos family on Australian beach summer` → uses "coastal lifestyle" anchor, NZ fallback if sparse
