@@ -168,16 +168,44 @@ H2: 🚀 Forward Roadmap
 ```
 
 ### Meeting Notes
+
+**Rule:** When creating a meeting notes page for an UPCOMING meeting (not a retrospective), always include the three prep sections below — What to Say, Risks, and Pre-Meeting Prep. These must be specific to the meeting context, never generic placeholders. Pull from the conversation to populate them.
+
 ```
 📌 [Meeting name] — [Date]
 [Attendees: ... | Duration: ...]
 ─────
+H2: 📋 Meeting Details        ← table: date, time, location, duration
+H2: 👥 Attendees
 H2: 🎯 Purpose
-H2: 📋 Discussion
-H2: 💡 Decisions Made
-H2: ✅ Action Items
-  □ [action] — owner — due date
+H2: 📋 Agenda
+─── divider ───
+H2: ⚡ Key Numbers / Context  ← callout with the critical data point (e.g. the number being discussed)
+─── divider ───
+H2: 🗣 What to Say            ← specific lines: Opening, The Ask, If Asked Why, Close
+H2: ⚠️ Risks                  ← named risks with specific rebuttals, not generic warnings
+H2: 📋 Pre-Meeting Prep       ← checkbox list of concrete tasks to do before the call
+─── divider ───
+H2: 🗒 Discussion Notes       ← left blank to fill live
+H2: 💡 Decisions Made         ← left blank
+H2: ✅ Action Items            ← table: action / owner / due date / status (pre-fill known items)
+H2: 🚀 Next Steps             ← checkboxes
 ```
+
+**What to Say section rules:**
+- Use H3 subheadings: Opening / The Ask / If Asked Why / Close
+- Each point is a bullet with an actual sentence Adam can say
+- Never write "explain X" — write the actual words
+
+**Risks section rules:**
+- Name each risk as an H3 (e.g. "Rate Dispute", "System Limitation")
+- Each risk bullet includes what to say if it comes up — a specific rebuttal, not just awareness
+- Use a red callout at the top: "Nothing below should catch you off guard on the call."
+
+**Pre-Meeting Prep rules:**
+- Checkbox items only — concrete, completable tasks
+- Include: numbers to verify, documents to read, info to have on hand, things to prepare
+- Use a yellow callout with the meeting time as urgency anchor
 
 ### Research / Analysis Doc
 ```
@@ -253,13 +281,14 @@ def table(headers, rows):
 
 ## Rules
 
-1. **Always put project docs under the correct project** — never at hub root
-2. **Always start with the hero callout** — one emoji + one sentence
-3. **Always end with a Next Steps section** with checkbox items
-4. **Use dividers** between H2 sections for visual breathing room
-5. **Use toggles** for anything longer than 3 lines that isn't immediately needed
-6. **Use tables** for any comparison data (pricing, features, metrics)
-7. **Use callouts** to highlight decisions, warnings, and key insights
-8. **Max 2000 chars per text block** — split long content across multiple paragraphs
-9. **Chunk API calls** — max 99 blocks per PATCH request
-10. After creating, print the Notion URL: `https://notion.so/{page_id_no_dashes}`
+1. **Never use em dashes (—) anywhere** - use a hyphen (-) only. No exceptions.
+2. **No emojis in shared/internal docs** - no emoji anywhere: headings, callout icons, bullets, page icons, or body text. Use a plain text icon (e.g. "•") for callout icons. Formatting (callouts, tables, dividers) is encouraged - just no emoji symbols.
+3. **Always put project docs under the correct project** - never at hub root
+4. **Structure shared docs in logical reading order** - context and current state before solutions, solutions before actions. Never append sections to the bottom without considering the full flow.
+5. **Always end with a Next Steps or Actions section** with checkbox items
+6. **Use dividers** between H2 sections for visual breathing room
+7. **Use tables** for any comparison data (pricing, features, metrics, statuses)
+8. **Use quote blocks for important notes in shared docs** - Notion forces a real emoji on callout icons, so use quote blocks instead. `{'object':'block','type':'quote','quote':{'rich_text':[t(text, bold=True)]}}` renders as a bold indented block with a left border - clean and no emoji required. Callouts with emoji icons are only acceptable in personal/private pages.
+9. **Max 2000 chars per text block** - split long content across multiple paragraphs
+10. **Chunk API calls** - max 99 blocks per PATCH request
+11. After creating, print the Notion URL: `https://notion.so/{page_id_no_dashes}`
