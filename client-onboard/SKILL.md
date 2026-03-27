@@ -1,3 +1,7 @@
+---
+description: "GrowLocal client onboarding automation — creates Supabase record, generates copy, builds Lovable prompt, sends welcome email, creates Notion page. Use for new client intake."
+---
+
 # /client-onboard
 
 Onboard a new GrowLocal client from zero to ready-to-build in minutes. Creates their Supabase record, generates website copy via AI, produces a Lovable build prompt tailored to their industry, configures automation templates, sends a welcome email, and creates a Notion client page with delivery checklist.

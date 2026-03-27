@@ -1,3 +1,7 @@
+---
+description: "GrowLocal client go-live automation — marks a client site as live, activates Supabase record, sends go-live email, updates Notion checklist. Use after client approves preview."
+---
+
 # /client-golive
 
 Marks a GrowLocal client website as live. Run this when the client has approved their preview site. Activates their Supabase record, calls the go-live edge function, sends a "You're live!" email to the client, and updates their Notion delivery checklist.
