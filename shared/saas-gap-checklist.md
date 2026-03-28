@@ -159,18 +159,55 @@ Run this checklist against the built product. Every NO is an improvement task to
 | 12.7 | Landing page CTA is visible above the fold | Check HeroSection |
 | 12.8 | /blog or /changelog exists (for SEO) | Check App.tsx routes |
 
+## 13. Backend & API Security (skip section if frontend-only SaaS with no FastAPI backend)
+
+| # | Check | How to verify |
+|---|---|---|
+| 13.1 | CORS locked to production domain — never `*` | Check FastAPI CORS middleware |
+| 13.2 | All API endpoints require authentication (no public data mutation routes) | Check route decorators for auth dependency |
+| 13.3 | Input validation on all POST/PUT/PATCH endpoints (Pydantic models) | Check route handlers |
+| 13.4 | SQL queries use parameterized inputs — no string concatenation | Check any raw SQL usage |
+| 13.5 | Rate limiting on auth endpoints (login, signup, password reset) | Check for slowapi or similar |
+| 13.6 | Stripe webhook signature verified before processing | Check webhook handler for `stripe.Webhook.construct_event` |
+| 13.7 | Webhook handler is idempotent (re-processing same event is safe) | Check webhook handler for duplicate event handling |
+| 13.8 | Auth tokens expire — no infinite-lived JWTs | Check JWT expiry configuration |
+| 13.9 | Secrets loaded from environment variables — none hardcoded in source | Grep for hardcoded API keys |
+| 13.10 | `.env` is in `.gitignore` | Check .gitignore |
+| 13.11 | Health check endpoint exists at `/health` returning 200 | Check routes |
+| 13.12 | Error responses don't expose stack traces in production | Check error handler |
+
+## 14. Supabase RLS (skip if no Supabase)
+
+| # | Check | How to verify |
+|---|---|---|
+| 14.1 | RLS enabled on every table | Check Supabase dashboard or migration |
+| 14.2 | Users can only read their own org's data | Check SELECT policies |
+| 14.3 | Users can only write to their own org's data | Check INSERT/UPDATE/DELETE policies |
+| 14.4 | service_role key is never exposed to frontend | Grep src/ for service_role |
+| 14.5 | anon key only used for auth — not direct data access from client | Check supabase.ts client setup |
+
+## 15. Testing
+
+| # | Check | How to verify |
+|---|---|---|
+| 15.1 | Auth flow tests exist (sign up, sign in, protected route redirect) | Check src/tests/ |
+| 15.2 | Onboarding flow tests exist (steps complete, trial activates) | Check src/tests/ |
+| 15.3 | Empty state tests exist (data query returns empty, CTA renders) | Check src/tests/ |
+| 15.4 | Error state tests exist (data query errors, error component renders) | Check src/tests/ |
+| 15.5 | All tests pass: `npx vitest run` exits 0 | Run tests |
+
 ---
 
 ## Scoring
 
-Count YES answers. Total items: ~85.
+Count YES answers. Total items: ~110.
 
 | Score | Status |
 |---|---|
-| 80-85 | Ship-ready |
-| 70-79 | Minor gaps — fix before launch |
-| 60-69 | Significant gaps — improvement loop needed |
-| < 60 | Foundational issues — fix critical path first |
+| 100-110 | Ship-ready |
+| 85-99 | Minor gaps — fix before launch |
+| 70-84 | Significant gaps — improvement loop needed |
+| < 70 | Foundational issues — fix critical path first |
 
 When used by saas-build or saas-improve: every NO becomes an improvement task.
-Priority order: 1 (Foundation) > 3 (Auth) > 4 (Onboarding) > 6 (App quality) > 9 (a11y) > rest.
+Priority order: 1 (Foundation) > 13 (Backend security) > 14 (RLS) > 3 (Auth) > 4 (Onboarding) > 15 (Tests) > 6 (App quality) > 9 (a11y) > rest.
