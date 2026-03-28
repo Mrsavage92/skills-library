@@ -1,883 +1,1124 @@
 ---
 name: dashboard-design
 description: >
-  Enterprise dashboard design expert grounded in analysis of 40 SaaS products (Stripe, Linear, Vercel,
-  Datadog, HubSpot, Amplitude, Mixpanel and more). Covers the 20 Laws of Dashboard Design, layout
-  architecture, KPI card specs, chart selection, empty states, navigation patterns, notification tiers,
-  data fetching, animations, sidebar, date range, filter panel, export, real-time, and CMD+K.
-  Use when designing, building, or reviewing any SaaS dashboard.
+  Enterprise dashboard design expert grounded in deep analysis of 40 SaaS products across 8 categories.
+  Covers the 20 Laws of Dashboard Design, full per-product pattern library (all 40), layout architecture,
+  KPI card specs, chart selection, empty states, CMD+K search, animations, dark mode, mobile patterns,
+  onboarding wizards, date range pickers, and Claude Code implementation prompts.
 ---
 
 # Skill: Enterprise Dashboard Design Expert
 
 ## Purpose
-Design, critique, and build world-class SaaS dashboards grounded in patterns extracted from 40 enterprise products. Covers layout architecture, navigation models, KPI display, data visualization, empty states, onboarding integration, notification systems, data fetching, animations, and action patterns. Outputs design decisions, component specs, and Claude Code implementation prompts.
-
-**Use this skill when:**
-- Designing a dashboard from scratch
-- Reviewing an existing dashboard for improvement
-- Deciding on chart types, metric display, or layout
-- Building dashboard components in React + Tailwind + shadcn/ui
-- Evaluating what enterprise-grade looks like vs amateur
+Design, critique, and build world-class SaaS dashboards grounded in patterns from 40 enterprise products. Use when designing a dashboard from scratch, reviewing one for improvement, deciding on chart types or layout, building components in React + Tailwind + shadcn/ui, or evaluating what enterprise-grade looks like.
 
 ---
 
 ## The 40-Dashboard Corpus
 
-Research base: patterns synthesised from studying these enterprise products across 8 categories.
-
-**Analytics & Monitoring:** Datadog, Grafana, Mixpanel, Amplitude, Google Analytics 4, Segment, PostHog, Heap
-**Fintech/Payments:** Stripe, Brex, Mercury, Ramp, QuickBooks Online, Xero
-**CRM/Sales:** Salesforce Lightning, HubSpot CRM, Pipedrive, Close CRM, Attio
-**Project/Work Management:** Linear, Jira, Asana, Monday.com, Notion, ClickUp, Height
-**DevOps/Infrastructure:** Vercel, Railway, AWS Console, Render, Supabase
-**Customer Support:** Intercom, Zendesk, Freshdesk, Loom
-**Marketing:** Mailchimp, Klaviyo, Beehiiv, Buffer
-**Product Analytics:** Pendo
+| Category | Products |
+|---|---|
+| Analytics & Monitoring | Datadog, Grafana, Mixpanel, Amplitude, Google Analytics 4, Segment, PostHog, Heap |
+| Fintech/Payments | Stripe, Brex, Mercury, Ramp, QuickBooks Online, Xero |
+| CRM/Sales | Salesforce Lightning, HubSpot CRM, Pipedrive, Close CRM, Attio |
+| Project/Work Mgmt | Linear, Jira, Asana, Monday.com, Notion, ClickUp, Height |
+| DevOps/Infra | Vercel, Railway, AWS Console, Render, Supabase |
+| Customer Support | Intercom, Zendesk, Freshdesk, Loom |
+| Marketing | Mailchimp, Klaviyo, Beehiiv, Buffer |
+| Product Analytics | Pendo |
 
 ---
 
 ## The 20 Laws of Enterprise Dashboard Design
 
-Distilled from patterns appearing in 30+ of the 40 products studied.
-
 ### LAW 1 - ONE METRIC OWNS THE PAGE
-Every dashboard page has a single primary metric that answers "are we winning today?" All other data is context for that number. If you can't name the primary metric, the page isn't designed.
+Every page has a single primary metric answering "are we winning today?" All other data is context for that number. If you can't name the primary metric, the page isn't designed.
 
 ### LAW 2 - HIERARCHY BY PROXIMITY TO MONEY
 Arrange metrics top-to-bottom in order of business impact. Revenue/retention at top. Operational detail at bottom. Never bury ARR below feature usage.
 
 ### LAW 3 - TREND IS MORE VALUABLE THAN SNAPSHOT
-A number without a comparison is decoration. Every KPI card shows: current value, change %, comparison period, direction indicator. "$45K +12% vs last month" is information. "$45K" alone is useless.
+A number without a comparison is decoration. Every KPI card shows: current value + change % + comparison period + direction arrow. "$45K" is useless. "$45K +12% vs last month" is information.
 
 ### LAW 4 - LEFT SIDEBAR IS THE INDUSTRY DEFAULT
-38 of 40 products use left sidebar navigation. It wins because: persistent context, scales to 8+ sections, collapses gracefully, supports icon+label hierarchy. Deviate only when the product is document-centric (Notion) or command-driven (Linear's command palette).
+38 of 40 products use left sidebar navigation. It scales to 8+ sections, collapses gracefully, supports icon+label hierarchy. Deviate only for document-centric (Notion) or command-driven (Linear palette) products.
 
 ### LAW 5 - 5-7 METRICS PER PAGE MAXIMUM
-Stripe: 5 primary metrics. Linear: 4. Vercel: 6. Datadog breaks this rule and is universally called overwhelming by new users. Information density is not the same as information value.
+Stripe: 5. Linear: 4. Vercel: 6. Datadog breaks this and is universally called overwhelming by new users. Density is not value.
 
 ### LAW 6 - COLOR IS SEMANTIC, NOT DECORATIVE
-Green = improving. Red = declining/error. Yellow = warning/threshold. Blue = informational/neutral. Gray = inactive/historical. Violating this creates confusion. Brand color gets ONE job: active state or primary CTA. Never use brand color for metric trends.
+Green = improving. Red = declining/error. Yellow = warning. Blue = informational. Gray = inactive. Brand color gets ONE job: active state or primary CTA. Never use it for metric trends.
 
 ### LAW 7 - SPARKLINES ON EVERY KPI CARD
-37 of 40 products attach mini trend charts to KPI cards. A 40x20px sparkline adds pattern recognition without requiring the user to navigate to a full chart. Amplitude, Mixpanel, and Stripe pioneered this. It's now table stakes.
+37 of 40 products attach mini trend charts to KPI cards. A 40x20px sparkline adds pattern recognition without a full chart navigation. Table stakes now.
 
 ### LAW 8 - EMPTY STATES ARE ONBOARDING MOMENTS
-An empty table without a CTA is a dead end. Empty states must: name what's missing, explain the value in 1 sentence, provide exactly 1 primary action to fix it. Linear's empty states include animated illustrations and keyboard shortcuts. This is the bar.
+An empty table without a CTA is a dead end. Must have: what's missing + value in 1 sentence + 1 primary action. Linear's empty states include animated illustrations and keyboard shortcuts. That's the bar.
 
 ### LAW 9 - TABLES FOR PRECISION, CHARTS FOR PATTERNS
-The question is: "does the user need exact values or trend recognition?" Financial data, audit logs, transaction history = table. Revenue trend, user growth, funnel conversion = chart. When unsure, use both: chart above, table below.
+"Does the user need exact values or trend recognition?" Financial data, audit logs, transactions = table. Revenue trend, user growth, funnel = chart. When unsure: chart above, table below.
 
 ### LAW 10 - LOADING SKELETONS EVERYWHERE
-Users perceive skeleton loaders as faster than spinners, even at identical load times. All 40 products use skeleton loaders for their primary data surfaces. Blank space during load is a perceived reliability failure.
+Users perceive skeleton loaders as faster than spinners at identical load times. All 40 products use skeletons on primary data surfaces. Blank space during load = perceived reliability failure.
 
-### LAW 11 - MOBILE IS A REDUCED EXPERIENCE, NOT AN EQUAL ONE
-No enterprise SaaS has full feature parity on mobile. The pattern: sidebar collapses to hamburger, KPI grid goes to 1 column, charts resize but simplify, tables become card views. Design mobile as a monitoring surface, not a full workflow surface.
+### LAW 11 - MOBILE IS A MONITORING SURFACE, NOT A WORKFLOW SURFACE
+No enterprise SaaS has full mobile parity. Sidebar collapses to hamburger, KPI grid goes 1-column, charts simplify, tables become cards. Design mobile to check status, not complete work.
 
-### LAW 12 - ACTIONS BELONG IN THE HEADER, NOT IN THE DATA
-Primary CTA (New Report, Invite User, Create Invoice) lives in the top-right of the page header. Never bury it inside a card or after a table. Stripe, HubSpot, Linear, and Vercel all follow this pattern without exception.
+### LAW 12 - ACTIONS BELONG IN THE HEADER
+Primary CTA lives in the top-right of the page header. Never bury it in a card or after a table. Stripe, HubSpot, Linear, Vercel follow this without exception.
 
 ### LAW 13 - BULK ACTIONS APPEAR ONLY ON SELECTION
-The bulk action bar (Archive, Delete, Export, Move) is invisible until rows are selected. When visible, it appears as a sticky bar above or below the table. Never show bulk action buttons always-on - it creates decision paralysis.
+The bulk action bar is invisible until rows are selected. Appears as a floating pill or sticky bar. Never show bulk buttons always-on - creates decision paralysis.
 
-### LAW 14 - SETTINGS LIVE IN THE SIDEBAR BOTTOM
-Settings and user profile belong at the bottom-left of the sidebar. Top-right for user avatar/profile dropdown is acceptable as secondary placement. Never put settings in the middle of nav hierarchy.
+### LAW 14 - SETTINGS AT THE SIDEBAR BOTTOM
+Settings and user profile live at the bottom-left of the sidebar. Top-right user avatar dropdown is acceptable secondary placement. Never put settings mid-hierarchy.
 
 ### LAW 15 - NOTIFICATIONS ARE TIERED
-Three tiers: (1) Modal/banner for critical system-level events requiring acknowledgment, (2) Persistent banner for important actions required within a timeframe, (3) Toast for confirmations and non-critical updates. Toasts auto-dismiss in 4-6 seconds. Errors do not auto-dismiss.
+3 tiers: (1) Modal/banner for critical events requiring acknowledgment, (2) Persistent banner for time-sensitive actions, (3) Toast for confirmations. Toasts auto-dismiss in 4-6s. Errors never auto-dismiss.
 
 ### LAW 16 - DATE CONTEXT IS MANDATORY
-Every metric, chart, and table row includes a time reference. "Last 30 days," "Q1 2026," "Updated 2 min ago." Missing date context is the most common dashboard bug in SaaS products.
+Every metric, chart, and table row includes a time reference. "Last 30 days," "Q1 2026," "Updated 2 min ago." Missing date context is the most common dashboard bug in shipped SaaS products.
 
-### LAW 17 - INLINE EDITING FOR 1 FIELD, MODAL FOR 3+
-Click-to-edit inline works for: status changes, name edits, single value updates. Modals are required for: multi-field forms, related data that needs context, anything with validation across fields.
+### LAW 17 - INLINE EDIT FOR 1 FIELD, MODAL FOR 3+
+Click-to-edit inline: status changes, name edits, single values. Modals: multi-field forms, related data needing context, cross-field validation.
 
 ### LAW 18 - PROGRESSIVE DISCLOSURE OVER FLAT DENSITY
-Show the summary. Let users drill down. Amplitude starts with aggregate, click opens user-level. Stripe starts with total, click opens transaction list. The fold exists: put the insight above it, the detail below it.
+Show summary. Let users drill down. Amplitude: aggregate first, user-level on click. Stripe: total first, transaction list on click. Put the insight above the fold, the detail below.
 
 ### LAW 19 - SEARCH IS NAVIGATION AT SCALE
-When sidebar nav exceeds 8 items or the product has deep content, CMD+K search becomes the primary navigation mechanism. Linear's command palette is the gold standard. For any product with 10+ page types, global search is not optional.
+10+ page types or 50+ records = CMD+K command palette is non-optional. Linear's command palette is the gold standard. Power users navigate entirely by keyboard once they learn it.
 
 ### LAW 20 - CONSISTENCY BEATS CREATIVITY
-Every enterprise product that ages well enforces a rigid internal design system. Cards all look the same. Buttons use 2-3 variants. Spacing follows a 4px base grid. Products that look "busy" at 3 years old are the ones that made creative exceptions.
+Stripe, Linear, Vercel age well because they enforce rigid design systems. Cards identical. 2-3 button variants. 4px spacing grid. Products that look "busy" at 3 years old made creative exceptions.
+
+---
+
+## Per-Product Design Library (All 40)
+
+### Analytics & Monitoring
+
+**1. Datadog**
+- Layout: Left sidebar (220px) + persistent top filter bar. Dark mode default.
+- Signature: Maximum information density. Everything visible without clicking.
+- KPIs: Time-series charts as primary surface, not cards. Threshold lines on every chart.
+- Navigation: 15+ top-level sections organized in groups. Nested sidebar.
+- Colors: Dark (#1b1b1f bg). Semantic alert colors unchanged in dark mode.
+- Empty states: "No data for this time range" with time range adjustment CTA.
+- Mobile: Monitoring-only. Read-only dashboards, no editing.
+- Animation: Real-time chart updates with sliding window (no full re-render).
+- Copy: Time range selector (15m/1h/4h/1d/1w/custom) in persistent top bar.
+- Avoid: Overall complexity as a template - power tool, not a SaaS dashboard model.
+
+**2. Grafana**
+- Layout: Left sidebar (collapsible) + top time range + dashboard grid.
+- Signature: Fully composable drag-and-drop panel system. Users build their own dashboards.
+- KPIs: Stat panels (large number + sparkline). Gauge panels for threshold visualization.
+- Navigation: Dashboard folders in sidebar, panel-level navigation within boards.
+- Colors: Dark-first. Panel color themes (green/yellow/red threshold gradients).
+- Empty states: "Add your first panel" with + button prominently placed.
+- Mobile: Panels stack vertically. Edit mode disabled on mobile.
+- Animation: Live data streaming with websocket - values update in place.
+- Copy: Threshold coloring on stat panels (green <80%, yellow 80-90%, red >90%).
+- Avoid: Panel editor UI - extremely complex, not appropriate for SaaS dashboards.
+
+**3. Mixpanel**
+- Layout: Left sidebar (240px) + top report type tabs + chart area.
+- Signature: Event-based query builder. Any metric can be sliced by any property.
+- KPIs: Insight cards with trend line + % change. Stacked area for retention cohorts.
+- Navigation: Insights, Funnels, Retention, Flows, Users.
+- Colors: Purple accent (#7856ff). Multi-color chart series.
+- Empty states: "Create your first insight" with event property picker.
+- Mobile: Read-only dashboard view. Report building desktop-only.
+- Animation: Chart re-renders on filter change with 300ms fade.
+- Copy: Property filter builder above charts (event + breakdown + filter inline).
+- Avoid: Query builder density - overwhelming for non-analysts.
+
+**4. Amplitude**
+- Layout: Left sidebar + chart type switcher above visualization.
+- Signature: Chart type is a first-class choice shown prominently. Switch without rebuilding.
+- KPIs: Metric cards at top with comparison period always shown.
+- Navigation: Home (dashboards), Analyses (reports), Notebooks.
+- Colors: Blue accent (#2979ff). Multi-series distinct palette.
+- Empty states: Guided event selector with autocomplete on empty analysis.
+- Mobile: Dashboard viewer only.
+- Animation: Smooth transition between chart types (800ms morph).
+- Copy: A/B test annotation on timeline - vertical lines with experiment labels.
+- Avoid: Notebook feature - adds complexity most products don't need early.
+
+**5. Google Analytics 4**
+- Layout: Left sidebar + overview cards + expandable sections.
+- Signature: Explorations (custom analysis) separate from standard reports.
+- KPIs: Scorecard widgets with sparklines. Comparison to previous period always on.
+- Navigation: Reports (standard) / Explorations (custom) / Advertising.
+- Colors: Google blue (#1a73e8). Neutral grays. Minimal color.
+- Empty states: Data collection setup wizard for new properties.
+- Mobile: Reporting view only. Mobile app for monitoring.
+- Animation: Chart load with skeleton then fade.
+- Copy: Scorecard + sparkline combo in report header (4 across).
+- Avoid: Their navigation - famously confusing after the GA4 redesign.
+
+**6. Segment**
+- Layout: Left sidebar with workspace switcher at top.
+- Signature: Source/Destination architecture shown visually. Pipeline health as primary dashboard.
+- KPIs: Event volume charts. Success/error rates as primary metrics.
+- Navigation: Sources, Destinations, Connections, Protocols, Personas.
+- Colors: Green accent (#52bd95). Clean white.
+- Empty states: "Connect your first source" with integration catalog.
+- Mobile: Status monitoring only.
+- Animation: Event pipeline visualization with animated flow lines.
+- Copy: Integration health indicators (green/yellow/red) on every connection card.
+- Avoid: Protocols UI - extremely complex schema management.
+
+**7. PostHog**
+- Layout: Left sidebar (dark) + product analytics views.
+- Signature: Open-source. Session replay + heatmaps + analytics + feature flags in one.
+- KPIs: Trend charts with person-level drill-down on any data point.
+- Navigation: Product Analytics, Session Replay, Feature Flags, Experiments, Surveys.
+- Colors: Dark sidebar (#1d1f27), light content. Yellow accent for highlights.
+- Empty states: "Capture your first event" with SDK snippet shown inline.
+- Mobile: Limited - primarily desktop tool.
+- Animation: Session replay scrubber. Heatmap overlays on screenshots.
+- Copy: Clickable data points that drill to individual user sessions.
+- Avoid: Feature sprawl - UX is inconsistent across features.
+
+**8. Heap**
+- Layout: Left sidebar + auto-capture event browser.
+- Signature: Auto-captures ALL events without SDK instrumentation. Retroactive analysis.
+- KPIs: Labeled events with session counts. Conversion funnels without pre-setup.
+- Navigation: Dashboard, Charts, Funnels, Journeys, Retention.
+- Colors: Blue/indigo accent. Data-dense tables.
+- Empty states: Auto-populated with captured events immediately after install.
+- Mobile: Viewer only.
+- Animation: Journey maps with animated path weights.
+- Copy: Retroactive funnel definition - define conversion after data is collected.
+- Avoid: Raw event list is overwhelming before labeling/organizing events.
+
+---
+
+### Fintech/Payments
+
+**9. Stripe**
+- Layout: Left sidebar (240px) + clean white + generous padding.
+- Signature: Merchant of record simplicity. Every surface oriented around money movement.
+- KPIs: 5 primary metrics (Gross volume, Net volume, New customers, Failed payments, Disputes). Sparklines on each.
+- Navigation: Home, Payments, Billing, Connect, Radar, Reports, Developers.
+- Colors: Indigo (#635BFF) used sparingly. Semantic green/red for money up/down.
+- Empty states: "Accept your first payment" with API keys and quickstart code.
+- Mobile: Stripe Dashboard app - full-featured, best-in-class mobile SaaS dashboard.
+- Animation: Number count-up on KPI load. Transaction list fade-in.
+- Copy: Sparklines on every metric card. Breadcrumbs on every detail page.
+- Avoid: Developer/API section as a model - highly specialized.
+
+**10. Brex**
+- Layout: Left sidebar + card/spending-centric views.
+- Signature: Spending analytics as primary dashboard. Budget vs actual front and center.
+- KPIs: Spend by category donut + monthly trend. Budget utilization progress bars.
+- Navigation: Overview, Cards, Payments, Travel, Expenses, Budgets.
+- Colors: Mint green (#00A693) accent. Dark sidebar option.
+- Empty states: "Issue your first card" with team member invite.
+- Mobile: Full-featured spend management on mobile (core use case).
+- Animation: Budget fill animations. Category spending transitions.
+- Copy: Budget vs actual progress bars per category.
+- Avoid: Receipt OCR UI - specialized for expense management.
+
+**11. Mercury**
+- Layout: Top navigation + full-width account views. Premium white space.
+- Signature: Best typography and whitespace in fintech. Feels like a design agency built it.
+- KPIs: Account balance large + transaction list primary. Cashflow chart secondary.
+- Navigation: Accounts, Send money, Cards, Team, Investing (top nav, not sidebar).
+- Colors: Navy (#1B2A4A). Minimal. Typography does heavy lifting.
+- Empty states: "Add funds to get started" - clean, confident, no clutter.
+- Mobile: Full mobile banking app. Best mobile fintech UI studied.
+- Animation: Balance count-up on load. Smooth transaction list scrolling.
+- Copy: Typography-led hierarchy - size and weight over color for importance.
+- Avoid: Top nav model (not sidebar) unless product is genuinely account-centric.
+
+**12. Ramp**
+- Layout: Left sidebar + spend intelligence primary view.
+- Signature: AI spend insights. "You could save $X" recommendations on every page.
+- KPIs: Total spend + savings identified + cards active. Prominent savings number.
+- Navigation: Dashboard, Transactions, Cards, Vendors, Accounting, Insights.
+- Colors: Yellow (#F5C842) accent. Clean white.
+- Empty states: "Connect your first account" with bank connection flow.
+- Mobile: Expense approval and receipt capture primary mobile use case.
+- Animation: Savings counter. Vendor spend treemap transitions.
+- Copy: Savings opportunity callouts above standard metrics.
+- Avoid: Vendor negotiation feature as a pattern - too specialized.
+
+**13. QuickBooks Online**
+- Layout: Left sidebar (collapsed by default) + dashboard overview.
+- Signature: Profit & Loss as the hero metric. Accounting-native language throughout.
+- KPIs: Income, Expenses, Profit. Bank balance. Outstanding invoices/bills.
+- Navigation: Dashboard, Banking, Sales, Expenses, Reports, Taxes, Accounting.
+- Colors: QBO green (#2CA01C). Functional, not beautiful.
+- Empty states: "Connect your bank account" as first step.
+- Mobile: Basic monitoring. Not designed for mobile workflow.
+- Animation: Minimal. Report generation loading states.
+- Copy: Outstanding invoices + overdue amounts with aging buckets (30/60/90 days).
+- Avoid: Overall visual design - dated, not a design inspiration.
+
+**14. Xero**
+- Layout: Left sidebar + executive overview dashboard.
+- Signature: Executive dashboard with CFO-level summary. Cleaner than QuickBooks.
+- KPIs: Bank balances, Money in/out, Invoices owed, Bills to pay.
+- Navigation: Dashboard, Business (sales/purchases), Accounting, Payroll, Projects, Reports.
+- Colors: Xero blue (#13B5EA). More whitespace than QBO.
+- Empty states: Account connection wizard with bank selection.
+- Mobile: Xero Me app for expenses. Main app has mobile dashboard.
+- Animation: Chart load fade. Minimal motion.
+- Copy: "Money in / Money out" framing (not debits/credits - business language).
+- Avoid: Payroll UI - extremely jurisdiction-specific.
+
+---
+
+### CRM/Sales
+
+**15. Salesforce Lightning**
+- Layout: Top nav (App Launcher) + left sidebar per app + record detail views. 3-level hierarchy.
+- Signature: App-within-an-app. Each cloud (Sales/Service/Marketing) is a separate product.
+- KPIs: Report charts embedded in Home page. Activity timeline on every record.
+- Navigation: Global nav (top) + object nav (sidebar) + record tabs.
+- Colors: Salesforce blue (#1589EE). Lightning Design System tokens.
+- Empty states: "Get started with Salesforce" guided tour with Trailhead link.
+- Mobile: Salesforce mobile app - simplified record views, activity capture.
+- Animation: Record page transitions. List view lazy loading.
+- Copy: Activity timeline on every record (calls, emails, meetings, tasks).
+- Avoid: Navigation complexity - 3 nav levels is too many for most products.
+
+**16. HubSpot CRM**
+- Layout: Left sidebar + contact/deal detail panes + pipeline views.
+- Signature: Pipeline kanban as primary sales view. Deal cards with stage progression.
+- KPIs: Pipeline value by stage. Deals closing this month. Activity metrics.
+- Navigation: Contacts, Companies, Deals, Activities, Reports.
+- Colors: Orange (#FF7A59). Clean white cards.
+- Empty states: "Import your contacts" or "Create your first deal" with CSV template.
+- Mobile: HubSpot app - contact/deal lookup and activity logging.
+- Animation: Deal stage drag-and-drop with column total update.
+- Copy: Kanban pipeline with $ total per stage column header.
+- Avoid: Marketing hub UI - unrelated to CRM patterns.
+
+**17. Pipedrive**
+- Layout: Left sidebar + pipeline-first view.
+- Signature: Pipeline is THE product. Everything oriented around moving deals through stages.
+- KPIs: Open deals, Won deals (this month), Activities due today.
+- Navigation: Pipeline, Activities, Contacts, Mail, Reports, Insights.
+- Colors: Green (#00A84B). Stage colors customizable.
+- Empty states: "Add your first deal" with pipeline stage creation flow.
+- Mobile: Full pipeline management on mobile. Activity logging first-class.
+- Animation: Deal card drag between stages. Win animation on close.
+- Copy: Rotting deals indicator - deals inactive >N days shown with amber/red highlight.
+- Avoid: Email integration UI - complex threading setup.
+
+**18. Close CRM**
+- Layout: Left sidebar + inbox-style activity view.
+- Signature: Built for outbound sales. Activity (calls/emails) is the primary dashboard, not pipeline.
+- KPIs: Calls made, Emails sent, Deals won. Activity-first metrics.
+- Navigation: Inbox, Leads, Opportunities, Reports, Settings.
+- Colors: Blue (#3A78E1). Data-dense. Power-user focused.
+- Empty states: "Import leads from CSV" with template download.
+- Mobile: Call logging on mobile. Activity capture focus.
+- Animation: Live call status indicators. Email thread updates.
+- Copy: Built-in VoIP with call outcome logging inline in lead record.
+- Avoid: Lead scoring UI - requires significant configuration.
+
+**19. Attio**
+- Layout: Left sidebar + record database views.
+- Signature: Fully flexible data model (like Notion but for CRM). Views are composable.
+- KPIs: Pipeline metrics with customizable attributes. No fixed fields.
+- Navigation: Workspace, Lists, People, Companies, Deals (all customizable).
+- Colors: Dark mode first. Indigo/purple accent. Premium feel.
+- Empty states: "Create your first list" with schema builder.
+- Mobile: Limited - primarily desktop tool.
+- Animation: Record creation animations. Filter transitions.
+- Copy: Flexible data model - any field on any object, any relationship.
+- Avoid: Onboarding - too open-ended for users new to flexible CRM.
+
+---
+
+### Project/Work Management
+
+**20. Linear**
+- Layout: Left sidebar (dark, 240px) + content. Keyboard-first.
+- Signature: <100ms interactions. Every action has a keyboard shortcut. CMD+K for everything.
+- KPIs: Cycle progress, Issues by status, Velocity chart.
+- Navigation: Inbox, My Issues, Views, Teams, Projects, Cycles, Roadmap.
+- Colors: Dark (#161618 sidebar, #1c1c1e content). Purple accent (#5E6AD2).
+- Empty states: Illustrated SVGs + keyboard shortcut hints + "Create your first issue".
+- Mobile: Linear app - issue triage and updates. Full-featured for a PM tool.
+- Animation: Issue drag-and-drop. Status transition micro-animations. Instant search.
+- Copy: Keyboard shortcut hints in empty states. CMD+K palette. G then I for Issues.
+- Avoid: Roadmap view complexity.
+
+**21. Jira**
+- Layout: Left sidebar + board/backlog/roadmap views.
+- Signature: Scrum board + sprint backlog as the canonical project view. Agile-native.
+- KPIs: Sprint velocity, Burndown chart, Issue cycle time.
+- Navigation: Board, Backlog, Roadmap, Reports, Issues.
+- Colors: Blue (#0052CC). Functional. Reliability over design.
+- Empty states: "Create your first board" with template selection (Scrum/Kanban).
+- Mobile: Jira mobile - issue updating and commenting.
+- Animation: Board card transitions. Burndown chart load.
+- Copy: Sprint burndown chart + velocity chart in Reports.
+- Avoid: Project switcher - notoriously confusing.
+
+**22. Asana**
+- Layout: Left sidebar (with project list) + multiple views (list/board/timeline/calendar).
+- Signature: View switcher (list/board/timeline/calendar) above content - any project, any view.
+- KPIs: Task completion rate, Overdue tasks, Milestones upcoming.
+- Navigation: Home, Inbox, My Tasks, Reporting + Projects in sidebar.
+- Colors: Pink accent (#FF4081) for CTA. Clean white. Pastel project colors.
+- Empty states: "Add your first task" with template gallery.
+- Mobile: Asana app - task management and updates. Good mobile UX.
+- Animation: Task completion confetti on milestones. Timeline drag.
+- Copy: View switcher (list/board/timeline/calendar) above every project.
+- Avoid: Portfolios/Goals UI - complex for most use cases.
+
+**23. Monday.com**
+- Layout: Left sidebar + item groups + column-based data.
+- Signature: Columns are customizable data types. Spreadsheet-meets-project-tool.
+- KPIs: Board summary row (totals/averages at bottom of each column).
+- Navigation: Workspaces, Boards, Dashboards (separate from boards).
+- Colors: Colorful (each board/group gets a color). Bold, energetic.
+- Empty states: Template gallery with 200+ board templates.
+- Mobile: Monday app - board viewing and item updates.
+- Animation: Status color transitions. Progress bars in formula columns.
+- Copy: Summary row at bottom of columns (count/sum/average auto-calculated).
+- Avoid: Automation builder - powerful but complex to model.
+
+**24. Notion**
+- Layout: Left sidebar (nested pages) + block-based content.
+- Signature: Block-based everything. Pages contain databases. Databases have multiple views.
+- KPIs: Database view with filter/sort/group. Calculated properties (rollups, formulas).
+- Navigation: Sidebar is tree of pages. No fixed nav - fully user-defined.
+- Colors: Minimal. Black text, white bg. Page icons/covers for visual identity.
+- Empty states: "Press Enter to continue, / for commands" - empty page is a prompt.
+- Mobile: Notion app - page reading and simple editing. Full-featured mobile.
+- Animation: Page load transitions. Block drag-and-drop. Database view switches.
+- Copy: View toggle (table/gallery/kanban/calendar/timeline/list/chart) above every database.
+- Avoid: Sidebar organization at scale - becomes a navigation nightmare.
+
+**25. ClickUp**
+- Layout: Left sidebar + multiple views + Everything view across all spaces.
+- Signature: "Everything" - tries to do all PM features at once. Extreme customization.
+- KPIs: Goals with progress tracking. Dashboard widgets (customizable).
+- Navigation: Spaces, Folders, Lists (3-level hierarchy) + Home, Inbox, Docs, Dashboards.
+- Colors: Purple accent (#7B68EE). Many theming options.
+- Empty states: Setup wizard with use-case selection (Engineering/Marketing/HR/etc.).
+- Mobile: ClickUp app - task management.
+- Animation: Many micro-animations. Can feel busy.
+- Copy: Custom statuses per list (not fixed To-do/In Progress/Done).
+- Avoid: Feature count as a model - too much complexity for most products.
+
+**26. Height**
+- Layout: Left sidebar + list/board/calendar views.
+- Signature: Fastest project tool for startup teams. No bloat. Excellent keyboard navigation.
+- KPIs: Task count by status. Sprint progress if enabled.
+- Navigation: Projects + Views in sidebar. Minimal structure.
+- Colors: Dark mode. Minimal accent colors.
+- Empty states: "Create a task" - minimal, no templates clutter.
+- Mobile: Height app - task viewing and updates.
+- Animation: Quick task transitions. No excessive animation.
+- Copy: Clean, minimal UI with no feature creep.
+- Avoid: Limited reporting compared to larger tools.
+
+---
+
+### DevOps/Infrastructure
+
+**27. Vercel**
+- Layout: Left sidebar + deployment-centric views.
+- Signature: Git-connected deployment status as primary UI. Every deploy has a preview URL.
+- KPIs: Deployment frequency, Error rate, Web Vitals scores.
+- Navigation: Overview, Deployments, Analytics, Speed Insights, Logs, Storage, Settings.
+- Colors: Black (#000) sidebar, dark gray (#111) content. Pure contrast.
+- Empty states: "Import a Git repository" - first action is git connection.
+- Mobile: Limited - status monitoring and deployment previews.
+- Animation: Build log streaming. Deployment status transitions (queued/building/ready).
+- Copy: Deployment status with color + icon + text (not color alone): green checkmark + "Ready".
+- Avoid: Domain configuration UI for DNS - genuinely confusing.
+
+**28. Railway**
+- Layout: Top nav + project/service/environment hierarchy.
+- Signature: Services as the primary unit. Each service has its own metrics, logs, deployments.
+- KPIs: CPU, Memory, Network per service. Deploy frequency.
+- Navigation: Project switcher (top) + Services list + Metrics/Logs/Settings per service.
+- Colors: Purple (#B45309 accent). Dark theme available.
+- Empty states: "Deploy a service" with template gallery (databases, frameworks).
+- Mobile: Status monitoring only.
+- Animation: Real-time metric charts. Deploy log streaming.
+- Copy: Per-service metrics in 3-column grid (CPU/Memory/Network with sparklines).
+- Avoid: Variable management UI - functional but not intuitive.
+
+**29. AWS Console**
+- Layout: Top nav (services) + left sidebar per service + content.
+- Signature: Every service is its own product. No unified design system.
+- KPIs: Service-specific (EC2: instances, RDS: connections, etc.).
+- Navigation: Services menu (200+ services) + Favorites sidebar + per-service nav.
+- Colors: Orange (#FF9900). Functional, dated design.
+- Empty states: "Get started with [Service]" with documentation links.
+- Mobile: AWS mobile app - basic console operations.
+- Animation: Minimal. Data tables with lazy load.
+- Copy: Resource tagging for cost allocation (copy the tagging pattern, not the UI).
+- Avoid: Everything about their navigation as a model.
+
+**30. Render**
+- Layout: Left sidebar + service cards dashboard.
+- Signature: Simpler Railway. Service cards with status indicators on overview.
+- KPIs: Service status (up/down/deploying), recent deploys, resource usage.
+- Navigation: Dashboard, Services, PostgreSQL, Redis, Cron Jobs.
+- Colors: Purple (#5B3DF5). Clean white.
+- Empty states: "New Web Service" with deploy button for popular frameworks.
+- Mobile: Status monitoring.
+- Animation: Deploy status updates in real-time.
+- Copy: Service card grid with health indicator + deploy count + last deployed time.
+- Avoid: Pricing display UI - confusing for resource-based billing.
+
+**31. Supabase**
+- Layout: Left sidebar (dark) + database/auth/storage sections.
+- Signature: Database as the hero. SQL editor as a primary surface. Developer-first.
+- KPIs: Database size, Active connections, API requests, Auth users.
+- Navigation: Table Editor, SQL Editor, Auth, Storage, Edge Functions, Realtime, Logs, API.
+- Colors: Dark (#1c1c1c sidebar). Green accent (#3ECF8E).
+- Empty states: "Create your first table" with schema builder or SQL editor.
+- Mobile: Limited - developer tool.
+- Animation: Table row insertion animations. Real-time subscription updates.
+- Copy: Left sidebar organization: Tables / Auth / Storage / Edge Functions.
+- Avoid: Realtime inspector UI - useful but visually complex.
+
+---
+
+### Customer Support
+
+**32. Intercom**
+- Layout: Left sidebar + conversation inbox + user profile side panel.
+- Signature: Customer profile always visible alongside conversation. Full context without switching.
+- KPIs: Conversation volume, Response time, CSAT, Resolution rate.
+- Navigation: Inbox, Outbound, Contacts, Reports, Fin AI, Settings.
+- Colors: Blue (#1F8EFA). User avatars prominent.
+- Empty states: "No conversations" with proactive message creation CTA.
+- Mobile: Intercom app - conversation handling on mobile (core use case).
+- Animation: New message animations. Typing indicators.
+- Copy: User attribute sidebar next to conversation (location, plan, MRR, pages visited).
+- Avoid: Help Center builder - outdated compared to modern doc tools.
+
+**33. Zendesk**
+- Layout: Left sidebar + ticket list + ticket detail.
+- Signature: Macro (templated response) system. Bulk ticket operations at scale.
+- KPIs: Open tickets, First reply time, Resolution time, CSAT, Ticket volume.
+- Navigation: Views, Reporting, Customers, Apps & Integrations.
+- Colors: Dark teal (#03363D). Enterprise-heavy.
+- Empty states: "No tickets in this view" with view filter adjustment CTA.
+- Mobile: Zendesk app - ticket triaging on mobile.
+- Animation: Ticket status transitions. SLA timer countdown.
+- Copy: SLA breach indicators with countdown timers on tickets.
+- Avoid: Views configuration - powerful but extremely complex.
+
+**34. Freshdesk**
+- Layout: Left sidebar + ticket management + analytics.
+- Signature: Simpler, cheaper Zendesk. Better onboarding flow for SMBs.
+- KPIs: Open tickets, Overdue, Unassigned, CSAT, Agent performance.
+- Navigation: Dashboard, Tickets, Contacts, Reports, Admin.
+- Colors: Green (#28A745). More approachable than Zendesk.
+- Empty states: "No open tickets! Great job" - positive framing for zero state.
+- Mobile: Freshdesk app - ticket handling on mobile.
+- Animation: Minimal. Ticket load transitions.
+- Copy: Positive framing for empty states ("Great job!" vs generic "No tickets").
+- Avoid: Automation builder - complex for new users.
+
+**35. Loom**
+- Layout: Top nav + video library grid.
+- Signature: Video-first communication. Watch time and engagement as primary metrics.
+- KPIs: Views, Watch time, Completion rate, Reaction count per video.
+- Navigation: My Library, Team Library, Workspaces (top nav).
+- Colors: Purple (#7C3AED). Video thumbnail grid dominant.
+- Empty states: "Record your first Loom" with browser extension CTA.
+- Mobile: Loom app - recording on mobile, viewing everywhere.
+- Animation: Video preview on hover. Recording indicator.
+- Copy: Per-video engagement: views + watch time + who watched (user list).
+- Avoid: Workspace/team structure - confusing for larger orgs.
+
+---
+
+### Marketing
+
+**36. Mailchimp**
+- Layout: Left sidebar + campaign/audience views.
+- Signature: Audience-first. Everything relates back to contacts and segments.
+- KPIs: Subscribers, Open rate, Click rate, Revenue attributed.
+- Navigation: Campaigns, Audience, Content Studio, Reports, Automations.
+- Colors: Yellow (#FFE01B) + dark navy. Freddie mascot.
+- Empty states: "Create your first campaign" with template gallery.
+- Mobile: Basic stats monitoring. Campaign creation desktop-only.
+- Animation: Campaign send animation. Chart load transitions.
+- Copy: Campaign health scorecard (open rate vs industry average, click rate vs average).
+- Avoid: Template builder - outdated drag-and-drop.
+
+**37. Klaviyo**
+- Layout: Left sidebar + revenue attribution primary view.
+- Signature: Revenue from email/SMS is THE metric. Every campaign shows attributed revenue.
+- KPIs: Revenue, Placed Order Rate, Revenue per Recipient, List growth.
+- Navigation: Campaigns, Flows, Lists, Segments, Analytics, Integrations.
+- Colors: Black (#000) primary. Clean minimal.
+- Empty states: "Create your first flow" with template gallery (welcome/abandoned cart/etc.).
+- Mobile: Stats monitoring. Campaign management desktop-only.
+- Animation: Revenue attribution updates. Flow performance charts.
+- Copy: Revenue attribution on every campaign/flow card (not just open rates).
+- Avoid: Segment builder - requires data modeling knowledge.
+
+**38. Beehiiv**
+- Layout: Left sidebar + publication-centric views.
+- Signature: Newsletter-first. Growth and monetization as key metrics alongside engagement.
+- KPIs: Subscribers, Open rate, Click rate, Premium subscribers, Revenue.
+- Navigation: Posts, Analytics, Audience, Monetize, Grow, Settings.
+- Colors: Clean white + black. Minimal.
+- Empty states: "Write your first post" - writer-friendly framing.
+- Mobile: Analytics monitoring. Writing on desktop.
+- Animation: Subscriber growth chart with milestone markers.
+- Copy: Subscriber milestone celebrations + growth timeline with annotations.
+- Avoid: Referral program UI - requires careful setup.
+
+**39. Buffer**
+- Layout: Left sidebar + queue/calendar views.
+- Signature: Content queue as primary surface. Scheduled posts feel like a calendar.
+- KPIs: Posts published, Reach, Engagement, Profile growth.
+- Navigation: Publish, Analyze, Engage, Start Page.
+- Colors: Blue (#2C4BFF). Channel color coding.
+- Empty states: "Add your first post to the queue" with composer CTA.
+- Mobile: Buffer app - content scheduling on mobile (core use case).
+- Animation: Post scheduling drag on calendar. Queue reordering.
+- Copy: Content calendar grid with optimal time slot suggestions.
+- Avoid: Team approval workflow - limited compared to dedicated content tools.
+
+---
+
+### Product Analytics
+
+**40. Pendo**
+- Layout: Left sidebar + feature adoption / NPS / guides views.
+- Signature: In-app guides overlay on top of the actual product. Analytics + onboarding in one.
+- KPIs: Feature adoption rate, NPS score, Guide completion, Page views per user.
+- Navigation: Product Areas, Feature Adoption, Paths, Funnels, NPS, Guides.
+- Colors: Indigo (#6C63FF). Guide builder overlay uses highlight rings.
+- Empty states: "Tag your first feature" with element selector tool.
+- Mobile: Mobile analytics and guide targeting available.
+- Animation: Guide highlight ring on elements. Adoption funnel transitions.
+- Copy: In-app guide tooltip (ring highlight + popover + step counter + skip tour).
+- Avoid: Retroactive tagging session - requires dedicated setup time.
 
 ---
 
 ## Layout Architecture
 
-### Standard Enterprise Layout (Pattern A)
-Used by: Stripe, HubSpot, Intercom, Amplitude, Mixpanel, Vercel, Supabase, and 31 others.
-
+### Standard Enterprise Layout
 ```
-Sidebar (240-280px) + Main area
-  Main area = Top Header (56-64px) + Page Header (48-56px) + Content
+Sidebar (240px) + Top Header (56-64px) + Page Header (48px) + Content (px-6 py-8, max-w-[1280px])
 ```
 
-- Sidebar: 240-280px desktop, 64px icon-only collapsed, full-screen overlay mobile
-- Card padding: always `p-6`
-- Card gap: always `gap-6`
-- Content max-width: `max-w-[1280px] mx-auto`
-- Background: `bg-background` (CSS var, NOT hardcoded `bg-gray-50`)
-- Card background: `bg-card border border-border` (CSS vars only)
+```tsx
+function AppLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex h-screen bg-gray-50">
+      <aside className="hidden md:flex w-64 flex-col bg-white border-r">
+        <div className="p-4 border-b"><Logo /></div>
+        <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
+          {navItems.map(item => (
+            <NavLink key={item.href} to={item.href}
+              className={({ isActive }) => cn(
+                'flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors',
+                isActive
+                  ? 'bg-indigo-50 text-indigo-700 font-medium border-l-2 border-indigo-600 -ml-px'
+                  : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+              )}>
+              <item.icon className="w-4 h-4 flex-shrink-0" />
+              {item.label}
+            </NavLink>
+          ))}
+        </nav>
+        <div className="p-3 border-t"><UserMenu /></div>
+      </aside>
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <header className="md:hidden flex items-center gap-3 px-4 py-3 border-b bg-white">
+          <Sheet>
+            <SheetTrigger asChild><button><Menu className="w-5 h-5" /></button></SheetTrigger>
+            <SheetContent side="left" className="p-0 w-64"><SidebarContent /></SheetContent>
+          </Sheet>
+          <span className="font-semibold">{pageTitle}</span>
+        </header>
+        <main className="flex-1 overflow-y-auto">
+          <div className="max-w-[1280px] mx-auto px-6 py-8">{children}</div>
+        </main>
+      </div>
+    </div>
+  )
+}
+```
 
-### Page Header Pattern
+**Page header:**
 ```tsx
 <div className="flex items-center justify-between mb-8">
   <div>
-    <nav className="flex text-xs text-muted-foreground mb-1 gap-1">
-      <span>Dashboard</span><span>/</span><span className="text-foreground">Revenue</span>
-    </nav>
-    <h1 className="text-2xl font-bold text-foreground">Revenue</h1>
+    <Breadcrumbs items={breadcrumbs} />
+    <h1 className="text-2xl font-bold text-gray-900 mt-1">{title}</h1>
   </div>
   <div className="flex items-center gap-3">
-    <DateRangePicker value={range} onChange={setRange} />
-    <Button variant="outline" size="sm" onClick={handleExport}>Export CSV</Button>
-    <Button size="sm"><Plus className="w-4 h-4 mr-2" />New Report</Button>
+    <Button variant="outline" size="sm">Export</Button>
+    <Button size="sm">+ New Report</Button>
   </div>
 </div>
 ```
 
-**Critical:** Use CSS variables (`text-foreground`, `bg-card`, `border-border`, `text-muted-foreground`) NEVER hardcoded colors. This is mandatory for dark mode compatibility and design system consistency.
+---
+
+## KPI Card
+
+```tsx
+<Card className="p-6">
+  <p className="text-sm font-medium text-gray-500">{label}</p>
+  <p className="text-3xl font-bold text-gray-900 mt-1">{value}</p>
+  <div className="flex items-center gap-1.5 mt-1">
+    {trend > 0
+      ? <TrendingUp className="w-4 h-4 text-emerald-500" />
+      : <TrendingDown className="w-4 h-4 text-red-500" />}
+    <span className={cn('text-sm font-medium', isGood ? 'text-emerald-600' : 'text-red-600')}>
+      {trend > 0 ? '+' : ''}{trend}%
+    </span>
+    <span className="text-sm text-gray-400">vs last month</span>
+  </div>
+  <MiniSparkline data={sparklineData} className="mt-3 h-10" />
+</Card>
+
+// isPositiveGood=false for: churn rate, error rate, costs, bounce rate
+const isGood = isPositiveGood ? trend > 0 : trend < 0
+```
+
+**Grid:** `grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6`
 
 ---
 
-## Sidebar Component
+## Chart Selection
 
-Collapse/expand with smooth Framer Motion transition. Active state: left border + bg tint + bold label.
-
-```tsx
-// src/components/layout/Sidebar.tsx
-import { motion, AnimatePresence } from 'framer-motion'
-import { NavLink, useLocation } from 'react-router-dom'
-import { cn } from '@/lib/utils'
-
-interface NavItem { label: string; icon: LucideIcon; href: string; badge?: number }
-
-interface SidebarProps { items: NavItem[]; collapsed?: boolean; onToggle?: () => void }
-
-export function Sidebar({ items, collapsed = false, onToggle }: SidebarProps) {
-  return (
-    <motion.aside
-      animate={{ width: collapsed ? 64 : 240 }}
-      transition={{ duration: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-      className="flex h-screen flex-col border-r border-border bg-card overflow-hidden"
-    >
-      {/* Logo / collapse toggle */}
-      <div className="flex h-14 items-center justify-between px-4 border-b border-border">
-        <AnimatePresence>
-          {!collapsed && (
-            <motion.span
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              className="font-semibold text-foreground text-sm"
-            >
-              ProductName
-            </motion.span>
-          )}
-        </AnimatePresence>
-        <button onClick={onToggle} className="rounded-md p-1.5 hover:bg-muted text-muted-foreground">
-          <PanelLeft className="h-4 w-4" />
-        </button>
-      </div>
-
-      {/* Nav items */}
-      <nav className="flex-1 overflow-y-auto py-3 px-2 space-y-0.5">
-        {items.map(item => (
-          <NavLink key={item.href} to={item.href}>
-            {({ isActive }) => (
-              <div className={cn(
-                "flex items-center gap-3 rounded-md px-2.5 py-2 text-sm transition-colors",
-                isActive
-                  ? "border-l-2 border-primary bg-primary/8 font-semibold text-foreground pl-[9px]"
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
-              )}>
-                <item.icon className="h-4 w-4 shrink-0" />
-                <AnimatePresence>
-                  {!collapsed && (
-                    <motion.span
-                      initial={{ opacity: 0, width: 0 }}
-                      animate={{ opacity: 1, width: 'auto' }}
-                      exit={{ opacity: 0, width: 0 }}
-                      className="overflow-hidden whitespace-nowrap"
-                    >
-                      {item.label}
-                    </motion.span>
-                  )}
-                </AnimatePresence>
-                {!collapsed && item.badge != null && item.badge > 0 && (
-                  <span className="ml-auto flex h-5 min-w-5 items-center justify-center rounded-full bg-primary/10 px-1 text-[10px] font-medium text-primary">
-                    {item.badge}
-                  </span>
-                )}
-              </div>
-            )}
-          </NavLink>
-        ))}
-      </nav>
-
-      {/* Bottom: Settings + User */}
-      <div className="border-t border-border px-2 py-3 space-y-0.5">
-        <NavLink to="/settings">
-          {({ isActive }) => (
-            <div className={cn(
-              "flex items-center gap-3 rounded-md px-2.5 py-2 text-sm",
-              isActive ? "bg-muted font-medium text-foreground" : "text-muted-foreground hover:bg-muted"
-            )}>
-              <Settings className="h-4 w-4 shrink-0" />
-              {!collapsed && <span>Settings</span>}
-            </div>
-          )}
-        </NavLink>
-      </div>
-    </motion.aside>
-  )
-}
-```
-
----
-
-## KPI Card Spec — Full Implementation
-
-**Critical:** Use CSS vars, not hardcoded colors. Sparklines use `hsl(var(--primary))` as line color.
-
-```tsx
-// src/components/dashboard/KpiCard.tsx
-import { motion } from 'framer-motion'
-import { TrendingUp, TrendingDown } from 'lucide-react'
-import { Sparkline } from './Sparkline'
-import { cn } from '@/lib/utils'
-
-interface KpiCardProps {
-  label: string
-  value: string
-  change: number          // percent, positive or negative
-  period?: string         // "vs last month"
-  sparkData?: number[]
-  isPositiveGood?: boolean  // false for churn (down = good)
-  loading?: boolean
-}
-
-export function KpiCard({ label, value, change, period = 'vs last month', sparkData, isPositiveGood = true, loading }: KpiCardProps) {
-  if (loading) return <KpiCardSkeleton />
-
-  const isGood = isPositiveGood ? change > 0 : change < 0
-  const TrendIcon = change > 0 ? TrendingUp : TrendingDown
-
-  return (
-    <div className="rounded-lg border border-border bg-card p-6 shadow-sm">
-      <p className="text-sm font-medium text-muted-foreground">{label}</p>
-      <p className="mt-2 text-3xl font-bold text-foreground">{value}</p>
-      <div className="mt-2 flex items-center gap-1.5">
-        <TrendIcon className={cn("h-3.5 w-3.5", isGood ? "text-emerald-500" : "text-red-500")} />
-        <span className={cn("text-sm font-medium", isGood ? "text-emerald-600" : "text-red-600")}>
-          {change > 0 ? '+' : ''}{change}%
-        </span>
-        <span className="text-xs text-muted-foreground">{period}</span>
-      </div>
-      {sparkData && (
-        <div className="mt-3">
-          <Sparkline data={sparkData} positive={isGood} />
-        </div>
-      )}
-    </div>
-  )
-}
-
-function KpiCardSkeleton() {
-  return (
-    <div className="rounded-lg border border-border bg-card p-6 shadow-sm">
-      <Skeleton className="h-4 w-24" />
-      <Skeleton className="mt-2 h-9 w-32" />
-      <Skeleton className="mt-2 h-4 w-28" />
-      <Skeleton className="mt-3 h-10 w-full" />
-    </div>
-  )
-}
-```
-
-```tsx
-// src/components/dashboard/Sparkline.tsx — 40px tall, no axis labels
-import { LineChart, Line, ResponsiveContainer } from 'recharts'
-import { cn } from '@/lib/utils'
-
-interface SparklineProps { data: number[]; positive?: boolean }
-
-export function Sparkline({ data, positive = true }: SparklineProps) {
-  const chartData = data.map((v, i) => ({ v, i }))
-  return (
-    <ResponsiveContainer width="100%" height={40}>
-      <LineChart data={chartData}>
-        <Line
-          type="monotone" dataKey="v" dot={false} strokeWidth={1.5}
-          stroke={positive ? '#10b981' : '#ef4444'}
-        />
-      </LineChart>
-    </ResponsiveContainer>
-  )
-}
-```
-
-### KPI Grid
-```tsx
-// KPI cards always enter with staggered animation
-const container = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } }
-const item = { hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: [0.25,0.1,0.25,1] } } }
-
-<motion.div variants={container} initial="hidden" animate="show"
-  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-  {kpis.map(kpi => (
-    <motion.div key={kpi.label} variants={item}>
-      <KpiCard {...kpi} loading={isLoading} />
-    </motion.div>
-  ))}
-</motion.div>
-```
-
----
-
-## Data Fetching Pattern (TanStack Query — mandatory)
-
-Never use `useEffect` for data fetching. TanStack Query only. This applies to every data surface.
-
-```tsx
-// src/hooks/use-dashboard-metrics.ts
-import { useQuery } from '@tanstack/react-query'
-import { supabase } from '@/lib/supabase'
-
-export function useDashboardMetrics(range: DateRange) {
-  return useQuery({
-    queryKey: ['dashboard-metrics', range.from, range.to],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from('metrics')
-        .select('*')
-        .gte('date', range.from)
-        .lte('date', range.to)
-      if (error) throw error
-      return data
-    },
-    staleTime: 60_000,    // 1 min — dashboard data can be slightly stale
-    retry: 2,
-  })
-}
-
-// In the dashboard component:
-const { data, isLoading, isError, refetch } = useDashboardMetrics(dateRange)
-
-// Always handle all three states — never assume data exists
-if (isError) return <ErrorState message="Couldn't load metrics" onRetry={refetch} />
-```
-
-### Real-Time Updates (Supabase Realtime — use for live monitoring dashboards)
-
-```tsx
-// src/hooks/use-realtime-metrics.ts
-import { useEffect, useQueryClient } from '@tanstack/react-query'
-import { supabase } from '@/lib/supabase'
-
-export function useRealtimeMetrics(orgId: string) {
-  const queryClient = useQueryClient()
-
-  useEffect(() => {
-    const channel = supabase
-      .channel(`metrics:${orgId}`)
-      .on('postgres_changes', {
-        event: 'INSERT',
-        schema: 'public',
-        table: 'metrics',
-        filter: `org_id=eq.${orgId}`,
-      }, () => {
-        // Invalidate instead of manual merge — let React Query re-fetch clean
-        queryClient.invalidateQueries({ queryKey: ['dashboard-metrics'] })
-      })
-      .subscribe()
-
-    return () => { supabase.removeChannel(channel) }
-  }, [orgId, queryClient])
-}
-```
-
-**When to use realtime:** reputation monitoring, incident dashboards, audit feeds, live transaction streams. Not needed for: analytics aggregates, settings, user management.
-
----
-
-## Chart Selection Guide
-
-| Data question | Chart type | Never use |
+| Question | Chart | Never |
 |---|---|---|
-| Trend over time | Line chart | Bar chart |
-| Compare A vs B vs C | Bar chart | Pie chart |
-| Part-to-whole (2-3 parts) | Donut chart | Pie with 4+ slices |
-| User drop-off | Funnel chart | Line chart |
-| Exact multi-dimension data | Table | Chart |
-| Distribution | Histogram | Table |
-
-**Never:** 3D charts, pie with 4+ slices, dual-axis lines, stacked area when values overlap.
-
-### Recharts Standard Setup (CSS-var aware)
+| Trend over time? | LineChart | Bar |
+| Compare A vs B? | BarChart | Pie |
+| Part-to-whole? (2-3 parts) | PieChart innerRadius (donut) | Pie 4+ slices |
+| Drop-off funnel? | FunnelChart | Line |
+| Distribution? | Histogram (BarChart + buckets) | Table |
+| Exact multi-dim data? | shadcn DataTable | Chart |
 
 ```tsx
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
-
 <ResponsiveContainer width="100%" height={300}>
   <LineChart data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-    <XAxis
-      dataKey="date"
-      tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
-      axisLine={{ stroke: 'hsl(var(--border))' }}
-      tickLine={false}
-    />
-    <YAxis
-      tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
-      axisLine={false}
-      tickLine={false}
-    />
-    <Tooltip
-      contentStyle={{
-        backgroundColor: 'hsl(var(--card))',
-        border: '1px solid hsl(var(--border))',
-        borderRadius: '8px',
-        color: 'hsl(var(--foreground))',
-        fontSize: '12px',
-      }}
-    />
-    <Line type="monotone" dataKey="value" stroke="hsl(var(--primary))" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
+    <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+    <XAxis dataKey="date" tick={{ fontSize: 12, fill: '#9ca3af' }} />
+    <YAxis tick={{ fontSize: 12, fill: '#9ca3af' }} />
+    <Tooltip contentStyle={{ borderRadius: '8px', border: '1px solid #e5e7eb' }} />
+    <Line type="monotone" dataKey="value" stroke="#6366f1" strokeWidth={2} dot={false}
+      isAnimationActive animationDuration={800} animationEasing="ease-out" />
   </LineChart>
 </ResponsiveContainer>
-```
-
-**Add `recharts` to package.json.** Never use `@nivo` or `chart.js` — Recharts is the suite standard.
-
----
-
-## Date Range Picker
-
-Required on every analytics/monitoring page. Use `react-day-picker` with preset ranges.
-
-```tsx
-// src/components/dashboard/DateRangePicker.tsx
-import { useState } from 'react'
-import { format, subDays } from 'date-fns'
-import { CalendarIcon } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-
-const PRESETS = [
-  { label: 'Last 7 days',  from: () => subDays(new Date(), 7),  to: () => new Date() },
-  { label: 'Last 30 days', from: () => subDays(new Date(), 30), to: () => new Date() },
-  { label: 'Last 90 days', from: () => subDays(new Date(), 90), to: () => new Date() },
-  { label: 'Last 12 months', from: () => subDays(new Date(), 365), to: () => new Date() },
-]
-
-export interface DateRange { from: Date; to: Date }
-
-interface DateRangePickerProps { value: DateRange; onChange: (r: DateRange) => void }
-
-export function DateRangePicker({ value, onChange }: DateRangePickerProps) {
-  const [open, setOpen] = useState(false)
-
-  return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button variant="outline" size="sm" className="gap-2 font-normal">
-          <CalendarIcon className="h-3.5 w-3.5" />
-          {format(value.from, 'MMM d')} - {format(value.to, 'MMM d, yyyy')}
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-auto p-0" align="end">
-        <div className="flex flex-col p-3 gap-1 border-b border-border">
-          {PRESETS.map(p => (
-            <button
-              key={p.label}
-              onClick={() => { onChange({ from: p.from(), to: p.to() }); setOpen(false) }}
-              className="text-left rounded px-3 py-1.5 text-sm hover:bg-muted text-foreground"
-            >
-              {p.label}
-            </button>
-          ))}
-        </div>
-      </PopoverContent>
-    </Popover>
-  )
-}
-```
-
-**Packages needed:** `date-fns`, `react-day-picker`. Add to package.json.
-
----
-
-## Filter Panel Pattern
-
-Inline filter bar above table — NOT a sidebar drawer (drawer is for mobile only).
-
-```tsx
-// src/components/dashboard/FilterBar.tsx
-import { Search, X } from 'lucide-react'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-
-interface FilterBarProps {
-  search: string
-  onSearch: (v: string) => void
-  status: string
-  onStatus: (v: string) => void
-  onClear: () => void
-  hasFilters: boolean
-}
-
-export function FilterBar({ search, onSearch, status, onStatus, onClear, hasFilters }: FilterBarProps) {
-  return (
-    <div className="flex items-center gap-3 mb-4">
-      <div className="relative flex-1 max-w-sm">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
-        <Input
-          value={search}
-          onChange={e => onSearch(e.target.value)}
-          placeholder="Search..."
-          className="pl-9 h-9 text-sm"
-        />
-      </div>
-      <Select value={status} onValueChange={onStatus}>
-        <SelectTrigger className="w-[140px] h-9 text-sm">
-          <SelectValue placeholder="All statuses" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all">All statuses</SelectItem>
-          <SelectItem value="active">Active</SelectItem>
-          <SelectItem value="inactive">Inactive</SelectItem>
-        </SelectContent>
-      </Select>
-      {hasFilters && (
-        <Button variant="ghost" size="sm" onClick={onClear} className="gap-1.5 text-muted-foreground h-9">
-          <X className="h-3.5 w-3.5" />Clear
-        </Button>
-      )}
-    </div>
-  )
-}
-```
-
----
-
-## Export to CSV Pattern
-
-Every data table needs an Export button in the page header. Never inside the table itself.
-
-```tsx
-// src/lib/export-csv.ts
-export function exportToCsv(filename: string, rows: Record<string, unknown>[]) {
-  if (!rows.length) return
-  const headers = Object.keys(rows[0])
-  const csvContent = [
-    headers.join(','),
-    ...rows.map(row =>
-      headers.map(h => {
-        const val = String(row[h] ?? '')
-        return val.includes(',') ? `"${val.replace(/"/g, '""')}"` : val
-      }).join(',')
-    )
-  ].join('\n')
-
-  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
-  const url = URL.createObjectURL(blob)
-  const a = document.createElement('a')
-  a.href = url
-  a.download = `${filename}-${new Date().toISOString().split('T')[0]}.csv`
-  a.click()
-  URL.revokeObjectURL(url)
-}
-
-// Usage in page header:
-<Button variant="outline" size="sm" onClick={() => exportToCsv('reports', data ?? [])}>
-  Export CSV
-</Button>
 ```
 
 ---
 
 ## CMD+K Global Search
 
-Required for any product with 8+ nav items or 10+ page types. Use `cmdk` package.
+**When required:** 10+ page types or 50+ records.
 
 ```tsx
-// src/components/CommandPalette.tsx
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Command } from 'cmdk'
-import { Dialog, DialogContent } from '@/components/ui/dialog'
-
-const COMMANDS = [
-  { label: 'Dashboard', href: '/dashboard', group: 'Navigate' },
-  { label: 'Settings', href: '/settings', group: 'Navigate' },
-  // Add all routes here — saas-build populates this from SCOPE.md
-]
-
 export function CommandPalette() {
   const [open, setOpen] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); setOpen(o => !o) }
+      if (e.key === 'k' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); setOpen(o => !o) }
     }
     document.addEventListener('keydown', down)
     return () => document.removeEventListener('keydown', down)
   }, [])
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="overflow-hidden p-0 shadow-lg max-w-lg">
-        <Command className="[&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground">
-          <Command.Input
-            placeholder="Search pages and actions..."
-            className="border-none h-12 text-sm focus:ring-0 px-4"
-          />
-          <Command.List className="max-h-64 overflow-y-auto p-2">
-            <Command.Empty className="py-6 text-center text-sm text-muted-foreground">No results.</Command.Empty>
-            {['Navigate'].map(group => (
-              <Command.Group key={group} heading={group}>
-                {COMMANDS.filter(c => c.group === group).map(cmd => (
-                  <Command.Item
-                    key={cmd.href}
-                    onSelect={() => { navigate(cmd.href); setOpen(false) }}
-                    className="flex items-center gap-2 rounded-md px-3 py-2 text-sm cursor-pointer"
-                  >
-                    {cmd.label}
-                  </Command.Item>
-                ))}
-              </Command.Group>
-            ))}
-          </Command.List>
-        </Command>
-      </DialogContent>
-    </Dialog>
+    <CommandDialog open={open} onOpenChange={setOpen}>
+      <CommandInput placeholder="Search pages, actions, records..." />
+      <CommandList>
+        <CommandEmpty>No results found.</CommandEmpty>
+        <CommandGroup heading="Navigation">
+          <CommandItem onSelect={() => { setOpen(false); navigate('/dashboard') }}>
+            Dashboard <CommandShortcut>G D</CommandShortcut>
+          </CommandItem>
+        </CommandGroup>
+        <CommandSeparator />
+        <CommandGroup heading="Actions">
+          <CommandItem onSelect={() => { setOpen(false); handleCreate() }}>Create Report</CommandItem>
+        </CommandGroup>
+        <CommandSeparator />
+        <CommandGroup heading="Recent">
+          {recentItems.map(item => (
+            <CommandItem key={item.id} onSelect={() => { setOpen(false); navigate(item.href) }}>
+              {item.label}
+            </CommandItem>
+          ))}
+        </CommandGroup>
+      </CommandList>
+    </CommandDialog>
   )
 }
 ```
 
-**Package:** `npm install cmdk`
-**Mount in AppLayout** — renders globally, not per page.
+**Header trigger button:**
+```tsx
+<button onClick={() => setOpen(true)}
+  className="hidden md:flex items-center gap-2 px-3 py-1.5 text-sm text-gray-400 bg-gray-100 rounded-md hover:bg-gray-200">
+  <Search className="w-3.5 h-3.5" /><span>Search...</span>
+  <kbd className="ml-2 text-xs bg-white border rounded px-1">⌘K</kbd>
+</button>
+```
 
 ---
 
-## Empty State Template
+## Animation Patterns
 
 ```tsx
-// Use the suite's EmptyState component from web-scaffold — do NOT create a second one
-import { EmptyState } from '@/components/ui/EmptyState'
-import { FileText } from 'lucide-react'
+// Skeleton loader
+function KpiCardSkeleton() {
+  return <Card className="p-6">
+    <Skeleton className="h-4 w-24 mb-3" /><Skeleton className="h-8 w-32 mb-2" />
+    <Skeleton className="h-4 w-20 mb-3" /><Skeleton className="h-10 w-full" />
+  </Card>
+}
 
-<EmptyState
-  icon={FileText}
-  heading="No reports yet"
-  description="Create your first report to start tracking revenue trends and user growth."
-  action={{ label: 'Create Report', onClick: () => navigate('/reports/new') }}
-/>
+// Number count-up (Stripe/Mercury style)
+function AnimatedNumber({ value, duration = 1000, prefix = '' }) {
+  const ref = useRef<HTMLSpanElement>(null)
+  useEffect(() => {
+    const start = Date.now()
+    const tick = () => {
+      const p = Math.min((Date.now() - start) / duration, 1)
+      const eased = 1 - Math.pow(1 - p, 3)
+      if (ref.current) ref.current.textContent = `${prefix}${Math.floor(value * eased).toLocaleString()}`
+      if (p < 1) requestAnimationFrame(tick)
+    }
+    requestAnimationFrame(tick)
+  }, [value])
+  return <span ref={ref}>{prefix}0</span>
+}
+
+// Page transitions (Framer Motion)
+<AnimatePresence mode="wait">
+  <motion.div key={location.pathname}
+    initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -4 }} transition={{ duration: 0.15 }}>
+    {children}
+  </motion.div>
+</AnimatePresence>
 ```
 
-| Type | Headline | CTA |
+| Animation | Duration | Easing |
 |---|---|---|
-| First use | "No [thing]s yet" | Create first [thing] |
-| Filtered | "No results for '[query]'" | Clear filters |
-| Error | "Couldn't load [thing]" | Retry |
-| Done | "All caught up!" | (none) |
+| Skeleton to content | 200ms | ease-out |
+| Chart entrance | 600-800ms | ease-out |
+| Number count-up | 800-1200ms | cubic ease-out |
+| Page transition | 150ms | ease-out |
+| Hover state | 150ms | ease |
 
 ---
 
-## Notification Tiers
-
-| Tier | Trigger | Component | Auto-dismiss |
-|---|---|---|---|
-| Critical | System outage, data loss | Modal or full-width red banner | No |
-| Important | Trial ending, quota hit | Persistent yellow banner | On dismiss |
-| Informational | Save, invite sent | Sonner toast (bottom-right) | Yes, 5s |
-| Passive | Background sync done | Bell badge | On read |
+## Dark Mode
 
 ```tsx
-// Success toast — use sonner (suite standard)
-import { toast } from 'sonner'
-toast.success("Invoice sent", { description: "alex@company.com will receive it shortly" })
-toast.error("Failed to send")  // does not auto-dismiss
+// tailwind.config.ts: darkMode: ['class']
+
+// ThemeProvider
+export function ThemeProvider({ children }) {
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'system')
+  useEffect(() => {
+    const root = document.documentElement
+    root.classList.remove('dark', 'light')
+    root.classList.add(theme === 'system'
+      ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+      : theme)
+    localStorage.setItem('theme', theme)
+  }, [theme])
+  return <ThemeContext.Provider value={{ theme, setTheme }}>{children}</ThemeContext.Provider>
+}
+
+// Recharts needs explicit dark colors (SVG ignores CSS vars)
+const isDark = resolvedTheme === 'dark'
+const chartColors = {
+  line: isDark ? '#818cf8' : '#6366f1',
+  grid: isDark ? '#1e293b' : '#f0f0f0',
+  axis: isDark ? '#64748b' : '#9ca3af',
+  tooltip: isDark ? '#1e293b' : '#ffffff',
+}
 ```
 
+**Dark rules:** bg never pure #000 (use #0f1117). Text never pure white (use #f1f5f9). Semantic colors unchanged in dark. Card borders: `border-white/10`. Best: Linear (#161618), Vercel (#000), Supabase (navy).
+
 ---
 
-## Bulk Actions Pattern
+## Mobile Patterns
 
 ```tsx
-{selectedRows.length > 0 && (
-  <div className="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-3 bg-card border border-border text-foreground rounded-full px-6 py-3 shadow-xl z-50">
-    <span className="text-sm font-medium">{selectedRows.length} selected</span>
-    <div className="w-px h-4 bg-border" />
-    <Button size="sm" variant="ghost">Archive</Button>
-    <Button size="sm" variant="ghost" className="text-destructive hover:text-destructive">Delete</Button>
+// Table collapses to cards on mobile (Stripe/HubSpot/Intercom)
+<>
+  <div className="hidden md:block"><DataTable data={data} columns={columns} /></div>
+  <div className="md:hidden space-y-3">
+    {data.map(row => (
+      <Card key={row.id} className="p-4">
+        <div className="flex items-center justify-between mb-2">
+          <span className="font-medium">{row.name}</span>
+          <StatusBadge status={row.status} />
+        </div>
+        <div className="grid grid-cols-2 gap-2 text-sm text-gray-500">
+          <span>{row.amount}</span><span>{row.date}</span>
+        </div>
+      </Card>
+    ))}
+  </div>
+</>
+
+// Chart simplified on mobile
+<ResponsiveContainer width="100%" height={isMobile ? 180 : 300}>
+  <LineChart>
+    <XAxis interval={isMobile ? 'preserveStartEnd' : 0} tick={{ fontSize: isMobile ? 10 : 12 }} />
+    <YAxis hide={isMobile} />
+  </LineChart>
+</ResponsiveContainer>
+```
+
+**Mobile rules:** Touch targets `min-h-[44px]`. No sparklines on mobile KPI cards. Max 2 action buttons per card. Bottom tab nav only if product has 4-5 sections AND mobile is a core use case.
+
+---
+
+## Onboarding Patterns
+
+```tsx
+// Progress wizard (HubSpot/Intercom style)
+function SetupWizard({ steps, currentStep, onNext, onBack }) {
+  const progress = (steps.filter(s => s.isComplete).length / steps.length) * 100
+  return (
+    <div className="max-w-2xl mx-auto">
+      <div className="mb-8">
+        <div className="flex justify-between mb-2 text-sm">
+          <span className="font-medium">Setup Progress</span>
+          <span className="text-gray-500">{steps.filter(s => s.isComplete).length}/{steps.length}</span>
+        </div>
+        <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+          <div className="h-full bg-indigo-500 rounded-full transition-all duration-500" style={{ width: `${progress}%` }} />
+        </div>
+      </div>
+      <Card className="p-8">
+        <h2 className="text-xl font-semibold mb-2">{steps[currentStep].title}</h2>
+        <p className="text-gray-500 mb-6">{steps[currentStep].description}</p>
+        <div className="flex items-center justify-between mt-8">
+          {currentStep > 0
+            ? <Button variant="ghost" onClick={onBack}>Back</Button>
+            : <button className="text-sm text-gray-400" onClick={onSkip}>Skip setup</button>}
+          <Button onClick={onNext}>{currentStep < steps.length - 1 ? 'Continue' : 'Finish Setup'}</Button>
+        </div>
+      </Card>
+    </div>
+  )
+}
+
+// Sample data banner (Notion/ClickUp)
+{hasSampleData && (
+  <div className="mb-4 flex items-center justify-between bg-amber-50 border border-amber-200 rounded-lg px-4 py-2.5">
+    <span className="text-sm text-amber-800">Viewing <strong>sample data</strong> to preview the dashboard.</span>
+    <Button size="sm" variant="ghost" className="text-amber-800" onClick={clearSampleData}>Use real data</Button>
   </div>
 )}
 ```
 
 ---
 
-## Per-Product Design Signatures
+## Date Range Picker
 
-| Product | Signature pattern | Copy this |
-|---|---|---|
-| Stripe | KPI sparklines, semantic colors | Breadcrumbs on object detail pages |
-| Linear | Dark, keyboard-first, <100ms | Empty states with illustrations |
-| Vercel | Deployment status as primary UI | Status: color + icon + text (not color alone) |
-| Datadog | Time range selector | 15m / 1h / 4h / 1d / 1w / custom |
-| HubSpot | Pipeline kanban with column sums | Contact activity feed |
-| Mixpanel | Stacked area for cohort retention | Event explorer side panel |
-| Amplitude | Funnel with step % conversion | Chart type switcher above viz |
-| Intercom | Inbox + user profile side-by-side | User attribute sidebar |
-| Supabase | DB-first left nav | Table editor with inline row editing |
-| Notion | View switcher: table/gallery/kanban | Filter + sort controls above data |
+```tsx
+// Analytics preset selector (Mixpanel/Amplitude/Datadog/GA4/PostHog)
+const PRESETS = ['15m','1h','4h','24h','7d','30d','90d','Custom']
+
+function TimeRangeSelector({ value, onChange }) {
+  return (
+    <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1">
+      {PRESETS.map(preset => (
+        <button key={preset} onClick={() => onChange(preset)}
+          className={cn('px-2.5 py-1 text-sm rounded-md transition-colors',
+            value === preset ? 'bg-white shadow-sm font-medium' : 'text-gray-500 hover:text-gray-700')}>
+          {preset}
+        </button>
+      ))}
+    </div>
+  )
+}
+
+// Comparison period toggle (Amplitude/Mixpanel)
+<div className="flex items-center gap-4">
+  <TimeRangeSelector value={period} onChange={setPeriod} />
+  <div className="flex items-center gap-1.5 text-sm">
+    <Switch checked={showComparison} onCheckedChange={setShowComparison} id="compare" />
+    <label htmlFor="compare" className="text-gray-500">Compare to previous</label>
+  </div>
+</div>
+
+// Dashed line for comparison period in chart
+{showComparison && <Line dataKey="previous" stroke="#d1d5db" strokeWidth={1.5} strokeDasharray="4 4" />}
+```
 
 ---
 
-## Spacing & Typography System
+## Empty States
+
+```tsx
+<div className="flex flex-col items-center justify-center py-20 text-center">
+  <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mb-4">
+    <FileText className="w-8 h-8 text-gray-400" />
+  </div>
+  <h3 className="text-lg font-semibold text-gray-900 mb-2">No reports yet</h3>
+  <p className="text-sm text-gray-500 max-w-sm mb-6">Create your first report to track revenue trends.</p>
+  <Button><Plus className="w-4 h-4 mr-2" />Create Report</Button>
+</div>
+```
+
+| Type | Headline | CTA |
+|---|---|---|
+| First use | "No [things] yet" | Create first [thing] |
+| Filtered empty | "No results for '[query]'" | Clear filters |
+| Error | "Couldn't load [thing]" | Retry |
+| All done | "All caught up!" | none |
+
+---
+
+## Notification System
+
+| Tier | When | Component | Dismiss |
+|---|---|---|---|
+| Critical | Outage, data loss | Modal or full-width red banner | Manual |
+| Important | Trial ending, quota hit | Persistent yellow banner | On action |
+| Informational | Save, invite sent | Toast bottom-right | Auto 5s |
+| Passive | Sync complete | Bell badge | On read |
+
+```tsx
+toast({ title: "Invoice sent", description: "alex@company.com will receive it shortly" })
+toast({ title: "Failed to send", variant: "destructive" })  // persistent
+toast({ title: "Deleted", action: <ToastAction altText="Undo" onClick={undo}>Undo</ToastAction> })
+```
+
+---
+
+## DataTable Standards
+
+All 40 products include: sorting, filter/search, pagination (25-50 rows), row select, bulk actions, status badges, skeleton loader, clickable rows.
+
+```tsx
+// Floating bulk action bar (Linear/Notion style)
+{selected.length > 0 && (
+  <div className="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-3 bg-gray-900 text-white rounded-full px-6 py-3 shadow-xl z-50">
+    <span className="text-sm font-medium">{selected.length} selected</span>
+    <div className="w-px h-4 bg-gray-600" />
+    <Button size="sm" variant="ghost" className="text-white hover:bg-gray-700">Archive</Button>
+    <Button size="sm" variant="ghost" className="text-red-400 hover:bg-gray-700">Delete</Button>
+  </div>
+)}
+```
+
+---
+
+## Spacing & Typography
 
 | Role | Tailwind | px |
 |---|---|---|
-| Metric value | text-3xl font-bold | 30px |
-| Page title | text-2xl font-bold | 24px |
-| Section title | text-xl font-semibold | 20px |
-| Metric label | text-sm font-medium text-muted-foreground | 14px |
-| Body | text-sm text-foreground | 14px |
-| Caption | text-xs text-muted-foreground | 12px |
+| Metric value | text-3xl font-bold | 30 |
+| Page title | text-2xl font-bold | 24 |
+| Section title | text-xl font-semibold | 20 |
+| Metric label | text-sm font-medium text-gray-500 | 14 |
+| Body | text-sm text-gray-700 | 14 |
+| Caption | text-xs text-gray-400 | 12 |
 
-**Spacing non-negotiables:**
-- Card padding: always `p-6` (never p-4 or p-8)
-- Card grid gap: always `gap-6`
-- Never use arbitrary Tailwind values (no `p-[18px]`)
-- Never hardcode colors — use CSS variables only (`text-foreground`, `bg-muted`, `border-border`)
+**Non-negotiable:** Card padding always `p-6`. Card gap always `gap-6`. Never arbitrary values.
 
-**Semantic colors (use Tailwind utilities, not hex):**
-- Positive: `text-emerald-600` / `text-emerald-500`
-- Negative: `text-red-600` / `text-red-500`
-- Warning: `text-amber-500`
-- Info: `text-blue-500`
-- Brand: `text-primary` — active nav + primary CTA only (never for trends)
-
----
-
-## Dashboard Page Types
-
-Different pages have different primary purposes — build accordingly:
-
-| Page type | Primary element | Secondary elements |
-|---|---|---|
-| Overview/Home | KPI grid (4 cards) + 1 primary chart | Recent activity feed |
-| Analytics | Date range + charts + filter bar | Export button |
-| List/Management | Filter bar + data table | Bulk actions, row actions |
-| Detail/Profile | Header summary + activity feed | Edit modal, related items |
-| Settings | Form sections | Save button, danger zone |
-| Onboarding | Progress steps | Skip link (if allowed) |
+**Semantic colors:** Positive `emerald-500` | Negative `red-500` | Warning `amber-500` | Info `blue-500` | Brand: active nav + primary CTA only.
 
 ---
 
 ## Pre-Ship Checklist
 
-**Information Architecture**
-- [ ] Page has one named primary metric
-- [ ] Metrics ordered by business impact (revenue first)
-- [ ] Max 7 KPI cards per page
-- [ ] Time context on every metric (date range visible)
-- [ ] Comparison period on every trend value
-
-**Tokens & Colors**
-- [ ] Zero hardcoded colors — all CSS variables (`text-foreground`, `bg-card`, `border-border`)
-- [ ] Recharts axes and tooltips use `hsl(var(--...))` not hex
-- [ ] Status colors semantic (emerald/red/amber) — never brand color for trends
-- [ ] Dark mode: switch theme and confirm no hardcoded gray or white breaks layout
+**Architecture**
+- [ ] Named primary metric for this page
+- [ ] Metrics ordered by business impact
+- [ ] Max 7 KPI cards
+- [ ] Time context on every metric + comparison period on every trend
 
 **Navigation**
-- [ ] Active nav item: left border + bg tint + bold font — unmistakable
-- [ ] Breadcrumbs on pages 2+ levels deep
-- [ ] Primary CTA in page header (top-right), not buried
-- [ ] Sidebar collapses to hamburger at md breakpoint
-- [ ] CMD+K command palette present if product has 8+ nav items
+- [ ] Active nav item: bold + colored left border + bg tint
+- [ ] Breadcrumbs on pages >2 levels deep
+- [ ] Primary CTA in page header
+- [ ] CMD+K if 10+ page types
+- [ ] Sidebar to Sheet drawer on mobile
 
-**Data Display**
+**Data**
 - [ ] No pie charts with 4+ slices
-- [ ] No charts without axis labels
-- [ ] Sparkline on every KPI card
-- [ ] Date range picker on every analytics page
-- [ ] Tables have sorting + pagination
-- [ ] Export CSV button in page header of every list page
-- [ ] Filter bar above every data table
+- [ ] All charts have axis labels
+- [ ] Sparkline on every KPI card (desktop)
+- [ ] Tables: sort + pagination + bulk select
+- [ ] Every trend has direction arrow + period
 
 **States**
-- [ ] Loading: skeleton loaders (not spinners) — shape matches loaded content
-- [ ] Empty: contextual headline + CTA (uses EmptyState component)
-- [ ] Error: message + retry button
-- [ ] Success: sonner toast on every save/create/send
+- [ ] Skeleton loaders (not spinners) on all data
+- [ ] Empty states with contextual headline + CTA
+- [ ] Error state with retry action
+- [ ] Toast on every save/create/send/delete
 
-**Data Fetching**
-- [ ] All data via TanStack Query (no useEffect data fetching)
-- [ ] Query keys include all filter/date range params
-- [ ] Real-time subscription only where data is live (monitoring, feeds)
-
-**Visual Consistency**
-- [ ] Card padding always `p-6` — no exceptions
-- [ ] Card gap always `gap-6` — no exceptions
-- [ ] Primary color max 2-3 uses per page
-- [ ] Consistent shadow level: `shadow-sm` on cards only
-- [ ] KPI card entrance: Framer Motion stagger (0.08s per card)
+**Dark Mode & Mobile**
+- [ ] Dark mode tested - semantic colors intact
+- [ ] Recharts gets explicit dark colors
+- [ ] Mobile: 1-column KPI grid
+- [ ] Mobile: tables become card list
+- [ ] Touch targets min 44x44px
 
 ---
 
-## Claude Code Implementation Prompt Template
+## Claude Code Implementation Prompt
 
 ```
-Build a [product name] [page type] dashboard page in React + Vite + TypeScript + Tailwind + shadcn/ui.
-
-Read ~/.claude/skills/dashboard-design/SKILL.md in full before writing any code.
+Build a [product name] dashboard in React + Vite + TypeScript + Tailwind CSS + shadcn/ui.
 
 LAYOUT:
-- Left sidebar (240px, collapses to hamburger at md)
-- Page header: breadcrumbs + h1 "[Page name]" + DateRangePicker + Export CSV + primary CTA
-- Content: max-w-[1280px] mx-auto px-6 py-8
+- Left sidebar (240px desktop, Sheet drawer on mobile <768px)
+- Top header: breadcrumbs + page title + primary CTA top-right
+- Content: max-w-[1280px] mx-auto px-6 py-8, bg-gray-50
 
-KPI CARDS (grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 — Framer Motion stagger):
-[label | example value | trend direction | isPositiveGood]
+NAVIGATION (max 8 items):
+[icon | label | /route]
 
-PRIMARY CHART: [type] showing [metric] over selected date range — Recharts with CSS vars, h-[300px]
+KPI CARDS (grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6):
+[label | example value | trend % | isPositiveGood true/false | "vs last month"]
 
-TABLE: [name] with columns [list] — FilterBar above, sorting, pagination 25 rows, row select, Export CSV
+PRIMARY CHART:
+[line/bar/donut] showing [metric] — Recharts h-[300px]
+Time range selector: [7d/30d/90d presets | yes/no]
+Comparison toggle: [yes/no]
 
-EMPTY STATE: "[headline]" + [CTA label] button using EmptyState component
+DATA TABLE:
+[name], columns: [list]
+Sorting, 25 rows/page, row select, floating bulk actions bar, status badges
 
-COLORS: All CSS variables only (bg-card, text-foreground, border-border, text-muted-foreground)
-POSITIVE: text-emerald-600, NEGATIVE: text-red-600
+EMPTY STATE:
+"[headline]" + "[CTA label]" button
 
-STANDARDS:
-- Card: p-6, gap-6 grid, shadow-sm, rounded-lg
-- Metric: text-3xl font-bold text-foreground
-- Skeleton loaders during fetch (not spinners)
-- Sonner toast for success/error
-- TanStack Query for all data fetching (no useEffect)
-- Mobile: 1-col KPI grid, sidebar hamburger, charts full-width
+ONBOARDING: [none | checklist widget | setup wizard N steps]
+DARK MODE: [yes/no]
+CMD+K: [yes/no]
+
+COLORS: Brand [hex]
+
+ENFORCE ALL:
+- Cards: p-6, gap-6, shadow-sm, border-gray-100, rounded-lg
+- Skeleton loaders on all data fetches (shadcn Skeleton)
+- Toast for success/error/delete (shadcn useToast)
+- Sparklines on every KPI card (Recharts LineChart h-10)
+- Semantic trends: emerald-500/red-500 with isPositiveGood context
+- Animations: chart 800ms, count-up 1000ms, page 150ms (Framer Motion)
+- Mobile: 1-col KPI, Sheet sidebar, cards instead of table
 ```
-
-
----
-
-## Deep Product Profiles: All 40 Products
-
----
-
-### ANALYTICS & MONITORING
-
-#### 1. Datadog
-
-- **Layout:** Fixed left nav 220px (collapsible to 48px icon rail). Top global header 52px with org switcher. Content max-w-full with 24px padding. Three-panel layouts common: nav | list | detail.
-- **Signature pattern:** Time range selector as global page-level control: 15m / 1h / 4h / 1d / 1w / 1M / custom. Sticks at page top, all charts update simultaneously.
-- **KPI/metrics display:** Large number + unit + sparkline inline. Alert thresholds as horizontal lines on charts. P50/P95/P99 percentile pills next to latency metrics.
-- **Navigation model:** Flat mega-menu. Top-level: Infrastructure, APM, Logs, Metrics, Dashboards, Monitors. Each opens flyout with sub-sections.
-- **Color system:** Dark mode (#1f2d3d background). Semantic: green=healthy, yellow=warning, red=critical. Brand purple (#774aa4) for logo only.
-- **Empty states:** "No data in this time range" with range adjustment suggestion.
-- **Mobile behavior:** Responsive grid collapses widgets to single column. No native mobile app -- tablet minimum.
-- **Animation:** Time series charts animate left-to-right on load. Status badges pulse when alert firing.
-- **Copy this:** Global time range control affecting all widgets simultaneously. P50/P95/P99 percentile pills next to latency.
-- **Anti-pattern:** Do not replicate widget configuration complexity (JSON editor for queries). Use UI controls, not raw query DSL.
