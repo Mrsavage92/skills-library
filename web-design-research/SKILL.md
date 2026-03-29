@@ -52,7 +52,7 @@ Answer these three before proceeding:
 
 ## Step 2 — Competitor Design Research
 
-**First: check if MARKET-BRIEF.md exists in the project root.** If it does, read the "Competitor website analysis" and "Patterns worth adopting" sections — these contain pre-fetched competitor data from Phase 0.25. Skip the WebSearch queries below and proceed directly to the analysis step. Do not duplicate research.
+**First: check if MARKET-BRIEF.md exists in the project root.** If it does, read the "Top 3 competitors" and "Features users consistently request" sections — these contain pre-fetched competitor data from Phase 0.25. Skip the WebSearch queries below and proceed directly to the analysis step. Do not duplicate research.
 
 If MARKET-BRIEF.md does not exist, run these 4 WebSearch queries:
 
@@ -214,6 +214,8 @@ Lock this choice in DESIGN-BRIEF.md. It drives the hero MCP query in Step 6.
 
 **This is the most important step.** Run `mcp__magic__21st_magic_component_inspiration` for every mandatory landing page section. For each, apply the selection criteria below to choose the specific variant. Lock every choice in DESIGN-BRIEF.md.
 
+**Tool usage rule:** Only `mcp__magic__21st_magic_component_inspiration` is called in this research phase. `mcp__magic__21st_magic_component_builder` is NEVER called here — it is called by build skills (web-scaffold, web-page) when constructing the actual component from the locked name.
+
 Build skills DO NOT re-run these queries. They read the locked choices from DESIGN-BRIEF.md and execute.
 
 ### Selection criteria by personality
@@ -231,7 +233,7 @@ Build skills DO NOT re-run these queries. They read the locked choices from DESI
 
 ### Run these 11 MCP queries — one per section
 
-For each query below: replace `[PRODUCT-SPECIFIC]` with the personality adjective + product category from Step 1.
+For each query below: replace `[PRODUCT-SPECIFIC]` with the format `[dark/light mode] [personality keyword] [product category]` from Steps 1 and 3. The mode descriptor comes first to bias MCP results toward the correct visual register.
 
 **Example replacements:**
 - Enterprise Authority + AML compliance: "clean light compliance", "enterprise authority"
@@ -280,6 +282,8 @@ Examples:
 
 Pick from results based on the architecture decision in Step 5. The hero component must match the chosen pattern.
 
+Default if MCP returns nothing: `HeroSection 2` with `AnimatedGroup` spring blur entrance (centered layout).
+
 ---
 
 **Query 4 — Logo Cloud**
@@ -324,6 +328,8 @@ Pick from results based on:
 - Data/Growth: `BentoGrid` — hero feature spans 2 columns with screenshot/animation
 - Enterprise/Productivity/Health: `Features 4` border-grid — clean, equal cards
 - Bold/Premium: large feature blocks with strong visual hierarchy
+
+Default if MCP returns nothing: `Features 4` border-grid (Enterprise/Productivity/Health) or `BentoGrid` (Data/Growth).
 
 ---
 
@@ -394,7 +400,27 @@ Default: `Footer 2` multi-column
 
 ---
 
-**After all 11 queries:** For each section, record:
+---
+
+**Query 0 (Optional) — Announcement Banner**
+Run only if product has a launch announcement, active promotion, or breaking news.
+```
+searchQuery: "announcement banner [dark/light] dismissible top"
+```
+Default: `Banner 1` (single line, dismissible, top of page above nav).
+
+---
+
+**Query 11b (Optional) — Waitlist / Pre-launch Hero**
+Run only if product is pre-launch or collecting signups before going live.
+```
+searchQuery: "waitlist signup hero [personality adjective] [dark/light]"
+```
+Default: `WaitlistHero` with `WaitlistForm` — email input + submit + counter showing signups so far.
+
+---
+
+**After all queries:** For each section, record:
 - Which component was selected
 - Which query returned it
 - One-sentence reason why it fits this product's personality (not generic)
@@ -406,7 +432,7 @@ Default: `Footer 2` multi-column
 Find 3 product-specific animations for empty states, success moments, and loading states.
 
 ```
-WebSearch: "lottiefiles [product keyword] free animation 2024"
+WebSearch: "lottiefiles [product keyword] free animation"
 WebSearch: "lottiefiles [core action of product] animation loop"
 ```
 
@@ -420,10 +446,12 @@ Integration:
 import { Player } from '@lottiefiles/react-lottie-player'
 import { useReducedMotion } from 'framer-motion'
 
-const shouldReduce = useReducedMotion()
-{!shouldReduce && (
-  <Player autoplay loop src="[lottie-url]" style={{ height: '120px' }} />
-)}
+// Usage inside a React component:
+function LottieEmptyState({ src, height = 120 }: { src: string; height?: number }) {
+  const shouldReduce = useReducedMotion()
+  if (shouldReduce) return null
+  return <Player autoplay loop src={src} style={{ height: `${height}px` }} />
+}
 ```
 
 If no exact match found: note the search terms used and closest alternatives. Never skip — even a close match is better than a generic icon.
@@ -434,7 +462,9 @@ If no exact match found: note the search terms used and closest alternatives. Ne
 
 Before writing DESIGN-BRIEF.md, run this check against recent products.
 
-Read `~/.claude/projects/C--Users-Adam/memory/MEMORY.md` — identify the last 2-3 products built with this suite and their recorded color choices.
+Use Glob with pattern `~/.claude/projects/*/memory/*.md` to find all project memory files on this machine. Read any that reference a SaaS product built with this suite — identify the last 2-3 products and their recorded color choices.
+
+If memory files exist but contain no color data: check for `DESIGN-BRIEF.md` files in sibling project directories. If none found, skip the color dimension of this audit, document "no prior builds found" in DESIGN-BRIEF.md, and continue.
 
 For each of these 5 dimensions, confirm this product makes a **different choice** from recent builds:
 
@@ -448,6 +478,8 @@ For each of these 5 dimensions, confirm this product makes a **different choice*
 
 If any dimension conflicts with a recent product: change this product's choice before locking. Two consecutive dark-first enterprise products in similar hues is a failure of this phase.
 
+**Resolving color conflicts:** If the personality-matched palette hue is already taken by a recent build, shift the primary hue by +20 to -20 degrees before locking. For example, if last build used `hsl(155 38% 36%)` forest green and this product also maps to Enterprise Authority, shift to `hsl(175 38% 36%)` teal-green or `hsl(135 38% 36%)` emerald — same personality register, different visual identity. Document the shift reason in DESIGN-BRIEF.md.
+
 ---
 
 ## Step 9 — Marketing Site Structure
@@ -457,7 +489,7 @@ Choose tier based on product complexity and competitive environment:
 ### Tier 1 — Micro SaaS (simple utility, under 5 features)
 ```
 /         Hero + stats + 3 features + pricing + CTA (single scroll)
-/signin   Auth
+/auth   Auth
 ```
 
 ### Tier 2 — Standard SaaS (most products — default)
@@ -465,7 +497,7 @@ Choose tier based on product complexity and competitive environment:
 /             Hero page (full section stack: hero → logos → stats → features → testimonials → pricing → FAQ → CTA → footer)
 /features     Deep feature breakdown + how-it-works steps + comparisons
 /pricing      Dedicated pricing page + feature comparison table + FAQ + guarantee
-/signin       Auth
+/auth       Auth
 ```
 
 ### Tier 3 — Full Marketing Site (crowded market, SEO priority)
@@ -476,7 +508,8 @@ Choose tier based on product complexity and competitive environment:
 /pricing       Full pricing + comparison + FAQ
 /blog          SEO content hub
 /about         Founder story + credibility
-/signin        Auth
+/auth          Auth (signup / login via tabs)
+/signin        Login shortcut (redirects to /auth?tab=login)
 ```
 
 Default: Tier 2. The single-scroll landing page era is over.
@@ -541,10 +574,16 @@ Write to project root. This file is the single source of truth. Build skills rea
 2. **Success state:** [URL or description] — trigger: [condition]
 3. **Processing state:** [URL or description] — trigger: [condition]
 
+## Competitor Research
+- **Dominant color in category:** [hue + why we're avoiding it]
+- **Mode prevalence:** [dark-first / light-first / mixed in this category]
+- **Patterns that convert (adopt):** [2-3 things all top competitors do that we'll match]
+- **Clichés to avoid:** [2-3 things every competitor does that we will not]
+- **Visual gap (opportunity):** [one thing no competitor is doing that we'll own]
+
 ## Design References
 - **Primary:** [site] — borrow [specific elements e.g. "their card hover states and sidebar density"]
 - **Secondary:** [site] — borrow [specific elements]
-- **Category clichés to avoid:** [2-3 things every competitor does that we will not]
 
 ## Marketing Site Structure
 **Tier:** [1 | 2 | 3]
@@ -553,7 +592,7 @@ Write to project root. This file is the single source of truth. Build skills rea
 - `/` — [one-line brief]
 - `/features` — [one-line brief]
 - `/pricing` — [one-line brief]
-- `/signin` — Auth
+- `/auth` — Auth
 
 **App routes:**
 - `/dashboard` — [one-line brief]
@@ -568,6 +607,7 @@ Write to project root. This file is the single source of truth. Build skills rea
 | Mode | dark/light | dark/light | Yes / No |
 | Hero pattern | [pattern] | [pattern] | Yes / No |
 | Features layout | [layout] | [layout] | Yes / No |
+| Section count | Micro (5) / Standard (9) / Full (11) | [last build count] | Yes / No |
 
 ## Design Anti-Patterns (banned for this product)
 - Electric blue primary — [reason]
@@ -579,7 +619,7 @@ Write to project root. This file is the single source of truth. Build skills rea
 1. `/` (full landing page — all sections from Component Lock)
 2. `/features`
 3. `/pricing`
-4. `/signin`
+4. `/auth`
 5. `/setup` (onboarding wizard)
 6. `/dashboard`
 7. [feature pages by priority]
@@ -593,7 +633,7 @@ Write to project root. This file is the single source of truth. Build skills rea
 Before handoff to `/web-scope`:
 
 - [ ] Personality type identified and justified
-- [ ] 3 WebSearch competitor queries run — findings documented (color, mode, clichés)
+- [ ] 4 WebSearch competitor queries run — findings documented (color, mode, clichés)
 - [ ] Color palette selected with explicit rejection of defaults + reasons
 - [ ] Typography pair locked (not just "Inter")
 - [ ] Hero architecture pattern chosen (Centered / Split-pane / Full-screen / Minimal)
