@@ -203,7 +203,7 @@ Choose the hero layout pattern before calling MCP. The pattern determines the vi
 |---|---|---|
 | **Centered** | Enterprise Authority, Trusted Productivity, Civic | Headline centered, subheadline centered, CTAs centered, product mockup full-width below fold |
 | **Split-pane** | Data Intelligence, AI products, Growth Engine | Text block left (40%), animated product output right (60%) — typewriter or live data |
-| **Full-screen immersive** | Bold Operator, Premium Professional | Background fills viewport, headline overlaid large, single CTA, product mockup inset |
+| **Full-screen immersive** | Bold Operator, Premium Professional | Background fills viewport, headline overlaid large, single CTA, product mockup inset — add subtle film grain overlay (opacity 0.03-0.05) for texture |
 | **Minimal editorial** | Premium Professional (alternative), Health & Care | Giant display typography dominant, minimal visual, emotional photography or soft illustration |
 
 Lock this choice in DESIGN-BRIEF.md. It drives the hero MCP query in Step 6.
@@ -568,6 +568,8 @@ Write to project root. This file is the single source of truth. Build skills rea
 | FAQ | [component name] | `[exact searchQuery]` | [product-specific reason] |
 | Final CTA | [component name] | `[exact searchQuery]` | [product-specific reason] |
 | Footer | [component name] | `[exact searchQuery]` | [product-specific reason] |
+| Banner (optional) | [component name or N/A] | `[exact searchQuery or —]` | [reason included / excluded] |
+| Waitlist (optional) | [component name or N/A] | `[exact searchQuery or —]` | [reason included / excluded] |
 
 ## LottieFiles Animations
 1. **Empty state ([page]):** [URL or description] — trigger: [condition]
@@ -675,7 +677,10 @@ Differentiation vs last build:
 - Hero: [this pattern] vs [last pattern]
 - Features: [this layout] vs [last layout]
 
-Lottie animations: [3 placements confirmed]
+Lottie animations:
+- Empty state ([page]): [URL/description]
+- Success state: [URL/description]
+- Processing state: [URL/description]
 
 Next: /web-scope reads DESIGN-BRIEF.md as its primary input.
 web-scaffold reads Component Lock table — does NOT re-run MCP.

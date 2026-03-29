@@ -39,7 +39,7 @@ Run this checklist against the built product. Every NO is an improvement task to
 
 | # | Check | How to verify |
 |---|---|---|
-| 3.1 | /auth (or /signin) page exists | Check App.tsx routes |
+| 3.1 | /auth page exists | Check App.tsx routes |
 | 3.2 | Auth form has labels on all inputs | Check AuthPage |
 | 3.3 | Auth form has error states | Check AuthPage |
 | 3.4 | Redirect-after-login works | Check AuthPage |

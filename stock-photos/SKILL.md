@@ -1,5 +1,5 @@
 ---
-description: "Stock Photo Finder — finds the best free stock photos for any scenario with precise cultural and geographic specificity. Use with /stock-photos <scenario>."
+description: "Stock Photo Finder - finds the best free stock photos for any scenario with precise cultural and geographic specificity. Use with /stock-photos <scenario>."
 ---
 
 # Stock Photo Finder
