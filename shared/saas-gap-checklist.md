@@ -158,6 +158,7 @@ Run this checklist against the built product. Every NO is an improvement task to
 | 12.6 | Landing page has social proof (testimonials or stat numbers) | Check LandingPage |
 | 12.7 | Landing page CTA is visible above the fold | Check HeroSection |
 | 12.8 | /blog or /changelog exists (for SEO) | Check App.tsx routes |
+| 12.9 | Landing page has comparison table vs top 3 competitors | Check LandingPage for ComparisonTable or FeaturesTable component |
 
 ## 13. Backend & API Security (skip section if frontend-only SaaS with no FastAPI backend)
 
