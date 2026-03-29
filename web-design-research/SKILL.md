@@ -52,21 +52,31 @@ Answer these three before proceeding:
 
 ## Step 2 — Competitor Design Research
 
-Run these 3 WebSearch queries:
+**First: check if MARKET-BRIEF.md exists in the project root.** If it does, read the "Competitor website analysis" and "Patterns worth adopting" sections — these contain pre-fetched competitor data from Phase 0.25. Skip the WebSearch queries below and proceed directly to the analysis step. Do not duplicate research.
+
+If MARKET-BRIEF.md does not exist, run these 4 WebSearch queries:
 
 ```
 WebSearch: "[product category] SaaS website design 2025"
-WebSearch: "[closest competitor or product keyword] platform screenshots UI"
+WebSearch: "[closest competitor] landing page hero"
+WebSearch: "[closest competitor 2] landing page hero"
 WebSearch: "best [industry] software landing page design"
 ```
 
-From results, identify:
-- **Dominant colors** in this category (what everyone is doing)
-- **Dark vs light** prevalence
-- **Design cliches** to actively avoid (the things that make all competitors look the same)
-- **One gap** — something no competitor is doing that would make this product stand out
+From results, identify and document both angles:
 
-Document in 3-4 sentences. This directly informs Step 3 (color) and Step 4 (component choices that break category conventions).
+**What's working (adopt or adapt):**
+- **Proven hero patterns**: what are the top 2-3 competitors doing above the fold? If 2+ use the same approach (e.g. split-pane with product on right), that pattern converts in this category — use it as the baseline and differentiate through execution quality
+- **Social proof formats that appear across multiple competitors**: logo strips, G2 badges, stat numbers — if everyone does it, users expect it
+- **CTA patterns**: what's the dominant first CTA (free trial, get started, book demo)? Match this unless you have a specific reason not to
+
+**What to avoid (cliches that make every competitor look identical):**
+- **Dominant colors** in this category (the hue everyone defaults to)
+- **Dark vs light** prevalence
+- **Overused design motifs**: gradient blobs, generic dashboard screenshots, stock photos
+- **One visual gap** — something no competitor is doing that would make this product stand out visually
+
+Document in 5-6 sentences: 3 on what works, 2-3 on what to avoid. This directly informs Step 3 (color — differentiate from dominant hue), Step 4 (hero architecture — start from proven pattern, not blank canvas), and component choices.
 
 ---
 
