@@ -25,15 +25,19 @@ Run this checklist against the built product. Every NO is an improvement task to
 | # | Check | How to verify |
 |---|---|---|
 | 2.1 | Landing page animated background present | Check HeroSection |
-| 2.2 | Landing page has product visual mockup (not a blob) | Check HeroSection |
-| 2.3 | Hero uses Technique 3 STAGGER (staggerChildren: 0.12) | Check HeroSection |
-| 2.4 | Features section has whileInView stagger animation | Check FeaturesSection |
-| 2.5 | Color budget rule: max 2 uses of primary per page | Audit all pages |
-| 2.6 | Zero hardcoded hex/rgb values in any component | Grep src/ for #[0-9a-f] |
-| 2.7 | Zero raw Tailwind color classes (text-blue-500 etc.) | Grep src/ |
-| 2.8 | All fonts loaded from Google Fonts | Check index.css |
-| 2.9 | Typography has 2+ weight/size levels on each page | Visual audit |
-| 2.10 | Spacing is generous — no cramped sections | Visual audit |
+| 2.2 | Product mockup is max-w-4xl minimum — never max-w-2xl | Check ProductMockup className |
+| 2.3 | Mockup shows product DOING something: typewriter, animated counters, or sparklines | Check ProductMockup |
+| 2.4 | AI products: split-pane mockup (inbox left, AI typewriter output right) — Technique 5 | Check ProductMockup layout |
+| 2.5 | Hero headline minimum text-5xl sm:text-6xl lg:text-7xl with letterSpacing -0.03em | Check HeroSection headline |
+| 2.6 | Hero entrance uses Technique 3 STAGGER (pill > headline > sub > CTAs > stats > mockup last) | Check HeroSection variants |
+| 2.7 | Floating AI toast/badge slides in after mockup renders | Check HeroSection or ProductMockup |
+| 2.8 | Features section has whileInView stagger animation | Check FeaturesSection |
+| 2.9 | Color budget: no more than 3 primary uses per page (>3 is CRITICAL in /web-review) | Grep pages/ for text-primary bg-primary |
+| 2.10 | Zero hardcoded hsl()/hex/rgb color values in components - CSS variables only | Grep src/ for hsl([0-9] and #[0-9a-f] |
+| 2.11 | Zero raw Tailwind color classes (text-blue-500, bg-gray-900 etc.) | Grep src/ for text-[a-z]+-[0-9] |
+| 2.12 | All fonts loaded from Google Fonts with font-display: swap | Check index.css |
+| 2.13 | Typography has 2+ weight/size levels on each page | Visual audit |
+| 2.14 | Spacing is generous - no cramped sections | Visual audit |
 
 ## 3. Authentication & User Flow
 
@@ -121,7 +125,7 @@ Run this checklist against the built product. Every NO is an improvement task to
 | 9.4 | All decorative icons have aria-hidden="true" | Grep src/ |
 | 9.5 | All form inputs have associated <label> | Check all forms |
 | 9.6 | All animations wrapped in prefers-reduced-motion | Grep src/ for motion |
-| 9.7 | Skip-nav link as first element in AppLayout | Check AppLayout |
+| 9.7 | Skip-nav link as first element in AppLayout AND LandingNav | Check AppLayout and LandingNav |
 | 9.8 | Modal close buttons have aria-label="Close" | Check all modals |
 | 9.9 | Modals close on Escape key | Check all modals |
 
@@ -201,14 +205,14 @@ Run this checklist against the built product. Every NO is an improvement task to
 
 ## Scoring
 
-Count YES answers. Total items: ~110.
+Count YES answers. Total items: 121.
 
 | Score | Status |
 |---|---|
-| 100-110 | Ship-ready |
-| 85-99 | Minor gaps — fix before launch |
-| 70-84 | Significant gaps — improvement loop needed |
-| < 70 | Foundational issues — fix critical path first |
+| 111-121 | Ship-ready |
+| 94-110 | Minor gaps - fix before launch |
+| 79-93 | Significant gaps - improvement loop needed |
+| < 79 | Foundational issues - fix critical path first |
 
 When used by saas-build or saas-improve: every NO becomes an improvement task.
 Priority order: 1 (Foundation) > 13 (Backend security) > 14 (RLS) > 3 (Auth) > 4 (Onboarding) > 15 (Tests) > 6 (App quality) > 9 (a11y) > rest.
