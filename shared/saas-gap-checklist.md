@@ -38,6 +38,7 @@ Run this checklist against the built product. Every NO is an improvement task to
 | 2.12 | All fonts loaded from Google Fonts with font-display: swap | Check index.css |
 | 2.13 | Typography has 2+ weight/size levels on each page | Visual audit |
 | 2.14 | Spacing is generous - no cramped sections | Visual audit |
+| 2.15 | Landing page has Stats/CountUp section with react-countup enableScrollSpy | Check LandingPage for stats section |
 
 ## 3. Authentication & User Flow
 
@@ -163,6 +164,7 @@ Run this checklist against the built product. Every NO is an improvement task to
 | 12.7 | Landing page CTA is visible above the fold | Check HeroSection |
 | 12.8 | /blog or /changelog exists (for SEO) | Check App.tsx routes |
 | 12.9 | Landing page has comparison table vs top 3 competitors | Check LandingPage for ComparisonTable or FeaturesTable component |
+| 12.10 | Landing page has FAQ accordion section | Check LandingPage for FAQ or Faqs component |
 
 ## 13. Backend & API Security (skip section if frontend-only SaaS with no FastAPI backend)
 
@@ -205,14 +207,14 @@ Run this checklist against the built product. Every NO is an improvement task to
 
 ## Scoring
 
-Count YES answers. Total items: 121.
+Count YES answers. Total items: 123.
 
 | Score | Status |
 |---|---|
-| 111-121 | Ship-ready |
-| 94-110 | Minor gaps - fix before launch |
-| 79-93 | Significant gaps - improvement loop needed |
-| < 79 | Foundational issues - fix critical path first |
+| 113-123 | Ship-ready |
+| 96-112 | Minor gaps - fix before launch |
+| 81-95 | Significant gaps - improvement loop needed |
+| < 81 | Foundational issues - fix critical path first |
 
 When used by saas-build or saas-improve: every NO becomes an improvement task.
 Priority order: 1 (Foundation) > 13 (Backend security) > 14 (RLS) > 3 (Auth) > 4 (Onboarding) > 15 (Tests) > 6 (App quality) > 9 (a11y) > rest.
