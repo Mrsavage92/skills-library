@@ -516,6 +516,22 @@ Default: Tier 2. The single-scroll landing page era is over.
 
 ---
 
+## Step 9b — Dashboard Design (run only if product has a /dashboard route)
+
+If the marketing site structure includes a `/dashboard` route, run the `dashboard-design` skill now to lock the dashboard layout before build starts. Do not skip this — dashboard design decisions made at build time without a spec produce inconsistent, low-quality app interiors.
+
+Read `~/.claude/skills/dashboard-design/SKILL.md` and complete the following from it:
+
+1. **Category classification** — which of the 8 dashboard categories fits this product? (Analytics, Operations, Finance, HR, CRM, DevOps, Health, Civic)
+2. **Layout pattern** — Sidebar nav or Top nav? Single-panel or split-panel? Choose based on feature count and user workflow
+3. **KPI card spec** — how many KPI cards on the primary dashboard? What metric + sparkline does each show?
+4. **Primary chart type** — what is the hero chart for this product? (Area, Bar, Funnel, Heatmap, Table)
+5. **Empty state design** — what does the dashboard look like for a brand new user with zero data? Must have a CTA.
+
+Add a `## Dashboard Design` section to DESIGN-BRIEF.md with these 5 decisions locked. `web-page` reads this when building `/dashboard`.
+
+---
+
 ## Step 10 — Write DESIGN-BRIEF.md
 
 Write to project root. This file is the single source of truth. Build skills read it — they do not re-research.
@@ -610,6 +626,13 @@ Write to project root. This file is the single source of truth. Build skills rea
 | Hero pattern | [pattern] | [pattern] | Yes / No |
 | Features layout | [layout] | [layout] | Yes / No |
 | Section count | Micro (5) / Standard (9) / Full (11) | [last build count] | Yes / No |
+
+## Dashboard Design (if /dashboard exists)
+- **Category:** [Analytics / Operations / Finance / HR / CRM / DevOps / Health / Civic]
+- **Layout:** [Sidebar nav | Top nav] + [Single-panel | Split-panel]
+- **KPI cards:** [N cards — metric names + sparkline type each]
+- **Hero chart:** [chart type + what it shows]
+- **Empty state:** [what new user sees + CTA text]
 
 ## Design Anti-Patterns (banned for this product)
 - Electric blue primary — [reason]

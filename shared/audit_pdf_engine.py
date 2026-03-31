@@ -414,16 +414,25 @@ class SeverityCard(Flowable):
 
     def __init__(self, title, body, severity="medium", width=None, confidence=False):
         super().__init__()
-        self.title      = title[:120]
-        self.body       = body[:400] if body else ""
+        self.title      = title[:160]
+        self.body       = body[:700] if body else ""
         self.severity   = severity or "medium"
         self.width      = width or CONTENT_W
         self.confidence = confidence
         self._calc_height()
 
     def _calc_height(self):
-        lines = max(1, math.ceil(len(self.body) / 90)) if self.body else 0
-        self.height = 14 + 13 + lines * 11 + 14
+        if self.body:
+            # Use actual canvas width for accurate line estimation
+            wrap_w = self.width - 26  # bw(4) + left pad(10) + right pad(12)
+            # 8.5pt Segoe UI: ~4.7pt avg char width
+            chars_per_line = max(1, int(wrap_w / 4.7))
+            lines = max(1, math.ceil(len(self.body) / chars_per_line))
+            lines = min(lines, 7)
+        else:
+            lines = 0
+        # 22 = badge+title zone, 14 = gap to body, lines*12 = body, 14 = bottom pad
+        self.height = 22 + 14 + lines * 12 + 14
 
     def draw(self):
         c   = self.canv
@@ -458,11 +467,12 @@ class SeverityCard(Flowable):
 
         if self.body:
             c.setFillColor(C["body"]); c.setFont(F_REGULAR, 8.5)
+            wrap_w = self.width - bw - 22
             words = self.body.split()
             line, lines_out = [], []
             for w in words:
                 test = ' '.join(line + [w])
-                if c.stringWidth(test, F_REGULAR, 8.5) < self.width - bw - 22:
+                if c.stringWidth(test, F_REGULAR, 8.5) < wrap_w:
                     line.append(w)
                 else:
                     if line:
@@ -471,9 +481,9 @@ class SeverityCard(Flowable):
             if line:
                 lines_out.append(' '.join(line))
             y = h - 36
-            for ln in lines_out[:4]:
+            for ln in lines_out[:7]:
                 c.drawString(bw + 10, y, esc(ln))
-                y -= 11
+                y -= 12
 
 
 class MetricCallout(Flowable):
@@ -692,10 +702,36 @@ def render_md_body(text, st, use_severity_cards=False, current_section=""):
 
         if stripped.startswith('### '):
             title = re.sub(r'[*#\s]+$', '', stripped[4:]).strip()
-            el.append(p(title, st["h3"]))
-            current_section = title
-            section_sev = detect_severity(title)
-            i += 1; continue
+            # Convert numbered findings (e.g. "1. Missing CSP Header (-10)") to SeverityCards
+            is_finding = use_severity_cards and (
+                re.match(r'^\d+[\.\:]', title) or
+                (section_sev and re.search(r'\(-?\d+\)', title))
+            )
+            if is_finding:
+                i += 1
+                # Consume following paragraph lines as card body
+                body_lines = []
+                while i < len(lines):
+                    ls = lines[i].strip()
+                    if not ls:
+                        i += 1; break
+                    if ls.startswith('#') or ls.startswith('|'): break
+                    if re.match(r'^\s*[-*\u2022]\s', lines[i]) or re.match(r'^\s*\d+\.\s', lines[i]): break
+                    body_lines.append(ls); i += 1
+                body = ' '.join(body_lines)
+                # Strip score suffixes like (-10) and bold markers from title
+                clean_title = re.sub(r'\s*\(-?\d+\s*(?:points?)?\)\s*$', '', title).strip()
+                clean_title = re.sub(r'\*\*([^*]+)\*\*', r'\1', clean_title)
+                sev = detect_severity(title) or section_sev or "medium"
+                conf = detect_confidence(body)
+                el.append(SeverityCard(clean_title, body, sev, confidence=conf))
+                el.append(Spacer(1, 0.15*cm))
+            else:
+                el.append(p(title, st["h3"]))
+                current_section = title
+                section_sev = detect_severity(title)
+                i += 1
+            continue
 
         if stripped.startswith('## '):
             el.append(p(stripped[3:].strip(), st["h2"]))
@@ -773,7 +809,19 @@ def render_md_body(text, st, use_severity_cards=False, current_section=""):
             if re.match(r'^\s*-\s+\[[ xX]\]', l) or re.match(r'^[-*_]{3,}$', ls): break
             para_lines.append(ls); i += 1
         if para_lines:
-            el.append(p(' '.join(para_lines), st["body"]))
+            first = para_lines[0]
+            # Detect **N. Bold finding title** pattern — convert to SeverityCard
+            bold_finding = re.match(r'^\*\*(\d+[\.\:].*?)\*\*\s*$', first)
+            if use_severity_cards and bold_finding:
+                raw_title = bold_finding.group(1)
+                clean_title = re.sub(r'\s*\(-?\d+\s*(?:points?)?\)\s*$', '', raw_title).strip()
+                body = ' '.join(para_lines[1:]).strip()
+                sev = detect_severity(raw_title) or section_sev or "medium"
+                conf = detect_confidence(body)
+                el.append(SeverityCard(clean_title, body, sev, confidence=conf))
+                el.append(Spacer(1, 0.15*cm))
+            else:
+                el.append(p(' '.join(para_lines), st["body"]))
 
     return el
 
@@ -1189,15 +1237,15 @@ def build_suite_section(suite_name, filename, directory, suite_scores, st):
     for header, body in split_sections(content):
         if any(s in header.lower() for s in SKIP): continue
 
-        is_findings = any(w in header.lower() for w in
-                          ("finding", "issue", "risk", "problem", "gap", "fail",
-                           "critical", "recommendation", "quick win"))
+        # Always enable severity cards for suite sections — the content is audit
+        # output and render_md_body uses section context from ### sub-headers to
+        # assign correct severity levels (critical/high/medium/low).
         el.append(KeepTogether([
             p(header, st["h2"]),
             AccentBar(height=1, color=C["border"]),
             Spacer(1, 0.2*cm),
         ]))
-        el += render_md_body(body, st, use_severity_cards=is_findings, current_section=header)
+        el += render_md_body(body, st, use_severity_cards=True, current_section=header)
         el.append(Spacer(1, 0.25*cm))
 
     el.append(PageBreak())
