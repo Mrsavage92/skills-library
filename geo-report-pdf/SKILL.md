@@ -15,8 +15,26 @@ This skill generates a professional, visually polished PDF report from GEO audit
 ## Prerequisites
 
 - **ReportLab** must be installed: `pip install reportlab`
-- The PDF generation script is located at: `~/.claude/skills/geo/scripts/generate_pdf_report.py`
+- The shared PDF engine: `~/.claude/skills/shared/audit_pdf_engine.py` (preferred) or the legacy script at `~/.claude/skills/geo/scripts/generate_pdf_report.py`
 - Run a full GEO audit first (using `/geo-audit`) to have data to include in the report
+
+## Preferred Method: Shared Engine
+
+For consistency with all other audit suites, use the shared engine:
+
+```python
+import sys, os
+sys.path.insert(0, os.path.expanduser("~/.claude/skills"))
+from shared.audit_pdf_engine import generate
+
+generate(
+    directory=os.path.expanduser("~/Documents/Claude/{domain}"),
+    output_path=os.path.expanduser("~/Documents/Claude/{domain}/GEO-REPORT.pdf"),
+    selected_suites=["GEO"]
+)
+```
+
+The legacy script method below still works but produces a slightly different layout.
 
 ## How to Generate a PDF Report
 

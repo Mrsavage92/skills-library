@@ -449,10 +449,11 @@ class SeverityCard(Flowable):
         c.rect(bw, 0, 4, h, fill=1, stroke=0)
 
         badge_w = c.stringWidth(badge_lbl, F_SEMIBOLD, 7) + 10
+        badge_pad = 14  # right margin from card edge
         c.setFillColor(col)
-        c.roundRect(self.width - badge_w - 8, h - 18, badge_w, 13, 3, fill=1, stroke=0)
+        c.roundRect(self.width - badge_w - badge_pad, h - 18, badge_w, 13, 3, fill=1, stroke=0)
         c.setFillColor(C["white"]); c.setFont(F_SEMIBOLD, 7)
-        c.drawString(self.width - badge_w - 3, h - 10, badge_lbl)
+        c.drawString(self.width - badge_w - badge_pad + 5, h - 10, badge_lbl)
 
         if self.confidence:
             c.setFillColor(C["muted"]); c.setFont(F_REGULAR, 6.5)
@@ -460,7 +461,7 @@ class SeverityCard(Flowable):
 
         c.setFillColor(C["ink"]); c.setFont(F_SEMIBOLD, 9.5)
         title_txt = esc(self.title)
-        max_title_w = self.width - (bw + 10) - badge_w - 16
+        max_title_w = self.width - (bw + 10) - badge_w - badge_pad - 8
         while len(title_txt) > 4 and c.stringWidth(title_txt, F_SEMIBOLD, 9.5) > max_title_w:
             title_txt = title_txt[:-2] + '\u2026'
         c.drawString(bw + 10, h - 22, title_txt)
@@ -533,9 +534,9 @@ def make_hf(brand, report_title="Digital Audit Report"):
 def draw_cover_bg(canvas, doc):
     canvas.saveState()
     canvas.setFillColor(C["brand"])
-    canvas.rect(0, PAGE_H * 0.44, PAGE_W, PAGE_H * 0.56, fill=1, stroke=0)
+    canvas.rect(0, PAGE_H * 0.38, PAGE_W, PAGE_H * 0.62, fill=1, stroke=0)
     canvas.setFillColor(C["accent"])
-    canvas.rect(0, PAGE_H * 0.44, PAGE_W, 4, fill=1, stroke=0)
+    canvas.rect(0, PAGE_H * 0.38, PAGE_W, 4, fill=1, stroke=0)
     canvas.restoreState()
 
 
@@ -782,22 +783,37 @@ def render_md_body(text, st, use_severity_cards=False, current_section=""):
             continue
 
         if re.match(r'^\s*\d+\.\s+', line):
+            # Collect numbered items with any following non-numbered body lines
             items = []
             while i < len(lines) and re.match(r'^\s*\d+\.\s+', lines[i]):
                 m = re.match(r'^\s*(\d+)\.\s+(.+)', lines[i])
-                if m: items.append((int(m.group(1)), m.group(2).strip()))
-                i += 1
-            for num, item in items:
+                if m:
+                    num_val, item_text = int(m.group(1)), m.group(2).strip()
+                    i += 1
+                    # Collect continuation lines (not blank, not numbered, not header)
+                    body_parts = []
+                    while i < len(lines):
+                        cl = lines[i].strip()
+                        if not cl: break
+                        if re.match(r'^\s*\d+\.\s+', lines[i]): break
+                        if cl.startswith('#') or cl.startswith('|'): break
+                        if re.match(r'^\s*[-*\u2022]\s', lines[i]): break
+                        body_parts.append(cl); i += 1
+                    items.append((num_val, item_text, ' '.join(body_parts)))
+                else:
+                    i += 1
+            for num, item, body in items:
                 if not item: continue
                 if use_severity_cards and len(item) > 20:
                     sev = detect_severity(item) or section_sev or "medium"
-                    conf = detect_confidence(item)
+                    conf = detect_confidence(item + ' ' + body)
                     title_part = re.sub(r'\s*\*\([^)]+\)\*$', '', item).strip()
                     title_part = re.sub(r'\*\*([^*]+)\*\*', r'\1', title_part).strip('*').strip()
-                    el.append(SeverityCard(f"{num}. {title_part}", "", sev, confidence=conf))
+                    el.append(SeverityCard(f"{num}. {title_part}", body, sev, confidence=conf))
                     el.append(Spacer(1, 0.12*cm))
                 else:
-                    el.append(p(f"<b>{num}.</b>  {esc(item)}", st["ni"]))
+                    full_text = f"{item} {body}".strip() if body else item
+                    el.append(p(f"<b>{num}.</b>  {esc(full_text)}", st["ni"]))
             continue
 
         para_lines = []
@@ -889,7 +905,7 @@ def build_cover(master_content, suite_scores, suite_status, st, selected, weight
 
     el.append(Spacer(1, 1.2 * cm))
 
-    gauge_row = Table([[ScoreGauge(overall, size=180, label="Overall Score")]],
+    gauge_row = Table([[ScoreGauge(overall, size=180)]],
                       colWidths=[CONTENT_W])
     gauge_row.setStyle(TableStyle([("ALIGN", (0, 0), (-1, -1), "CENTER"),
                                    ("TOPPADDING", (0, 0), (-1, -1), 0),
@@ -897,28 +913,44 @@ def build_cover(master_content, suite_scores, suite_status, st, selected, weight
     el.append(gauge_row)
     el.append(Spacer(1, 0.6 * cm))
 
-    # Mini scorecard (only selected suites, 2-column layout)
-    hdr = [tcell("Suite",  F_SEMIBOLD, 8, C["white"], bold=True),
-           tcell("Score",  F_SEMIBOLD, 8, C["white"], TA_CENTER, bold=True),
-           tcell("",       F_SEMIBOLD, 8, C["white"], bold=True),
-           tcell("Suite",  F_SEMIBOLD, 8, C["white"], bold=True),
-           tcell("Score",  F_SEMIBOLD, 8, C["white"], TA_CENTER, bold=True)]
-    rows = [hdr]
+    # Mini scorecard — adaptive layout: single column for <=3 suites, dual for 4+
     suite_list = [(s, f) for s, f in SUITE_ORDER if s in selected]
-    mid = (len(suite_list) + 1) // 2
-    for i in range(mid):
-        left  = suite_list[i]
-        right = suite_list[i + mid] if i + mid < len(suite_list) else None
-        def mk_row_cells(name, fname):
-            sc = suite_scores.get(name, 0)
-            return [tcell(name, F_REGULAR, 8.5, C["body"]),
-                    tcell(f"{sc}/100", F_BOLD, 8.5, sc_color(sc), TA_CENTER)]
-        left_cells  = mk_row_cells(*left)
-        sep         = [tcell("")]
-        right_cells = mk_row_cells(*right) if right else [tcell(""), tcell("")]
-        rows.append(left_cells + sep + right_cells)
+    def mk_row_cells(name, fname):
+        sc = suite_scores.get(name, 0)
+        return [tcell(name, F_REGULAR, 8.5, C["body"]),
+                tcell(f"{sc}/100", F_BOLD, 8.5, sc_color(sc), TA_CENTER)]
 
-    tbl = Table(rows, colWidths=[4.0*cm, 2.0*cm, 0.4*cm, 4.0*cm, 2.0*cm])
+    if len(suite_list) <= 3:
+        # Single-column layout — cleaner for 1-3 suites
+        hdr = [tcell("Suite", F_SEMIBOLD, 8, C["white"], bold=True),
+               tcell("Score", F_SEMIBOLD, 8, C["white"], TA_CENTER, bold=True)]
+        rows = [hdr]
+        for s, f in suite_list:
+            rows.append(mk_row_cells(s, f))
+        tbl = Table(rows, colWidths=[5.0*cm, 2.5*cm])
+    else:
+        # Dual-column layout for 4+ suites
+        hdr = [tcell("Suite",  F_SEMIBOLD, 8, C["white"], bold=True),
+               tcell("Score",  F_SEMIBOLD, 8, C["white"], TA_CENTER, bold=True),
+               tcell("",       F_SEMIBOLD, 8, C["white"], bold=True),
+               tcell("Suite",  F_SEMIBOLD, 8, C["white"], bold=True),
+               tcell("Score",  F_SEMIBOLD, 8, C["white"], TA_CENTER, bold=True)]
+        rows = [hdr]
+        mid = (len(suite_list) + 1) // 2
+        for i in range(mid):
+            left  = suite_list[i]
+            right = suite_list[i + mid] if i + mid < len(suite_list) else None
+            left_cells  = mk_row_cells(*left)
+            sep         = [tcell("")]
+            right_cells = mk_row_cells(*right) if right else [tcell(""), tcell("")]
+            rows.append(left_cells + sep + right_cells)
+        tbl = Table(rows, colWidths=[4.0*cm, 2.0*cm, 0.4*cm, 4.0*cm, 2.0*cm])
+        tbl.setStyle(TableStyle([
+            ("LEFTPADDING",    (2, 0), (2, -1), 0),
+            ("RIGHTPADDING",   (2, 0), (2, -1), 0),
+            ("ALIGN",          (4, 0), (4, -1), "CENTER"),
+        ]))
+
     tbl.setStyle(TableStyle([
         ("BACKGROUND",     (0, 0), (-1, 0), C["brand"]),
         ("LINEBELOW",      (0, 0), (-1, 0), 0.4, C["border"]),
@@ -929,9 +961,6 @@ def build_cover(master_content, suite_scores, suite_status, st, selected, weight
         ("RIGHTPADDING",   (0, 0), (-1, -1), 8),
         ("GRID",           (0, 0), (-1, -1), 0.3, C["border"]),
         ("ALIGN",          (1, 0), (1, -1), "CENTER"),
-        ("ALIGN",          (4, 0), (4, -1), "CENTER"),
-        ("LEFTPADDING",    (2, 0), (2, -1), 0),
-        ("RIGHTPADDING",   (2, 0), (2, -1), 0),
     ]))
     el.append(tbl)
     el.append(Spacer(1, 0.5 * cm))
@@ -1434,8 +1463,10 @@ def generate(directory, output_path=None, selected_suites=None):
         title=f"{report_title} - {brand}",
         author="AuditHQ",
     )
-    body_frame  = Frame(MARGIN, 2.0*cm, CONTENT_W, PAGE_H - 4.5*cm, id="body",  showBoundary=0)
-    cover_frame = Frame(MARGIN, 0,       CONTENT_W, PAGE_H - 0.5*cm, id="cover", showBoundary=0)
+    body_frame  = Frame(MARGIN, 2.0*cm, CONTENT_W, PAGE_H - 4.5*cm, id="body",  showBoundary=0,
+                        leftPadding=0, rightPadding=0, topPadding=0, bottomPadding=0)
+    cover_frame = Frame(MARGIN, 0,       CONTENT_W, PAGE_H - 0.5*cm, id="cover", showBoundary=0,
+                        leftPadding=0, rightPadding=0, topPadding=0, bottomPadding=0)
 
     doc.addPageTemplates([
         PageTemplate(id="cover",   frames=[cover_frame], onPage=draw_cover_bg),

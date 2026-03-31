@@ -20,18 +20,18 @@ You are the master orchestrator for a comprehensive, all-suites website audit. W
 
 ## Output Directory
 
-All output files are saved to a domain-specific folder under `C:\Users\Adam\Documents\Claude\`.
+All output files are saved to a domain-specific folder under `~/Documents/Claude/`.
 
 **How to determine the output directory:**
 1. Extract the domain from the URL (e.g. `bdrgroup.co.uk` from `https://bdrgroup.co.uk/`)
 2. Strip `www.` prefix if present
-3. Output path: `C:\Users\Adam\Documents\Claude\{domain}\`
-4. Create the folder: `mkdir -p "C:/Users/Adam/Documents/Claude/{domain}"`
+3. Output path: `~/Documents/Claude/{domain}/`
+4. Create the folder: `mkdir -p ~/Documents/Claude/{domain}` (works on both Mac and Windows/Git Bash)
 5. All reports — both the master `FULL-AUDIT-REPORT.md` and all 8 suite reports — save into this same folder
 
-**Example:** `https://bdrgroup.co.uk/` → all files saved to `C:\Users\Adam\Documents\Claude\bdrgroup.co.uk\`
+**Example:** `https://bdrgroup.co.uk/` → all files saved to `~/Documents/Claude/bdrgroup.co.uk/`
 
-When passing tasks to subagents, always tell them: *"Save your report to `C:\Users\Adam\Documents\Claude\{domain}\{FILENAME}.md`"*
+When passing tasks to subagents, always tell them: *"Save your report to `~/Documents/Claude/{domain}/{FILENAME}.md`"*
 
 ---
 
@@ -295,8 +295,9 @@ Fast multi-suite health check. Do NOT launch subagents. Instead:
 ## PDF Report (`/full-audit report-pdf`)
 
 If `FULL-AUDIT-REPORT.md` exists in the current directory:
-- Use `full-audit-report-pdf` sub-skill to generate a PDF
+- Use the `full-audit-report-pdf` skill which calls the shared `audit_pdf_engine.py`
 - The PDF includes: cover page, overall score gauge, suite scorecard bar chart, cross-suite issues table, integrated action plan
+- For pick-and-mix subsets, pass `selected_suites` to the engine (weights auto-normalize)
 
 If the markdown report doesn't exist, prompt the user to run `/full-audit <url>` first.
 
