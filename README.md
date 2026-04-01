@@ -1,376 +1,424 @@
-# Claude Code Skills & Plugins — Agent Skills for Every Coding Tool
+# Claude Code Skills Library
 
-**205 production-ready Claude Code skills, plugins, and agent skills for 11 AI coding tools.**
+**314 skills, 59 agents, and 59 commands for Claude Code.**
 
-The most comprehensive open-source library of Claude Code skills and agent plugins — also works with OpenAI Codex, Gemini CLI, Cursor, and 7 more coding agents. Reusable expertise packages covering engineering, DevOps, marketing, compliance, C-level advisory, and more.
-
-**Works with:** Claude Code · OpenAI Codex · Gemini CLI · OpenClaw · Cursor · Aider · Windsurf · Kilo Code · OpenCode · Augment · Antigravity
+A production-grade library of Claude Code skills covering SaaS product building, website auditing, marketing, engineering, C-level advisory, regulatory compliance, and more. Originally forked from [alirezarezvani/claude-skills](https://github.com/alirezarezvani/claude-skills) and significantly expanded with 118 additional skills, 59 agents, and 38 commands.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](https://opensource.org/licenses/MIT)
-[![Skills](https://img.shields.io/badge/Skills-205-brightgreen?style=for-the-badge)](#skills-overview)
-[![Agents](https://img.shields.io/badge/Agents-16-blue?style=for-the-badge)](#agents)
-[![Personas](https://img.shields.io/badge/Personas-3-purple?style=for-the-badge)](#personas)
-[![Commands](https://img.shields.io/badge/Commands-19-orange?style=for-the-badge)](#commands)
-[![Stars](https://img.shields.io/github/stars/alirezarezvani/claude-skills?style=for-the-badge)](https://github.com/alirezarezvani/claude-skills/stargazers)
-[![SkillCheck Validated](https://img.shields.io/badge/SkillCheck-Validated-4c1?style=for-the-badge)](https://getskillcheck.com)
-
-> **5,200+ GitHub stars** — the most comprehensive open-source Claude Code skills & agent plugins library.
+[![Skills](https://img.shields.io/badge/Skills-314-brightgreen?style=for-the-badge)](#skills-overview)
+[![Agents](https://img.shields.io/badge/Agents-59-blue?style=for-the-badge)](#agents)
+[![Commands](https://img.shields.io/badge/Commands-59-orange?style=for-the-badge)](#commands)
 
 ---
 
-## What Are Claude Code Skills & Agent Plugins?
+## What's In This Repo
 
-Claude Code skills (also called agent skills or coding agent plugins) are modular instruction packages that give AI coding agents domain expertise they don't have out of the box. Each skill includes:
-
-- **SKILL.md** — structured instructions, workflows, and decision frameworks
-- **Python tools** — 268 CLI scripts (all stdlib-only, zero pip installs)
-- **Reference docs** — templates, checklists, and domain-specific knowledge
-
-**One repo, eleven platforms.** Works natively as Claude Code plugins, Codex agent skills, Gemini CLI skills, and converts to 8 more tools via `scripts/convert.sh`. All 268 Python tools run anywhere Python runs.
-
-### Skills vs Agents vs Personas
-
-| | Skills | Agents | Personas |
-|---|---|---|---|
-| **Purpose** | How to execute a task | What task to do | Who is thinking |
-| **Scope** | Single domain | Single domain | Cross-domain |
-| **Voice** | Neutral | Professional | Personality-driven |
-| **Example** | "Follow these steps for SEO" | "Run a security audit" | "Think like a startup CTO" |
-
-All three work together. See [Orchestration](#orchestration) for how to combine them.
-
----
-
-## Quick Install
-
-### Gemini CLI (New)
-
-```bash
-# Clone the repository
-git clone https://github.com/alirezarezvani/claude-skills.git
-cd claude-skills
-
-# Run the setup script
-./scripts/gemini-install.sh
-
-# Start using skills
-> activate_skill(name="senior-architect")
-```
-
-### Claude Code (Recommended)
-
-```bash
-# Add the marketplace
-# Skills installed at ~/.claude/skills/claude-skills/
-
-# Install by domain
-# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/          # 24 core engineering
-# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/  # 25 POWERFUL-tier
-# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/               # 12 product skills
-# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/             # 43 marketing skills
-# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/                 # 12 regulatory/quality
-# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/                    # 6 project management
-# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/               # 28 C-level advisory (full C-suite)
-# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/       # 4 business & growth
-# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/               # 2 finance (analyst + SaaS metrics)
-
-# Or install individual skills
-# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/       # Security scanner
-# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/                  # Playwright testing toolkit
-# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/         # Auto-memory curation
-# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/              # Single skill
-```
-
-### OpenAI Codex
-
-```bash
-npx agent-skills-cli add alirezarezvani/claude-skills --agent codex
-# Or: git clone + ./scripts/codex-install.sh
-```
-
-### OpenClaw
-
-```bash
-bash <(curl -s https://raw.githubusercontent.com/alirezarezvani/claude-skills/main/scripts/openclaw-install.sh)
-```
-
-### Manual Installation
-
-```bash
-git clone https://github.com/alirezarezvani/claude-skills.git
-# Copy any skill folder to ~/.claude/skills/ (Claude Code) or ~/.codex/skills/ (Codex)
-```
-
----
-
-## Multi-Tool Support (New)
-
-**Convert all 156 skills to 7 AI coding tools** with a single script:
-
-| Tool | Format | Install |
-|------|--------|---------|
-| **Cursor** | `.mdc` rules | `./scripts/install.sh --tool cursor --target .` |
-| **Aider** | `CONVENTIONS.md` | `./scripts/install.sh --tool aider --target .` |
-| **Kilo Code** | `.kilocode/rules/` | `./scripts/install.sh --tool kilocode --target .` |
-| **Windsurf** | `.windsurf/skills/` | `./scripts/install.sh --tool windsurf --target .` |
-| **OpenCode** | `.opencode/skills/` | `./scripts/install.sh --tool opencode --target .` |
-| **Augment** | `.augment/rules/` | `./scripts/install.sh --tool augment --target .` |
-| **Antigravity** | `~/.gemini/antigravity/skills/` | `./scripts/install.sh --tool antigravity` |
-
-**How it works:**
-
-```bash
-# 1. Convert all skills to all tools (takes ~15 seconds)
-./scripts/convert.sh --tool all
-
-# 2. Install into your project (with confirmation)
-./scripts/install.sh --tool cursor --target /path/to/project
-
-# Or use --force to skip confirmation:
-./scripts/install.sh --tool aider --target . --force
-
-# 3. Verify
-find .cursor/rules -name "*.mdc" | wc -l  # Should show 156
-```
-
-**Each tool gets:**
-- ✅ All 156 skills converted to native format
-- ✅ Per-tool README with install/verify/update steps
-- ✅ Support for scripts, references, templates where applicable
-- ✅ Zero manual conversion work
-
-See [integrations/](integrations/) for tool-specific documentation and pre-generated outputs.
+| Type | Count | What they do |
+|------|-------|-------------|
+| **Skills** | 314 | Domain expertise packages with structured workflows, decision frameworks, and scripts |
+| **Agents** | 59 | Autonomous agent definitions — C-suite advisors, engineering specialists, architects |
+| **Commands** | 59 | Slash commands that trigger skills from chat (e.g. `/saas-build`, `/autopilot`, `/geo-audit`) |
 
 ---
 
 ## Skills Overview
 
-**205 skills across 9 domains:**
+### Audit & Analysis Suites (8 suites, 50+ skills)
 
-| Domain | Skills | Highlights | Details |
-|--------|--------|------------|---------|
-| **🔧 Engineering — Core** | 26 | Architecture, frontend, backend, fullstack, QA, DevOps, SecOps, AI/ML, data, Playwright, self-improving agent, Google Workspace CLI, a11y audit | [engineering-team/](engineering-team/) |
-| **🎭 Playwright Pro** | 9+3 | Test generation, flaky fix, Cypress/Selenium migration, TestRail, BrowserStack, 55 templates | [engineering-team/playwright-pro](engineering-team/playwright-pro/) |
-| **🧠 Self-Improving Agent** | 5+2 | Auto-memory curation, pattern promotion, skill extraction, memory health | [engineering-team/self-improving-agent](engineering-team/self-improving-agent/) |
-| **⚡ Engineering — POWERFUL** | 30 | Agent designer, RAG architect, database designer, CI/CD builder, security auditor, MCP builder, AgentHub, Helm charts, Terraform | [engineering/](engineering/) |
-| **🎯 Product** | 14 | Product manager, agile PO, strategist, UX researcher, UI design, landing pages, SaaS scaffolder, analytics, experiment designer, discovery, roadmap communicator, code-to-prd | [product-team/](product-team/) |
-| **📣 Marketing** | 43 | 7 pods: Content (8), SEO (5), CRO (6), Channels (6), Growth (4), Intelligence (4), Sales (2) + context foundation + orchestration router. 32 Python tools. | [marketing-skill/](marketing-skill/) |
-| **📋 Project Management** | 6 | Senior PM, scrum master, Jira, Confluence, Atlassian admin, templates | [project-management/](project-management/) |
-| **🏥 Regulatory & QM** | 12 | ISO 13485, MDR 2017/745, FDA, ISO 27001, GDPR, CAPA, risk management | [ra-qm-team/](ra-qm-team/) |
-| **💼 C-Level Advisory** | 28 | Full C-suite (10 roles) + orchestration + board meetings + culture & collaboration | [c-level-advisor/](c-level-advisor/) |
-| **📈 Business & Growth** | 4 | Customer success, sales engineer, revenue ops, contracts & proposals | [business-growth/](business-growth/) |
-| **💰 Finance** | 2 | Financial analyst (DCF, budgeting, forecasting), SaaS metrics coach (ARR, MRR, churn, LTV, CAC) | [finance/](finance/) |
+Full website audit suites that run independently or together via `/full-audit` or `/parallel-audit`.
 
----
+| Suite | Skills | What it audits |
+|-------|--------|----------------|
+| **Marketing** | `/market audit`, `copy`, `emails`, `social`, `ads`, `funnel`, `landing`, `gbp`, `proposal`, `brand`, `competitors`, `launch`, `reviews`, `seo`, `report`, `report-pdf` | SEO, copy, funnel, social, email, CTAs, competitors |
+| **Technical** | `/techaudit audit`, `accessibility`, `mobile`, `speed`, `report-pdf` | Performance, accessibility, mobile, Core Web Vitals |
+| **GEO** | `/geo audit`, `citability`, `schema`, `technical`, `crawlers`, `llmstxt`, `platform-optimizer`, `brand-mentions`, `content`, `report`, `report-pdf` | AI citability, schema, llms.txt, AI crawlers |
+| **Security** | `/security audit`, `headers`, `email`, `report-pdf` | Headers, certificates, email auth, CMS hardening |
+| **Privacy** | `/privacy audit`, `cookies`, `policy`, `report-pdf` | GDPR/PECR, cookies, privacy policy |
+| **Reputation** | `/reputation audit`, `monitor`, `response`, `report-pdf` | Reviews, brand mentions, trust signals |
+| **Employer Brand** | `/employer audit`, `careers`, `evp`, `reviews`, `social`, `report-pdf` | Careers page, EVP, Glassdoor, LinkedIn employer |
+| **AI Readiness** | `/ai-ready audit`, `adoption`, `automation`, `data`, `report-pdf` | AI maturity, automation opportunities, data readiness |
 
-## Personas
-
-Pre-configured agent identities with curated skill loadouts, workflows, and distinct communication styles. Personas go beyond "use these skills" — they define how an agent thinks, prioritizes, and communicates.
-
-| Persona | Domain | Best For |
-|---------|--------|----------|
-| [**Startup CTO**](agents/personas/startup-cto.md) | Engineering + Strategy | Architecture decisions, tech stack selection, team building, technical due diligence |
-| [**Growth Marketer**](agents/personas/growth-marketer.md) | Marketing + Growth | Content-led growth, launch strategy, channel optimization, bootstrapped marketing |
-| [**Solo Founder**](agents/personas/solo-founder.md) | Cross-domain | One-person startups, side projects, MVP building, wearing all hats |
-
-**Usage:**
-```bash
-# Claude Code
-cp agents/personas/startup-cto.md ~/.claude/agents/
-
-# Any tool
-./scripts/convert.sh --tool cursor  # Converts personas too
-```
-
-See [agents/personas/](agents/personas/) for details. Create your own with [TEMPLATE.md](agents/personas/TEMPLATE.md).
+**Orchestrators:**
+- `/full-audit <url>` — runs all 8 suites sequentially, produces combined report
+- `/parallel-audit <url>` — runs all 8 suites simultaneously via background agents
 
 ---
 
-## Orchestration
+### Premium Website Suite (16 skills)
 
-A lightweight protocol for coordinating personas, skills, and agents on work that crosses domain boundaries. No framework required.
+Complete SaaS product build pipeline — replaces Lovable. Produces Awwwards/Linear/Stripe quality output.
 
-**Four patterns:**
+| Skill | Role |
+|-------|------|
+| `/web-design-research` | Pre-build competitor research, 21st.dev component sourcing, unique design system |
+| `/web-scope` | Define pages, design decisions, architecture — reads DESIGN-BRIEF.md |
+| `/web-scaffold` | Bootstrap project: config, design system, routes, AppLayout, Sentry |
+| `/web-page` | Build individual pages using Component Lock from DESIGN-BRIEF.md |
+| `/web-component` | Build production components (modals, forms, cards) |
+| `/web-animations` | Framer Motion patterns — 5 techniques including hero entrance stagger |
+| `/web-supabase` | Backend: schema, RLS, auth, TypeScript types |
+| `/web-stripe` | Payments: checkout, webhooks, UpgradeButton, Customer Portal |
+| `/web-email` | Transactional email: Resend + React Email, 5 templates, trial reminders |
+| `/web-onboarding` | Multi-step onboarding wizard with progress bar, trial activation |
+| `/web-settings` | Settings page: profile, billing, team management, danger zone |
+| `/web-table` | Data tables: TanStack Table v8, sorting, filtering, pagination, bulk actions |
+| `/web-review` | Quality gate: 38+/40 required score, fix loop |
+| `/web-deploy` | Deploy: Vercel or Railway, bundle audit, smoke test |
+| `/web-fix` | Targeted bug fixing with context awareness |
+| `/premium-website` | Suite contract — saas-build reads this file to enforce all rules |
 
-| Pattern | What | When |
-|---------|------|------|
-| **Solo Sprint** | Switch personas across project phases | Side projects, MVPs, solo founders |
-| **Domain Deep-Dive** | One persona + multiple stacked skills | Architecture reviews, compliance audits |
-| **Multi-Agent Handoff** | Personas review each other's output | High-stakes decisions, launch readiness |
-| **Skill Chain** | Sequential skills, no persona needed | Content pipelines, repeatable checklists |
-
-**Example: 6-week product launch**
-```
-Week 1-2: startup-cto + aws-solution-architect + senior-frontend → Build
-Week 3-4: growth-marketer + launch-strategy + copywriting + seo-audit → Prepare
-Week 5-6: solo-founder + email-sequence + analytics-tracking → Ship and iterate
-```
-
-See [orchestration/ORCHESTRATION.md](orchestration/ORCHESTRATION.md) for the full protocol and examples.
+**Orchestrators:**
+- `/saas-build` — runs the full pipeline autonomously from brief to deploy (8 phases)
+- `/saas-improve` — 6-agent parallel improvement swarm for post-launch quality
 
 ---
 
-## POWERFUL Tier
+### SaaS Product Tools
 
-25 advanced skills with deep, production-grade capabilities:
-
-| Skill | What It Does |
+| Skill | What it does |
 |-------|-------------|
-| **agent-designer** | Multi-agent orchestration, tool schemas, performance evaluation |
-| **agent-workflow-designer** | Sequential, parallel, router, orchestrator, and evaluator patterns |
-| **rag-architect** | RAG pipeline builder, chunking optimizer, retrieval evaluator |
-| **database-designer** | Schema analyzer, ERD generation, index optimizer, migration generator |
-| **database-schema-designer** | Requirements → migrations, types, seed data, RLS policies |
-| **migration-architect** | Migration planner, compatibility checker, rollback generator |
-| **skill-security-auditor** | 🔒 Security gate — scan skills for malicious code before installation |
-| **ci-cd-pipeline-builder** | Analyze stack → generate GitHub Actions / GitLab CI configs |
-| **mcp-server-builder** | Build MCP servers from OpenAPI specs |
-| **pr-review-expert** | Blast radius analysis, security scan, coverage delta |
-| **api-design-reviewer** | REST API linter, breaking change detector, design scorecard |
-| **api-test-suite-builder** | Scan API routes → generate complete test suites |
-| **dependency-auditor** | Multi-language scanner, license compliance, upgrade planner |
-| **release-manager** | Changelog generator, semantic version bumper, readiness checker |
-| **observability-designer** | SLO designer, alert optimizer, dashboard generator |
-| **performance-profiler** | Node/Python/Go profiling, bundle analysis, load testing |
-| **monorepo-navigator** | Turborepo/Nx/pnpm workspace management & impact analysis |
-| **changelog-generator** | Conventional commits → structured changelogs |
-| **codebase-onboarding** | Auto-generate onboarding docs from codebase analysis |
-| **runbook-generator** | Codebase → operational runbooks with commands |
-| **git-worktree-manager** | Parallel dev with port isolation, env sync |
-| **env-secrets-manager** | .env management, leak detection, rotation workflows |
-| **incident-commander** | Incident response playbook, severity classifier, PIR generator |
-| **tech-debt-tracker** | Codebase debt scanner, prioritizer, trend dashboard |
-| **interview-system-designer** | Interview loop designer, question bank, calibrator |
+| `saas-build` | Full autonomous SaaS build — 8 phases from idea to deployed product |
+| `saas-improve` | 6-agent parallel swarm: scan, prioritise, execute, deploy |
+| `autopilot` | Autonomous project progression — keeps building while you're away |
+| `dashboard-design` | Enterprise dashboard expert grounded in 40-product research corpus |
+| `scaffold` | Project/feature/module scaffolding |
+| `product-add` | Add features to existing products |
+| `saas-health` | ARR, MRR, churn, CAC, LTV, NRR, quick ratio benchmarking |
 
 ---
 
-## 🔒 Skill Security Auditor
+### Project & Knowledge Management
 
-New in v2.0.0 — audit any skill for security risks before installation:
+| Skill | What it does |
+|-------|-------------|
+| `notion` | Create/update Notion pages with enforced project structure |
+| `project-doc` | Create Notion master doc + local memory file for any project |
+| `project-refresh` | Re-inject project context mid-conversation from Notion |
+| `project-review` | Deep strategic review: competitive landscape, gap analysis, roadmap |
+| `project-manager` | Full lifecycle: scope, phases, milestones, UAT, status reporting |
+| `project-health` | Portfolio health dashboard and risk matrix |
+| `handoff` | Session handoff document for seamless context transfer |
+| `sync-knowledge-base` | Sync skills/commands to GitHub + update Notion docs |
+
+---
+
+### Power Platform & Microsoft
+
+| Skill | What it does |
+|-------|-------------|
+| `dynamics365-crm-architect` | D365 CRM architecture, model-driven apps, configuration |
+| `dataverse-data-model` | Dataverse schema design, relationships, choice fields |
+| `power-automate-engineer` | Cloud flows, desktop flows, connectors, adaptive cards |
+| `power-platform-alm` | Solutions, environment strategy, CI/CD, governance |
+| `power-platform-integration` | Integration patterns: MuleSoft, custom connectors, webhooks, Azure Service Bus |
+
+---
+
+### Product & Strategy
+
+| Skill | What it does |
+|-------|-------------|
+| `prd` | Product Requirements Document generation |
+| `code-to-prd` | Reverse-engineer a codebase into a PRD |
+| `rice` | RICE framework scoring and ranking |
+| `sprint-plan` | Sprint plan with capacity allocation and user stories |
+| `sprint-health` | Sprint health scoring with velocity trends |
+| `okr` | Cascading OKRs from company to team level |
+| `competitive-matrix` | Weighted competitive analysis matrices |
+| `customer-journey` | End-to-end journey mapping with touchpoints and pain points |
+| `persona` | Data-driven user personas with JTBD |
+| `user-story` | INVEST-compliant stories with Given/When/Then |
+| `pricing-model` | Pricing strategy, tiers, and page structure |
+| `pitch-deck` | Investor pitch deck with narrative arc |
+
+---
+
+### Content & Marketing Commands
+
+| Skill | What it does |
+|-------|-------------|
+| `linkedin-post` | Viral LinkedIn post with carousel plan |
+| `scroll-stop-build` | Apple-style scroll-driven video website |
+| `scroll-stop-prompt` | AI prompts for scroll-stopping product content |
+| `brand-dna` | Brand reverse-engineering for AI image generation |
+| `ad-creative` | AI ad creative prompts (Nano Banana 2 / Higgsfield) |
+| `seo-strategy` | Single-article optimisation or site-wide SEO audit |
+| `stock-photos` | Free stock photo finder with cultural specificity |
+| `job-description` | Inclusive job descriptions |
+
+---
+
+### Engineering & DevOps
+
+| Skill | What it does |
+|-------|-------------|
+| `senior-frontend` | React 18, Vite, TypeScript, Tailwind, shadcn/ui |
+| `senior-backend` | FastAPI, Python, Supabase, PostgreSQL |
+| `senior-devops` | Railway, Vercel, GitHub Actions, Docker |
+| `senior-qa` | Playwright E2E, Vitest, pytest |
+| `code-reviewer` | Deep review: security, performance, logic bugs |
+| `incident-commander` | Production incident response |
+| `stripe-integration-expert` | Stripe payments, subscriptions, webhooks |
+| `a11y-audit` | WCAG 2.2 accessibility audit with auto-fix |
+| `tdd` | Test-driven development workflows |
+| `tech-debt` | Scan, prioritise, and report technical debt |
+| `pipeline` | CI/CD pipeline generation (GitHub Actions, GitLab CI) |
+| `architecture` | ADRs, system design docs, tech stack recommendations |
+| `api-docs` | API documentation and OpenAPI spec generation |
+| `validate` | Stress-test plans and architectures |
+| `decide` | Structured technology decision framework |
+| `design` | Comprehensive system architecture design |
+
+---
+
+### Inherited from Fork (196 skills)
+
+The following domains were part of the [original repo](https://github.com/alirezarezvani/claude-skills) by Alireza Rezvani:
+
+| Domain | Count | Directory | Highlights |
+|--------|-------|-----------|------------|
+| **Engineering Team** | 28 | [engineering-team/](engineering-team/) | Senior roles (frontend, backend, fullstack, DevOps, QA, SecOps, ML, data, CV), Playwright pro, self-improving agent, MS365 tenant manager |
+| **Engineering (POWERFUL)** | 32 | [engineering/](engineering/) | Agent designer, RAG architect, database designer, Terraform, Helm, dependency auditor, release manager |
+| **Marketing** | 46 | [marketing-skill/](marketing-skill/) | Content (8), SEO (5), CRO (6), channels (6), growth (4), intelligence (4), sales (2) |
+| **C-Level Advisory** | 30 | [c-level-advisor/](c-level-advisor/) | Full C-suite (CEO to CISO), board meetings, culture, legal, M&A, hiring |
+| **Product Team** | 15 | [product-team/](product-team/) | PM toolkit, agile PO, UX researcher, UI design system, SaaS scaffolder |
+| **Project Management** | 6 | [project-management/](project-management/) | Senior PM, Scrum master, Jira, Confluence, Atlassian admin |
+| **Regulatory & QM** | 12 | [ra-qm-team/](ra-qm-team/) | ISO 13485, MDR 2017/745, FDA 510(k), ISO 27001, GDPR, CAPA |
+| **Business Growth** | 6 | [business-growth/](business-growth/) | Customer success, sales engineer, revenue ops, contracts |
+| **Finance** | 2 | [finance/](finance/) | Financial analyst, SaaS metrics coach |
+| **Web Design** | 4 | [web-design/](web-design/) | Lottie search, web design guidelines |
+
+---
+
+## Agents
+
+59 autonomous agent definitions in [agents/](agents/). Each is a standalone `.md` file that defines an agent's role, expertise, decision framework, and output format.
+
+### C-Suite & Advisory (17)
+
+| Agent | Domain |
+|-------|--------|
+| `cs-ceo-advisor` | Company vision, fundraising, board prep |
+| `cs-cfo-advisor` | Financial modelling, runway, fundraising strategy |
+| `cs-cto-advisor` | Tech strategy, engineering scaling, architecture governance |
+| `cs-cmo-advisor` | Brand, growth model, marketing budget, CAC/LTV |
+| `cs-coo-advisor` | Strategy execution, OKRs, process design |
+| `cs-cpo-advisor` | Product portfolio, PMF, north star metrics |
+| `cs-cro-advisor` | Revenue forecasting, NRR, pricing, pipeline |
+| `cs-chro-advisor` | Hiring, compensation, org structure, retention |
+| `cs-ciso-advisor` | Security risk, compliance (SOC 2, ISO 27001, HIPAA) |
+| `cs-chief-of-staff` | Multi-role decision routing and synthesis |
+| `cs-board-advisor` | Board decks, investor updates, fundraising narratives |
+| `cs-founder-coach` | Leadership evolution, delegation, energy management |
+| `cs-legal-advisor` | Contracts, NDAs, ToS, privacy policies |
+| `cs-ma-advisor` | M&A strategy, due diligence, integration planning |
+| `cs-scenario-war-room` | Cross-functional scenario planning for compound risks |
+| `cs-partnerships` | Partnership identification, structuring, activation |
+| `cs-orchestrator` | Multi-agent task decomposition and parallel delegation |
+
+### Engineering & Architecture (15)
+
+| Agent | Domain |
+|-------|--------|
+| `cs-senior-engineer` | System design, code review, architecture |
+| `cs-devops` | Cloud, Terraform, Kubernetes, CI/CD |
+| `cs-sre` | SLOs, error budgets, post-mortems, alert tuning |
+| `cs-engineering-lead` | Team coordination, incident response, cross-functional delivery |
+| `cto-architect` | New architecture design from scratch |
+| `cto-orchestrator` | Routes to architect or mentor based on need |
+| `strategic-cto-mentor` | Stress-tests plans through 7-dimension evaluation |
+| `systems-architect` | Evidence-based architecture with trade-off analysis |
+| `database-designer` | Schema design, indexes, migrations, query optimisation |
+| `migration-architect` | Zero-downtime system migrations |
+| `observability-designer` | SLI/SLO frameworks, monitoring, runbooks |
+| `performance-tuner` | Profiling and bottleneck identification |
+| `mcp-server-builder` | REST API to MCP server conversion |
+| `rag-architect` | RAG pipeline design (chunking, embeddings, retrieval) |
+| `test-engineer` | Comprehensive test strategy across all levels |
+
+### Product & Growth (10)
+
+| Agent | Domain |
+|-------|--------|
+| `cs-product-manager` | Feature prioritisation, PRDs, sprint stories |
+| `cs-product-strategist` | Product vision, market positioning, portfolio strategy |
+| `cs-product-analyst` | KPIs, A/B tests, funnel analysis |
+| `cs-ux-researcher` | Research planning, personas, journey maps, usability tests |
+| `cs-project-manager` | Sprint planning, Jira/Confluence, Scrum ceremonies |
+| `cs-growth-strategist` | Pipeline ops, revenue forecasting, GTM strategy |
+| `cs-customer-success` | Onboarding, QBRs, health scores, save playbooks |
+| `cs-revenue-ops` | Pipeline analysis, forecast accuracy, GTM efficiency |
+| `cs-sales-coach` | Scripts, discovery frameworks, objection handling |
+| `cs-sales-engineer` | RFP responses, POC planning, technical proposals |
+
+### Marketing & Content (6)
+
+| Agent | Domain |
+|-------|--------|
+| `cs-content-creator` | Blog posts, social content, brand voice, email copy |
+| `cs-demand-gen-specialist` | Paid acquisition, lead gen, campaign optimisation |
+| `cs-seo-specialist` | Organic search, GEO, technical SEO, schema |
+| `cs-employer-brand` | Careers page CRO, EVP, Glassdoor strategy |
+| `cs-reputation-manager` | Review management, monitoring, negative press |
+| `cs-data-analyst` | Dashboards, cohort analysis, funnel diagnostics |
+
+### Specialist (11)
+
+| Agent | Domain |
+|-------|--------|
+| `cs-financial-analyst` | Financial modelling, valuation, budget analysis |
+| `cs-ai-advisor` | AI maturity, automation mapping, data readiness |
+| `cs-audit-specialist` | Multi-suite website auditing |
+| `cs-quality-regulatory` | ISO 13485, EU MDR, FDA 510(k), ISO 27001 |
+| `cs-workspace-admin` | Google Workspace automation via gws CLI |
+| `agent-designer` | Multi-agent system architecture |
+| `api-design-reviewer` | REST API linting, breaking changes, security |
+| `codebase-onboarding` | Auto-generate onboarding docs from codebase |
+| `pr-review-expert` | Blast radius analysis, security scan, test coverage delta |
+| `refactor-expert` | Code smell detection, SOLID principles, modernisation |
+| `root-cause-analyzer` | Systematic debugging for complex/recurring issues |
+
+---
+
+## Commands
+
+59 slash commands in [commands/](commands/). These are the user-facing triggers for skills.
+
+<details>
+<summary>Full command list</summary>
+
+| Command | What it triggers |
+|---------|-----------------|
+| `/a11y-audit` | WCAG 2.2 accessibility scan |
+| `/ad-creative` | AI ad creative prompts |
+| `/agent-brief` | Portable context brief for subagents |
+| `/api-docs` | API documentation generation |
+| `/architecture` | ADR and system design docs |
+| `/brand-dna` | Brand reverse-engineering |
+| `/changelog` | Changelog from git history |
+| `/code-to-prd` | Codebase to PRD |
+| `/competitive-matrix` | Competitive analysis matrix |
+| `/customer-journey` | Journey mapping |
+| `/decide` | Technology decision framework |
+| `/design` | System architecture design |
+| `/financial-health` | Financial ratio analysis |
+| `/google-workspace` | Google Workspace diagnostics |
+| `/handoff` | Session handoff document |
+| `/job-description` | Job description writer |
+| `/linkedin-post` | LinkedIn post generator |
+| `/okr` | OKR generation |
+| `/parallel-audit` | Multi-suite parallel audit |
+| `/persona` | User persona generation |
+| `/pipeline` | CI/CD pipeline generation |
+| `/pitch-deck` | Investor pitch deck |
+| `/plugin-audit` | Skill/agent quality audit |
+| `/prd` | Product Requirements Document |
+| `/premium-website` | Web suite reference |
+| `/pricing-model` | Pricing strategy design |
+| `/product-add` | Add feature to product |
+| `/project-health` | Portfolio health dashboard |
+| `/retro` | Sprint retrospective analysis |
+| `/review` | Code/product review |
+| `/rice` | RICE prioritisation |
+| `/saas-build` | Full SaaS build pipeline |
+| `/saas-health` | SaaS metrics benchmarking |
+| `/saas-improve` | Post-launch improvement swarm |
+| `/scaffold` | Project scaffolding |
+| `/scroll-stop-build` | Scroll-driven video website |
+| `/scroll-stop-prompt` | Scroll-stop content prompts |
+| `/seo-auditor` | SEO audit |
+| `/seo-strategy` | SEO optimisation |
+| `/sprint-health` | Sprint health scoring |
+| `/sprint-plan` | Sprint planning |
+| `/standup` | Async standup formatting |
+| `/sync-knowledge-base` | Sync to GitHub + Notion |
+| `/tdd` | Test-driven development |
+| `/tech-debt` | Technical debt analysis |
+| `/usage-report` | Skill usage analytics |
+| `/user-story` | User story generation |
+| `/validate` | Plan stress-testing |
+| `/vercel-react-best-practices` | Vercel + React patterns |
+| `/web-animations` | Framer Motion patterns |
+| `/web-component` | Component builder |
+| `/web-deploy` | Deploy to Vercel/Railway |
+| `/web-fix` | Bug fixing |
+| `/web-page` | Page builder |
+| `/web-review` | Quality gate (38+/40) |
+| `/web-scaffold` | Project bootstrap |
+| `/web-scope` | Scope definition |
+| `/web-stripe` | Stripe integration |
+| `/web-supabase` | Supabase backend |
+
+</details>
+
+---
+
+## Installation
+
+### Claude Code
 
 ```bash
-python3 engineering/skill-security-auditor/scripts/skill_security_auditor.py /path/to/skill/
+# Clone the repo
+git clone https://github.com/Mrsavage92/skills-library.git
+
+# Copy skills you want to use
+cp -r skills-library/skills/autopilot ~/.claude/skills/
+cp -r skills-library/skills/saas-build ~/.claude/skills/
+
+# Copy agents
+cp skills-library/agents/cs-ceo-advisor.md ~/.claude/agents/
+
+# Copy commands
+cp skills-library/commands/saas-build.md ~/.claude/commands/
 ```
 
-Scans for: command injection, code execution, data exfiltration, prompt injection, dependency supply chain risks, privilege escalation. Returns **PASS / WARN / FAIL** with remediation guidance.
-
-**Zero dependencies.** Works anywhere Python runs.
-
----
-
-## Recently Enhanced Skills
-
-Production-quality upgrades added for:
-
-- `engineering/git-worktree-manager` — worktree lifecycle + cleanup automation scripts
-- `engineering/mcp-server-builder` — OpenAPI -> MCP scaffold + manifest validator
-- `engineering/changelog-generator` — release note generator + conventional commit linter
-- `engineering/ci-cd-pipeline-builder` — stack detector + pipeline generator
-- `marketing-skill/prompt-engineer-toolkit` — prompt A/B tester + prompt version/diff manager
-
-Each now ships with `scripts/`, extracted `references/`, and a usage-focused `README.md`.
-
----
-
-## Usage Examples
-
-### Architecture Review
-```
-Using the senior-architect skill, review our microservices architecture
-and identify the top 3 scalability risks.
-```
-
-### Content Creation
-```
-Using the content-creator skill, write a blog post about AI-augmented
-development. Optimize for SEO targeting "Claude Code tutorial".
-```
-
-### Compliance Audit
-```
-Using the mdr-745-specialist skill, review our technical documentation
-for MDR Annex II compliance gaps.
-```
-
----
-
-## Python Analysis Tools
-
-254 CLI tools ship with the skills (all verified, stdlib-only):
+### Install everything
 
 ```bash
-# SaaS health check
-python3 finance/saas-metrics-coach/scripts/metrics_calculator.py --mrr 80000 --customers 200 --churned 3 --json
-
-# Brand voice analysis
-python3 marketing-skill/content-production/scripts/brand_voice_analyzer.py article.txt
-
-# Tech debt scoring
-python3 c-level-advisor/cto-advisor/scripts/tech_debt_analyzer.py /path/to/codebase
-
-# RICE prioritization
-python3 product-team/product-manager-toolkit/scripts/rice_prioritizer.py features.csv
-
-# Security audit
-python3 engineering/skill-security-auditor/scripts/skill_security_auditor.py /path/to/skill/
-
-# Landing page (TSX + Tailwind)
-python3 product-team/landing-page-generator/scripts/landing_page_scaffolder.py config.json --format tsx
+git clone https://github.com/Mrsavage92/skills-library.git
+cp -r skills-library/skills/* ~/.claude/skills/
+cp -r skills-library/agents/*.md ~/.claude/agents/
+cp -r skills-library/commands/*.md ~/.claude/commands/
 ```
 
 ---
 
-## Related Projects
+## Repo Structure
 
-| Project | Description |
-|---------|-------------|
-| [**Claude Code Skills & Agents Factory**](https://github.com/alirezarezvani/claude-code-skills-agents-factory) | Methodology for building skills at scale |
-| [**Claude Code Tresor**](https://github.com/alirezarezvani/claude-code-tresor) | Productivity toolkit with 60+ prompt templates |
-| [**Product Manager Skills**](https://github.com/Digidai/product-manager-skills) | Senior PM agent with 6 knowledge domains, 12 templates, 30+ frameworks — discovery, strategy, delivery, SaaS metrics, career coaching, AI product craft |
-
----
-
-## FAQ
-
-**How do I install Claude Code plugins?**
-Add the marketplace with `# Skills installed at ~/.claude/skills/claude-skills/`, then install any skill bundle with `# Skills load automatically from ~/.claude/commands/ and ~/.claude/agents/<name>@claude-code-skills`.
-
-**Do these skills work with OpenAI Codex / Cursor / Windsurf / Aider?**
-Yes. Skills work natively with 11 tools: Claude Code, OpenAI Codex, Gemini CLI, OpenClaw, Cursor, Aider, Windsurf, Kilo Code, OpenCode, Augment, and Antigravity. Run `./scripts/convert.sh --tool all` to convert for all tools, then install with `./scripts/install.sh --tool <name>`. See [Multi-Tool Integrations](https://alirezarezvani.github.io/claude-skills/integrations/) for details.
-
-**Will updating break my installation?**
-No. We follow semantic versioning and maintain backward compatibility within patch releases. Existing script arguments, plugin source paths, and SKILL.md structures are never changed in patch versions. See the [CHANGELOG](CHANGELOG.md) for details on each release.
-
-**Are the Python tools dependency-free?**
-Yes. All 254 Python CLI tools use the standard library only — zero pip installs required. Every script is verified to run with `--help`.
-
-**How do I create my own Claude Code skill?**
-Each skill is a folder with a `SKILL.md` (frontmatter + instructions), optional `scripts/`, `references/`, and `assets/`. See the [Skills & Agents Factory](https://github.com/alirezarezvani/claude-code-skills-agents-factory) for a step-by-step guide.
+```
+skills-library/
+  skills/               118 skills (audit suites, web pipeline, SaaS tools, Power Platform)
+  agents/               59 agent definitions + team-based subdirectories
+  commands/             59 slash command triggers
+  engineering-team/     28 engineering role skills (from fork)
+  engineering/          32 POWERFUL-tier engineering skills (from fork)
+  marketing-skill/      46 marketing skills (from fork)
+  c-level-advisor/      30 C-suite advisory skills (from fork)
+  product-team/         15 product skills (from fork)
+  project-management/   6 PM skills (from fork)
+  ra-qm-team/          12 regulatory/QM skills (from fork)
+  business-growth/      6 business growth skills (from fork)
+  finance/              2 finance skills (from fork)
+  web-design/           4 web design utilities (from fork)
+  docs/                 Documentation site source
+  scripts/              Conversion and install scripts
+  templates/            Skill authoring templates
+  standards/            Quality standards
+```
 
 ---
 
-## Contributing
+## Credits
 
-We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+This repo is a fork of [alirezarezvani/claude-skills](https://github.com/alirezarezvani/claude-skills) by Alireza Rezvani, which provided the foundational 196 skills across engineering, marketing, C-level advisory, product, project management, regulatory, business growth, and finance domains.
 
-**Quick ideas:**
-- Add new skills in underserved domains
-- Improve existing Python tools
-- Add test coverage for scripts
-- Translate skills for non-English markets
+The following were added on top of that foundation:
+- 118 skills in `skills/` — audit suites, premium website pipeline, SaaS build/improve, Power Platform, GEO, project management, and more
+- 59 agent definitions — full C-suite advisory fleet, engineering specialists, growth and marketing agents
+- 38 additional commands — web pipeline, audit orchestrators, content tools
 
 ---
 
 ## License
 
 MIT — see [LICENSE](LICENSE) for details.
-
----
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=alirezarezvani/claude-skills&type=Date)](https://star-history.com/#alirezarezvani/claude-skills&Date)
-
----
-
-**Built by [Alireza Rezvani](https://alirezarezvani.com)** · [Medium](https://alirezarezvani.medium.com) · [Twitter](https://twitter.com/nginitycloud)
