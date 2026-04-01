@@ -6,7 +6,7 @@ description: "PDF Marketing Report Generator"
 # PDF Marketing Report Generator
 
 ## Skill Purpose
-Generate a professional, visually polished PDF marketing report using the production PDF engine (`scripts/audit_pdf_engine.py` via `scripts/generate_suite_pdfs.py`). This skill ensures a markdown audit report exists, then invokes the engine which parses markdown directly and produces a branded PDF with score gauges, bar charts, comparison tables, findings, and a prioritized action plan.
+Generate a professional, visually polished PDF marketing report using the production PDF engine (`~/.claude/skills/shared/audit_pdf_engine.py` via `~/.claude/skills/shared/generate_suite_pdfs.py`). This skill ensures a markdown audit report exists, then invokes the engine which parses markdown directly and produces a branded PDF with score gauges, bar charts, comparison tables, findings, and a prioritized action plan.
 
 ## When to Use
 - User wants a PDF version of the marketing report (not just Markdown)
@@ -48,7 +48,7 @@ Gather data from all previous skill runs. Check for these files in the output di
 ### Step 2: Ensure Markdown Report Exists
 The production PDF engine reads markdown files directly -- no JSON intermediary is needed. Verify that `MARKETING-AUDIT.md` exists in `./outputs/{domain}/`. If it does not exist, generate it from available data before proceeding.
 
-The engine (`scripts/audit_pdf_engine.py`) parses the markdown report to extract:
+The engine (`~/.claude/skills/shared/audit_pdf_engine.py`) parses the markdown report to extract:
 - Overall score
 - Category scores and weights
 - Executive summary
@@ -66,7 +66,7 @@ python3 -c "import reportlab" 2>/dev/null || pip3 install reportlab
 
 **Generate the report:**
 ```bash
-python3 scripts/generate_suite_pdfs.py "./outputs/{domain}" 1
+python3 ~/.claude/skills/shared/generate_suite_pdfs.py "./outputs/{domain}" 1
 ```
 
 Suite number `1` = Marketing.

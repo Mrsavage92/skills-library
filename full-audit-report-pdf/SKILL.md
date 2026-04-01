@@ -1,13 +1,13 @@
 ---
 name: full-audit-report-pdf
-description: Generate a professional PDF from a completed full 8-suite audit using the production PDF engine (scripts/audit_pdf_engine.py via scripts/generate_suite_pdfs.py). Produces a client-ready PDF with cover page, overall score gauge, suite scorecard bar chart, cross-suite issues, and integrated action plan.
+description: Generate a professional PDF from a completed full 8-suite audit using the production PDF engine (~/.claude/skills/shared/audit_pdf_engine.py via ~/.claude/skills/shared/generate_suite_pdfs.py). Produces a client-ready PDF with cover page, overall score gauge, suite scorecard bar chart, cross-suite issues, and integrated action plan.
 ---
 
 # Full Audit PDF Report Generator
 
 ## Purpose
 
-Generate a professional, client-ready PDF from a completed `/full-audit` run. Uses the production PDF engine (`scripts/audit_pdf_engine.py` via `scripts/generate_suite_pdfs.py`) which reads markdown directly -- no JSON intermediary needed. Natively supports full 8-suite reports with automatic weight normalization, cover page, TOC, scorecard, and methodology sections.
+Generate a professional, client-ready PDF from a completed `/full-audit` run. Uses the production PDF engine (`~/.claude/skills/shared/audit_pdf_engine.py` via `~/.claude/skills/shared/generate_suite_pdfs.py`) which reads markdown directly -- no JSON intermediary needed. Natively supports full 8-suite reports with automatic weight normalization, cover page, TOC, scorecard, and methodology sections.
 
 ## When to Use
 
@@ -19,7 +19,7 @@ Generate a professional, client-ready PDF from a completed `/full-audit` run. Us
 
 - **ReportLab** must be installed: `pip install reportlab`
 - A completed full audit with `FULL-AUDIT-REPORT.md` and individual suite reports in the output directory
-- The production engine: `scripts/audit_pdf_engine.py` and `scripts/generate_suite_pdfs.py`
+- The production engine: `~/.claude/skills/shared/audit_pdf_engine.py` and `~/.claude/skills/shared/generate_suite_pdfs.py`
 
 ## How to Execute
 
@@ -43,7 +43,7 @@ The production engine handles full audits natively. It reads all markdown report
 
 **CLI method:**
 ```bash
-python3 scripts/generate_suite_pdfs.py "./outputs/{domain}" 1 2 3 4 5 6 7 8
+python3 ~/.claude/skills/shared/generate_suite_pdfs.py "./outputs/{domain}" 1 2 3 4 5 6 7 8
 ```
 
 **Python API (alternative):**
@@ -112,7 +112,7 @@ Suite numbers: 1=Marketing, 2=Technical, 3=GEO, 4=Security, 5=Privacy, 6=Reputat
 | Issue | Solution |
 |---|---|
 | `ModuleNotFoundError: reportlab` | Run `pip install reportlab` |
-| Engine not found | Check `scripts/audit_pdf_engine.py` and `scripts/generate_suite_pdfs.py` exist |
+| Engine not found | Check `~/.claude/skills/shared/audit_pdf_engine.py` and `~/.claude/skills/shared/generate_suite_pdfs.py` exist |
 | Empty PDF | Ensure suite report .md files exist in the directory |
 | Missing suite in PDF | That suite's .md report file is missing from the directory |
 | Font rendering issues | Engine uses Segoe UI (Windows), Inter (cross-platform), or Helvetica (fallback) |

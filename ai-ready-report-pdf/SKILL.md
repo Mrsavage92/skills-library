@@ -6,7 +6,7 @@ description: "AI Readiness PDF Report Generator"
 # AI Readiness PDF Report Generator
 
 ## Skill Purpose
-Generate a professional PDF from AI readiness audit data using the production PDF engine (`scripts/audit_pdf_engine.py` via `scripts/generate_suite_pdfs.py`). The engine reads markdown directly -- no JSON intermediary needed.
+Generate a professional PDF from AI readiness audit data using the production PDF engine (`~/.claude/skills/shared/audit_pdf_engine.py` via `~/.claude/skills/shared/generate_suite_pdfs.py`). The engine reads markdown directly -- no JSON intermediary needed.
 
 ## When to Use
 - `/ai-ready report-pdf`
@@ -32,7 +32,7 @@ The engine extracts these scoring categories from the markdown:
 
 ### Step 3: Generate the PDF
 ```bash
-python3 scripts/generate_suite_pdfs.py "./outputs/{domain}" 8
+python3 ~/.claude/skills/shared/generate_suite_pdfs.py "./outputs/{domain}" 8
 ```
 
 Suite number `8` = AI Readiness.

@@ -1,12 +1,12 @@
 ---
 name: security-report-pdf
-description: Generate a professional PDF from security audit data using the production PDF engine (scripts/audit_pdf_engine.py via scripts/generate_suite_pdfs.py). Produces a client-ready PDF with security posture score, header analysis, email authentication status, and prioritised hardening plan.
+description: Generate a professional PDF from security audit data using the production PDF engine (~/.claude/skills/shared/audit_pdf_engine.py via ~/.claude/skills/shared/generate_suite_pdfs.py). Produces a client-ready PDF with security posture score, header analysis, email authentication status, and prioritised hardening plan.
 ---
 
 # Security Audit PDF Report Generator
 
 ## Skill Purpose
-Generate a professional, client-ready PDF from cybersecurity posture audit data. Uses the production PDF engine (`scripts/audit_pdf_engine.py` via `scripts/generate_suite_pdfs.py`) which reads markdown directly -- no JSON intermediary needed.
+Generate a professional, client-ready PDF from cybersecurity posture audit data. Uses the production PDF engine (`~/.claude/skills/shared/audit_pdf_engine.py` via `~/.claude/skills/shared/generate_suite_pdfs.py`) which reads markdown directly -- no JSON intermediary needed.
 
 ## When to Use
 - User runs `/security report-pdf`
@@ -16,7 +16,7 @@ Generate a professional, client-ready PDF from cybersecurity posture audit data.
 ## Prerequisites
 - **ReportLab** must be installed: `pip install reportlab`
 - A completed security audit with `SECURITY-AUDIT.md` in the output directory
-- The production engine: `scripts/audit_pdf_engine.py` and `scripts/generate_suite_pdfs.py`
+- The production engine: `~/.claude/skills/shared/audit_pdf_engine.py` and `~/.claude/skills/shared/generate_suite_pdfs.py`
 
 ## How to Execute
 
@@ -35,7 +35,7 @@ Verify the file exists and contains complete audit data. No JSON intermediary is
 ### Step 3: Generate the PDF
 
 ```bash
-python3 scripts/generate_suite_pdfs.py "./outputs/{domain}" 4
+python3 ~/.claude/skills/shared/generate_suite_pdfs.py "./outputs/{domain}" 4
 ```
 
 Suite number `4` = Security.
@@ -75,5 +75,5 @@ Confirm the PDF was created, report file path and size to the user.
 | Issue | Solution |
 |---|---|
 | `ModuleNotFoundError: reportlab` | Run `pip install reportlab` |
-| Engine not found | Check `scripts/audit_pdf_engine.py` and `scripts/generate_suite_pdfs.py` exist |
+| Engine not found | Check `~/.claude/skills/shared/audit_pdf_engine.py` and `~/.claude/skills/shared/generate_suite_pdfs.py` exist |
 | Empty PDF | Ensure SECURITY-AUDIT.md has parseable scores and findings |

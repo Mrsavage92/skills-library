@@ -6,7 +6,7 @@ description: "Employer Brand PDF Report Generator"
 # Employer Brand PDF Report Generator
 
 ## Skill Purpose
-Generate a professional, client-ready PDF employer brand audit report using the production PDF engine (`scripts/audit_pdf_engine.py` via `scripts/generate_suite_pdfs.py`). The engine reads markdown directly -- no JSON intermediary needed. Produces a branded PDF with score gauge, bar chart, severity-coded findings, and prioritised action plan.
+Generate a professional, client-ready PDF employer brand audit report using the production PDF engine (`~/.claude/skills/shared/audit_pdf_engine.py` via `~/.claude/skills/shared/generate_suite_pdfs.py`). The engine reads markdown directly -- no JSON intermediary needed. Produces a branded PDF with score gauge, bar chart, severity-coded findings, and prioritised action plan.
 
 ## When to Use
 - User runs `/employer report-pdf`
@@ -33,7 +33,7 @@ The engine extracts these scoring categories from the markdown:
 
 ### Step 3: Generate the PDF
 ```bash
-python3 scripts/generate_suite_pdfs.py "./outputs/{domain}" 7
+python3 ~/.claude/skills/shared/generate_suite_pdfs.py "./outputs/{domain}" 7
 ```
 
 Suite number `7` = Employer Brand.

@@ -7,12 +7,12 @@ description: Generate a professional PDF report from GEO audit data using the pr
 
 ## Purpose
 
-This skill generates a professional, visually polished PDF report from GEO audit data. The production PDF engine (`scripts/audit_pdf_engine.py` via `scripts/generate_suite_pdfs.py`) reads markdown directly -- no JSON intermediary is needed. The PDF includes score gauges, bar charts, platform readiness visualizations, color-coded tables, and a prioritized action plan -- ready to deliver directly to clients.
+This skill generates a professional, visually polished PDF report from GEO audit data. The production PDF engine (`~/.claude/skills/shared/audit_pdf_engine.py` via `~/.claude/skills/shared/generate_suite_pdfs.py`) reads markdown directly -- no JSON intermediary is needed. The PDF includes score gauges, bar charts, platform readiness visualizations, color-coded tables, and a prioritized action plan -- ready to deliver directly to clients.
 
 ## Prerequisites
 
 - **ReportLab** must be installed: `pip install reportlab`
-- The production PDF engine: `scripts/audit_pdf_engine.py` and `scripts/generate_suite_pdfs.py`
+- The production PDF engine: `~/.claude/skills/shared/audit_pdf_engine.py` and `~/.claude/skills/shared/generate_suite_pdfs.py`
 - Run a full GEO audit first (using `/geo-audit`) to have data to include in the report
 
 ## How to Generate a PDF Report
@@ -39,7 +39,7 @@ Verify that `GEO-AUDIT-REPORT.md` exists in `./outputs/{domain}/`. If it does no
 ### Step 3: Generate the PDF
 
 ```bash
-python3 scripts/generate_suite_pdfs.py "./outputs/{domain}" 3
+python3 ~/.claude/skills/shared/generate_suite_pdfs.py "./outputs/{domain}" 3
 ```
 
 Suite number `3` = GEO.
@@ -73,7 +73,7 @@ When the user runs this skill, follow this exact sequence:
 
 4. **Run the PDF generator:**
    ```bash
-   python3 scripts/generate_suite_pdfs.py "./outputs/{domain}" 3
+   python3 ~/.claude/skills/shared/generate_suite_pdfs.py "./outputs/{domain}" 3
    ```
 
 5. **Report success** -- Tell the user the PDF was generated, its location, and file size.

@@ -6,7 +6,7 @@ description: "Privacy Audit PDF Report Generator"
 # Privacy Audit PDF Report Generator
 
 ## Skill Purpose
-Generate a professional PDF from privacy audit data using the production PDF engine (`scripts/audit_pdf_engine.py` via `scripts/generate_suite_pdfs.py`). The engine reads markdown directly -- no JSON intermediary needed.
+Generate a professional PDF from privacy audit data using the production PDF engine (`~/.claude/skills/shared/audit_pdf_engine.py` via `~/.claude/skills/shared/generate_suite_pdfs.py`). The engine reads markdown directly -- no JSON intermediary needed.
 
 ## When to Use
 - `privacy report-pdf`
@@ -22,7 +22,7 @@ The production PDF engine parses `PRIVACY-AUDIT.md` directly to extract complian
 
 ### Step 3: Generate the PDF
 ```bash
-python3 scripts/generate_suite_pdfs.py "./outputs/{domain}" 5
+python3 ~/.claude/skills/shared/generate_suite_pdfs.py "./outputs/{domain}" 5
 ```
 
 Suite number `5` = Privacy.
