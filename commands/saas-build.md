@@ -268,15 +268,15 @@ Log: "Phase 0.25 complete — MARKET-BRIEF.md written" to BUILD-LOG.md.
 Read `~/.claude/skills/web-design-research/SKILL.md` in full and execute all 12 steps:
 
 1. **Personality** — classify product into one of 8 types (Enterprise Authority / Data Intelligence / Trusted Productivity / Premium Professional / Bold Operator / Health & Care / Growth Engine / Civic/Government)
-2. **Product category** — identify the product category (from PRODUCT-CATEGORY-LIBRARY.md categories 1-8): Reputation/Reviews, Entity Intelligence, Regulatory Compliance, Procurement Intelligence, Practice Management, HR/People Ops, Finance/Accounting, Document Management. This determines the landing page structure — it is separate from personality type and supersedes the generic dark SaaS template.
-3. **Category-specific competitor research** — look at 3 direct competitors IN THE SAME CATEGORY (not just "enterprise dark SaaS" broadly). For reputation tools, study BirdEye/Podium. For WHS tools, study SafetyCulture/FlourishDx. For tender tools, study Tendertrace/TenderPilot. Generic "B2B SaaS design inspiration" is not sufficient. If MARKET-BRIEF.md exists and has category-specific research, read it instead. If not, run 3 WebSearch queries: "[product category] software Australia landing page," "[top competitor] homepage," "[product category] SaaS design pattern."
-4. **Category hero override** — after competitor research, check if the category has a mandatory hero pattern in PRODUCT-CATEGORY-LIBRARY.md. If yes, lock this as the hero architecture. The generic dark animated hero is WRONG for: WHS tools (light-mode field tools), entity intelligence (search-bar-first), AML/CTF (deadline-urgency banner). Write the override to DESIGN-BRIEF.md.
-5. **Color system** — select from personality palette library. Explicitly reject hsl(213 94% 58%). **Monorepo cross-check:** grep `apps/*/DESIGN-BRIEF.md` AND `apps/*/src/styles/index.css` for existing `--brand:` values — if same hue (±15 degrees) already used in either file, pick different palette and document why. (DESIGN-BRIEF.md may be stale or missing; index.css is the ground truth for what colour is actually deployed.) **Category check:** WHS/health tools should NOT use dark-first. Regulatory compliance tools should NOT use bold consumer colors. Cross-check against category conventions.
+2. **Product category** — identify the product's market category from MARKET-BRIEF.md competitor research. Examples: Field Service/Job Management, Client Management/CRM, SOP/Checklist, IT Process Design, etc. This determines the landing page structure and hero pattern.
+3. **Category-specific competitor research** — look at 3 direct competitors IN THE SAME CATEGORY (not just "enterprise dark SaaS" broadly). Use MARKET-BRIEF.md if it exists. If not, run 3 WebSearch queries: "[product category] software landing page," "[top competitor] homepage," "[product category] SaaS design pattern."
+4. **Hero override** — after competitor research, determine if the personality + category requires a non-default hero. Write any override to DESIGN-BRIEF.md. Examples: field service tools = split-pane with dispatch mockup, CRM tools = pipeline view, checklist tools = daily task list preview.
+5. **Color system** — select from personality palette library. Explicitly reject hsl(213 94% 58%). Each product repo is standalone, so no cross-check needed — just ensure the color fits the personality type.
 6. **Typography lock** — select font pairing per personality type (not just "Inter"). Lock heading weight and tracking.
 7. **Hero architecture** — choose pattern: Centered / Split-pane / Full-screen immersive / Minimal editorial. Tie choice to personality + user type + category convention. The category hero pattern (from step 4) overrides this if it specifies a mandatory pattern.
 8. **Component Lock** — run `mcp__magic__21st_magic_component_inspiration` for ALL 11 mandatory sections using personality-specific search terms (not generic "dark SaaS"). Apply selection criteria (visual weight, animation level, layout) to pick the right variant for each. If MCP unavailable: use defaults from Component Registry in `premium-website.md` and continue. Record all choices in DESIGN-BRIEF.md Component Lock table.
 9. **LottieFiles** — find 3 product-specific animations (empty state, success state, processing state). WebSearch `"lottiefiles.com [product-category] animation"`. Note "unavailable" if nothing fits — do not block.
-10. **Differentiation audit** — grep recent `apps/*/DESIGN-BRIEF.md` files, confirm 3+ dimensions differ from last build (color, hero pattern, features layout).
+10. **Differentiation audit** — if other products have been built, compare this DESIGN-BRIEF.md against prior builds. Confirm 3+ dimensions differ (color, hero pattern, features layout). For the first product, skip this step.
 11. **Marketing tier** — choose Tier 1/2/3. Default: Tier 2 (/, /features, /pricing, /auth as separate routes).
 12. **Write DESIGN-BRIEF.md** — must include: Product Personality, Color System, Typography, Hero Architecture, Component Lock table (all 11 sections), LottieFiles, Differentiation Audit, Marketing Structure, Build Order.
 
@@ -712,27 +712,18 @@ Hero override:
 **If any forbidden pattern is present:** fix it now.
 **If hero does not match category pattern:** redesign the hero before marking complete. A dark animated hero for a WHS compliance tool is an automatic failure.
 
-**CATEGORY HARD GATES — these are binary BLOCK conditions. Do not proceed until each passes:**
+**UNIVERSAL HARD GATES — these are binary BLOCK conditions. Do not proceed until each passes:**
 
-| Category | Hard gate condition | Correct fix |
+| Gate | Condition | Correct fix |
 |---|---|---|
-| Reputation/Reviews | Platform logos (Google + ProductReview.com.au + SEEK) not visible above or immediately below fold | Add platform logo strip before any other below-fold content |
-| Reputation/Reviews | No animated score ring or review count in hero | Add animated counter or score ring to hero visual |
-| Entity/Company Intelligence | No search bar visible above the fold | Add search bar as hero primary element — nothing else above it |
-| Entity/Company Intelligence | No sample report or data preview shown | Add sample company profile section with real data shape |
-| AML/CTF | No dual-date urgency (enrolment 31 March 2026 + compliance 1 July 2026) | Add banner with both dates. After March 31 enrolment opens: update to "Enrolment is now open — comply by 1 July 2026." |
-| AML/CTF | Hero uses generic SaaS copy ("reduce financial crime risk" / "the modern way to manage AML") | Rewrite hero: "Get compliant by July 1, 2026." Tranche 2 SMBs are forced buyers with zero AML experience — they need direction, not aspiration. |
-| AML/CTF | No sector-specific cards (real estate / accountants / lawyers / conveyancers) | Add profession cards section showing each profession's obligations |
-| WHS/Psychosocial | Hero uses dark background / dark mode design | BLOCK and rebuild — dark UI for WHS tool is the wrong category signal. Must be light mode. |
-| WHS/Psychosocial | Copy uses "upcoming" or "coming soon" for enforcement (deadline was Dec 2025) | Update all copy to "now in effect" / "now mandatory" |
-| WHS/Psychosocial | Hero does not name "psychosocial" explicitly — uses generic "WHS software" or "workplace safety" | Rewrite hero to lead with "Psychosocial Hazard Register" or "Psychosocial Safety" — FlourishDx proves specialist naming outperforms generic WHS positioning |
-| WHS/Psychosocial | Hero copy targets field workers ("inspections", "checklists") instead of HR/OHS professionals ("risk register", "control plan", "governance") | Rewrite for correct audience — HR managers + OHS specialists, not frontline workers |
-| Procurement Intelligence | Tender feed/ticker is static (no animation, no scrolling) | Add animated scrolling tender feed or ticker to hero section |
-| Procurement Intelligence | No data source citation ("Official AusTender API") visible above fold | Add trust bar immediately below hero with data source attribution |
-| Procurement Intelligence | Hero uses generic SaaS copy without naming the portal fragmentation problem | Add explicit messaging: "No more monitoring 8 separate portals" — this is the #1 pain point and no competitor owns it |
-| Procurement Intelligence | Hero is copy-heavy / image-heavy instead of data-heavy | Procurement intelligence heroes must be 60% data visualization (live tender cards, counts, agency names) + 30% copy + 10% CTA — reverse of generic SaaS |
+| Hero specificity | Hero headline is generic ("Streamline your X" / "The modern way to Y") | Rewrite using MARKET-BRIEF.md differentiator. Must name the specific problem or competitor gap. |
+| Hero visual | Hero has no product mockup — just text or stock imagery | Add a product screenshot, dispatch board mockup, or UI preview that shows the product DOING something |
+| Pricing visible | No pricing section on landing page | Add pricing section — transparency is a positioning weapon against enterprise competitors |
+| Social proof | No social proof of any kind (logos, testimonials, stats, ratings) | Add the format identified in MARKET-BRIEF.md competitor analysis |
+| CTA specificity | Primary CTA says "Get Started" or "Learn More" | Rewrite to state the outcome: "Start 14-day trial", "Create your first quote", etc. |
+| Mobile hero | Hero text unreadable on 375px viewport | Fix font size, layout, and ensure no horizontal overflow |
 
-Each hard gate is a STOP condition. The landing page CANNOT be marked complete until every hard gate for its category passes with YES.
+Each hard gate is a STOP condition. The landing page CANNOT be marked complete until every gate passes.
 
 **Step 3 — Standard quality review:**
 Run the standard 13-item per-page checklist + fresh eyes pass.
