@@ -36,6 +36,7 @@ This file is the contract. If a rule lives only in an individual skill file and 
 | `/web-email` | Transactional emails — Resend + React Email, 5 templates, FastAPI delivery, trial reminder cron |
 | `/dashboard-design` | Enterprise dashboard patterns — KPI cards, sparklines, charts, sidebar, date range, filters, CMD+K, real-time |
 | `/vercel-react-best-practices` | Bundle splitting, Core Web Vitals, image optimization, Vercel deploy checklist |
+| `/web-ssg` | Add build-time Static Site Generation to React + Vite SPAs. Generates prerendered HTML for all routes so AI crawlers and search engines see real content. Use after site is built, before go-live. |
 
 ---
 
