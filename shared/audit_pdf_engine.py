@@ -172,13 +172,21 @@ def esc(t):
 
 def detect_severity(text):
     t = text.lower()
-    if any(w in t for w in ("critical", "severe", "immediate", "urgent", "breach", "exploit")):
+    # Match emoji severity headers (new business-owner format)
+    if "\U0001f534" in text or "🔴" in text:  # red circle
         return "critical"
-    if any(w in t for w in ("high", "significant", "major", "serious", "important")):
+    if "\U0001f7e0" in text or "🟠" in text:  # orange circle
         return "high"
-    if any(w in t for w in ("medium", "moderate", "consider", "recommend")):
+    if "\U0001f7e1" in text or "🟡" in text:  # yellow circle
         return "medium"
-    if any(w in t for w in ("low", "minor", "informational", "note", "enhance")):
+    # Match keyword-based severity (legacy + natural language)
+    if any(w in t for w in ("critical", "severe", "immediate", "urgent", "breach", "exploit", "fix immediately", "costing you")):
+        return "critical"
+    if any(w in t for w in ("high", "significant", "major", "serious", "important", "fix this month", "missing opportunities")):
+        return "high"
+    if any(w in t for w in ("medium", "moderate", "consider", "recommend", "plan for next quarter", "worth doing")):
+        return "medium"
+    if any(w in t for w in ("low", "minor", "informational", "note", "enhance", "nice to have")):
         return "low"
     return None
 
@@ -405,11 +413,11 @@ class RadarChart(Flowable):
 
 class SeverityCard(Flowable):
     SEV_MAP = {
-        "critical": (C["critical"], C["critical_bg"], "CRITICAL"),
-        "high":     (C["high"],     C["high_bg"],     "HIGH"),
-        "medium":   (C["medium"],   C["medium_bg"],   "MEDIUM"),
-        "low":      (C["low"],      C["low_bg"],      "LOW"),
-        "info":     (C["info"],     C["info_bg"],     "INFO"),
+        "critical": (C["critical"], C["critical_bg"], "FIX IMMEDIATELY"),
+        "high":     (C["high"],     C["high_bg"],     "FIX THIS MONTH"),
+        "medium":   (C["medium"],   C["medium_bg"],   "PLAN FOR QUARTER"),
+        "low":      (C["low"],      C["low_bg"],      "NICE TO HAVE"),
+        "info":     (C["info"],     C["info_bg"],     "FOR REFERENCE"),
     }
     SEV_ICON = {"critical": "\u25cf", "high": "\u25b2", "medium": "\u25c6", "low": "\u2713", "info": "\u2139"}
 
@@ -796,15 +804,24 @@ def render_md_body(text, st, use_severity_cards=False, current_section=""):
             )
             if is_finding:
                 i += 1
-                # Consume following paragraph lines as card body
+                # Consume ALL following lines as card body until we hit a blank line,
+                # another heading, a table, or another numbered item.
+                # This includes bullet lines, bold-label lines, plain paragraphs —
+                # everything belongs to this finding's card body.
                 body_lines = []
                 while i < len(lines):
                     ls = lines[i].strip()
                     if not ls:
                         i += 1; break
                     if ls.startswith('#') or ls.startswith('|'): break
-                    if re.match(r'^\s*[-*\u2022]\s', lines[i]) or re.match(r'^\s*\d+\.\s', lines[i]): break
-                    body_lines.append(ls); i += 1
+                    if re.match(r'^\s*\d+\.\s', lines[i]): break
+                    # Strip bullet prefix if present, keep content
+                    bm = re.match(r'^\s*[-*\u2022]\s+(.*)', lines[i])
+                    if bm:
+                        body_lines.append(bm.group(1).strip())
+                    else:
+                        body_lines.append(ls)
+                    i += 1
                 body = ' '.join(body_lines)
                 # Strip score suffixes like (-10) and bold markers from title
                 clean_title = re.sub(r'\s*\(-?\d+\s*(?:points?)?\)\s*$', '', title).strip()
@@ -884,7 +901,16 @@ def render_md_body(text, st, use_severity_cards=False, current_section=""):
                         if not cl: break
                         if re.match(r'^\s*\d+\.\s+', lines[i]): break
                         if cl.startswith('#') or cl.startswith('|'): break
-                        if re.match(r'^\s*[-*\u2022]\s', lines[i]): break
+                        # Consume bullet lines that are bold-label details (Evidence/Impact/Fix etc.)
+                        bm = re.match(r'^\s*[-*\u2022]\s+(.*)', lines[i])
+                        if bm:
+                            inner = bm.group(1).strip()
+                            if re.match(r'^\*\*\w+.*?:\*\*', inner):
+                                body_parts.append(inner); i += 1; continue
+                            break
+                        # Also consume bare bold-label lines (no bullet prefix)
+                        if re.match(r'^\*\*\w+.*?:\*\*', cl):
+                            body_parts.append(cl); i += 1; continue
                         body_parts.append(cl); i += 1
                     items.append((num_val, item_text, ' '.join(body_parts)))
                 else:
@@ -1513,7 +1539,7 @@ def build_synthesized_cross_suite(directory, suite_scores, selected, st, weights
         sc = suite_scores.get(sname, 0)
         g = grade(sc)
         w = weights.get(sname, 0)
-        risk = "CRITICAL" if sc < 30 else ("HIGH" if sc < 50 else ("MEDIUM" if sc < 70 else "LOW"))
+        risk = "FIX NOW" if sc < 30 else ("FIX THIS MONTH" if sc < 50 else ("PLAN FOR QUARTER" if sc < 70 else "NICE TO HAVE"))
         risk_col = C["critical"] if sc < 30 else (C["high"] if sc < 50 else (C["medium"] if sc < 70 else C["low"]))
         risk_rows.append([
             tcell(sname, F_REGULAR, 8.5, C["body"]),
@@ -1664,11 +1690,11 @@ def build_methodology(st, selected, weights):
         *[
             [tcell(lbl, F_BOLD, 8.5, col), tcell(desc, F_REGULAR, 8.5), tcell(act, F_REGULAR, 8.5)]
             for lbl, col, desc, act in [
-                ("CRITICAL", C["critical"], "Active risk, legal exposure, or broken functionality", "Fix this week"),
-                ("HIGH",     C["high"],     "Significant gap hurting revenue or user trust",        "Fix this month"),
-                ("MEDIUM",   C["medium"],   "Improvement opportunity with clear ROI",               "Plan for quarter"),
-                ("LOW",      C["low"],      "Enhancement - nice to have, minor impact",             "Backlog"),
-                ("INFO",     C["info"],     "Observation or unverifiable finding (AI estimate)",    "Review"),
+                ("FIX IMMEDIATELY", C["critical"], "Actively costing you money, customers, or security", "This week"),
+                ("FIX THIS MONTH",  C["high"],     "You're missing opportunities or leaving money on the table", "This month"),
+                ("PLAN FOR QUARTER", C["medium"],  "Worth doing — improves performance over time",  "This quarter"),
+                ("NICE TO HAVE",    C["low"],      "Polish and refinement when time allows",        "Backlog"),
+                ("FOR REFERENCE",   C["info"],     "Context or observation — no action needed",     "Note"),
             ]
         ]
     ]
